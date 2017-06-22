@@ -27,4 +27,9 @@ public class HomeController {
 	public String main_content_section(){
 		return "main/content";
 	}
+	
+	@RequestMapping("/mypage")
+	public String mypage_page(){
+		return "mypage/mypage";
+	}
 }

@@ -500,14 +500,15 @@ body.mobile-nav-active #mobile-nav-toggle {
   ================================================== */
 .block {
   color: #fff;
-  height: 490px;
+  height: 200px;
   overflow: hidden;
   padding-top: 85px;
 }
 
 .block h2 {
+  margin:auto;
   text-transform: uppercase;
-  margin-bottom: 15px;
+
 }
 
 .block p {

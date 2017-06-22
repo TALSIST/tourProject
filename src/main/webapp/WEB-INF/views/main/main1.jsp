@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Bell Bootstrap 4 Theme</title>
+    <title>Trip With Us WITHEARTH</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -66,14 +66,14 @@
         
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li><a href="#about">About Us</a></li>
+          <li><a href="/main1">Home</a></li>
           <li><a href="#features">여행일정만들기</a></li>
           <li><a href="#portfolio">준비중</a></li>
           <li><a href="#team">준비중</a></li>
           <li class="menu-has-children"><a href="">마이페이지</a>
             <ul>
               <li><a href="#">클립보드</a></li>
-              <li><a href="#">여행일정</a></li>
+              <li><a href="/mypage">여행일정</a></li>
               <li><a href="#">Q&A</a></li>
               <li class="menu-has-children"><a href="#">설정</a>
                 <ul>

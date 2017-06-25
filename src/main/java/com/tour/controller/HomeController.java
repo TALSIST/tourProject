@@ -32,4 +32,10 @@ public class HomeController {
 	public String mypage_page(){
 		return "mypage/mypage";
 	}
+	
+	@RequestMapping("/login")
+	public String login(){
+		return "main/login";
+	}
+	
 }

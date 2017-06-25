@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
+<script>
+</script>
   <head>
     <meta charset="utf-8">
     <title>Trip With Us WITHEARTH</title>
@@ -88,8 +91,14 @@
       </nav><!-- #nav-menu-container -->
       
       <nav class="nav social-nav pull-right hidden-sm-down">
-        <a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a> <a href="#"><i class="fa fa-envelope"></i></a>
+        <a data-toggle="modal" data-target="#login" >
+        	<i class="fa fa-twitter" data-toggle="modal" data-target="login" ></i>
+        </a>
+         <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a> <a href="#"><i class="fa fa-envelope"></i></a>
       </nav>
+      <div class="modal fade" id="login" role="dialog">
+     	<jsp:include page="login.jsp"></jsp:include>      
+      </div>
     </div>
   </header><!-- #header -->
   

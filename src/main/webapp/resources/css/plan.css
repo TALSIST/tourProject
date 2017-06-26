@@ -1406,6 +1406,7 @@ position:relative;
 .list_cat_item{width:68px;padding-left:7px;text-align:center;cursor:pointer;}
 .list_tag_box{position:relative;}
 
+#topcategory{position:relative; width:318px;height:31px;border:solid #c8c8ca 1px;background: #fff url('/res/img/flight/drop_select_arrow_a.png') no-repeat 300px 12px;line-height:31px;margin:0 auto;margin-top:5px;padding-left:5px;font-size:13px;color:#808080;cursor:pointer;}
 #map_tag_select_box{width:318px;height:31px;border:solid #c8c8ca 1px;background: #fff url('/res/img/flight/drop_select_arrow_a.png') no-repeat 300px 12px;line-height:31px;margin:0 auto;margin-top:5px;padding-left:5px;font-size:13px;color:#808080;cursor:pointer;}
 #map_tag_select_box.on{background: #555555 url('/res/img/flight/drop_select_arrow_b.png') no-repeat 200px 12px;color: #fff;}
 

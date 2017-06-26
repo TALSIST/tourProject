@@ -38,4 +38,14 @@ public class HomeController {
 		return "main/login";
 	}
 	
+	@RequestMapping("/dayselect")
+	public String dayselect(){
+		return "plan/dayselect";
+	}
+	
+	@RequestMapping("/cityselect")
+	public String cityselect(){
+		return "plan/cityselect";
+	}
+	
 }

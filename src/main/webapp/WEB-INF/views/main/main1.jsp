@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-<script>
-</script>
   <head>
     <meta charset="utf-8">
     <title>Trip With Us WITHEARTH</title>
@@ -27,7 +25,8 @@
     <!-- Main Stylesheet File -->
     <link href="/resources/css/style1.css" rel="stylesheet">
     
-
+    <!-- 삽입시킨 css -->
+	<link href="/resources/css/bootstrap.min.css" rel="stylesheet">
   </head>
 
   <body>
@@ -69,7 +68,7 @@
         
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li><a href="/main1">Home</a></li>
+          <li><a href="#about">About Us</a></li>
           <li><a href="#features">여행일정만들기</a></li>
           <li><a href="#portfolio">준비중</a></li>
           <li><a href="#team">준비중</a></li>
@@ -91,14 +90,8 @@
       </nav><!-- #nav-menu-container -->
       
       <nav class="nav social-nav pull-right hidden-sm-down">
-        <a data-toggle="modal" data-target="#login" >
-        	<i class="fa fa-twitter" data-toggle="modal" data-target="login" ></i>
-        </a>
-         <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a> <a href="#"><i class="fa fa-envelope"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a> <a href="#"><i class="fa fa-envelope"></i></a>
       </nav>
-      <div class="modal fade" id="login" role="dialog">
-     	<jsp:include page="login.jsp"></jsp:include>      
-      </div>
     </div>
   </header><!-- #header -->
   
@@ -108,14 +101,37 @@
   	
 
 	<!-- content include -->
-    <jsp:include  page="/WEB-INF/views/main/content.jsp"></jsp:include>
-    <!-- /content include -->
-   </div>
-  
-    <!-- About -->
+   <!-- Page Content -->
+    <div class="container1">
+        <!-- Page Features -->
+
+			<div class="row text-center">
+
+				<c:forEach var="vo" items="${list }">
+					<div class="col-md-4 col-sm-6">
+						<div class="thumbnail">
+							<img src="/resources/img/${vo.img }" alt="">
+							<div class="caption">
+								<h3>${vo.title }</h3>
+								<p>${vo.subTitle }</p>
+								<p>
+									<a href="${vo.tour_id }" class="btn btn-primary">찜하기</a> <a
+										href="#" class="btn btn-default">자세히</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+				
+				<!-- /content include -->
+			</div>
+			<div class="btn btn-full" onclick="location.href='/list?page=1'" style="font-color:white; background-color: #199EB8; font-weight: 800; padding: 15px 45px; border-radius: 50px; ">더보기</div>
+
+			<!-- About -->
 
     <section class="about" id="about">
       <div class="container text-center">
+        
         <h2>
           	여행 일정 통계
         </h2>

@@ -110,7 +110,7 @@
 				<c:forEach var="vo" items="${list }">
 					<div class="col-md-4 col-sm-6">
 						<div class="thumbnail">
-							<img src="/resources/img/${vo.img }" alt="">
+							<img class="cool_img" src="/resources/img/${vo.img }" alt="">
 							<div class="caption">
 								<h3>${vo.title }</h3>
 								<p>${vo.subTitle }</p>

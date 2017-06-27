@@ -12,7 +12,16 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+	$(document).ready(function(){
+	    $('[data-toggle="tooltip"]').tooltip();   
+	});
 
+	$(function(){
+		
+	});
+
+</script>
 </head>
 
 <body>
@@ -27,14 +36,16 @@
 			<div class="fr" style="margin-top:9px;margin-right:20px;">
 				<div class="fl" id="plan_member_list_box">
 					<a class="fl" style="margin-right:5px;background:#e5e5e5;border-radius: 20px;width:40px;height:40px;" original-title="이아영"> <!-- 초대된사람이름적기 -->
-						<img src="/res/img/common/mobile/img_profile.png" style="width:40px;height:40px;border-radius:20px;">
+						<div class="tooltip" title="test">
+							<img src="/resources/img/plan/user.png" style="width:40px;height:40px;border-radius:20px;">
+						</div>
 					</a>
 					<a class="fl" style="margin-right:5px;background:#e5e5e5;border-radius: 20px;width:40px;height:40px;" original-title="이상운"> <!-- 초대된사람이름적기 -->
-						<img src="/res/img/common/mobile/img_profile.png" style="width:40px;height:40px;border-radius:20px;">
+						<img src="/resources/img/plan/user.png" style="width:40px;height:40px;border-radius:20px;">
 					</a>
 				</div>
 				<div class="fl" style="margin-right:10px;margin-top:3px;cursor:pointer;"  id="ws_invite_btn" original-title="친구 초대">
-					<img src="/res/img/workspace/new/ws_invite_btn.png">
+					<img src="/resources/img/plan/useradd.png" style="width:40px;height:40px;border-radius:20px;">
 				</div>
 				<div class="fl" id="plan_out_btn">저장&amp;닫기</div>
 				<div class="fl" id="plan_complete_btn" style="display: none;">완료</div>
@@ -284,17 +295,24 @@
 			</div>
 		</div>
 		<div class="list_category_box">
-			<div class="list_cat_item fl on" data="3"><img src="/res/img/workspace/new/ic_300_c.png"></div>	<!-- 상위카테고리 이미지 -->
-			<div class="list_cat_item fl" data="2"><img src="/res/img/workspace/new/ic_200_a.png"></div>
-			<div class="list_cat_item fl" data="4"><img src="/res/img/workspace/new/ic_400_a.png"></div>
-			<div class="list_cat_item fl" data="1"><img src="/res/img/workspace/new/ic_100_a.png"></div>
-			<div class="list_cat_item fl" data="5"><img src="/res/img/workspace/new/ic_000_a.png"></div>
+			
+				<button id="topcategory" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+					상위카테고리  
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+			      <li><a href="#">HTML</a></li>
+			      <li><a href="#">CSS</a></li>
+			      <li><a href="#">JavaScript</a></li>
+	  		  </ul>
 			<div class="clear"></div>
 			
-			<div class="list_tag_box">
-				<div id="map_tag_select_box" class="et_slide_parent" data-is_open="0">태그 선택</div>				<!-- 하위카테고리 -->
-				<div id="map_tag_select_sub_box" class="et_slide" style=""></div>
-			</div>                        
+			 <div class="list_tag_box">
+				<div id="map_tag_select_box" class="et_slide_parent" data-is_open="1">태그 선택</div>
+				<div id="map_tag_select_sub_box" class="et_slide" style="display:block;">
+					<div class="item" data-check="0" data="301012">건축물</div>
+				</div>
+			</div>                      
 		</div>
 	</div>
 	 <!-- 장소검색 END -->

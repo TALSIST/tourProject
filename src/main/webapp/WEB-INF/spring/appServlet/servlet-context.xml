@@ -35,7 +35,7 @@
 	<!-- 마이바티스 처리 -->
 	<util:properties id="db" location="/WEB-INF/db.properties" />
 	<beans:bean id="ds" class="org.apache.commons.dbcp.BasicDataSource"
-		p:driverClassName="#{db['uername']}" p:url="#{db['url']}" p:username="#{db['username']}"
+		p:driverClassName="#{db['driver']}" p:url="#{db['url']}" p:username="#{db['username']}"
 		p:password="#{db['password']}" />
 	<beans:bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean"
 		p:dataSource-ref="ds" />

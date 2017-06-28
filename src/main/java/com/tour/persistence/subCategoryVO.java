@@ -1,20 +1,20 @@
 package com.tour.persistence;
 
 public class subCategoryVO {
-	private int subCategoryId;
-	private int topCategoryId;
+	private int sub_Category_Id;
+	private int top_Category_Id;
 	private String name;
-	public int getSubCategoryId() {
-		return subCategoryId;
+	public int getSub_Category_Id() {
+		return sub_Category_Id;
 	}
-	public void setSubCategoryId(int subCategoryId) {
-		this.subCategoryId = subCategoryId;
+	public void setSub_Category_Id(int sub_Category_Id) {
+		this.sub_Category_Id = sub_Category_Id;
 	}
-	public int getTopCategoryId() {
-		return topCategoryId;
+	public int getTop_Category_Id() {
+		return top_Category_Id;
 	}
-	public void setTopCategoryId(int topCategoryId) {
-		this.topCategoryId = topCategoryId;
+	public void setTop_Category_Id(int top_Category_Id) {
+		this.top_Category_Id = top_Category_Id;
 	}
 	public String getName() {
 		return name;
@@ -22,6 +22,7 @@ public class subCategoryVO {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	
 	
 }

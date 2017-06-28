@@ -9,6 +9,7 @@ public interface MainContentMapper {
 	@Select("SELECT CEIL(COUNT(*)/9) FROM tour")
 	public int contenttotalpage();
 	
+	
 	@Select("SELECT tour_id, title, subTitle, img, num FROM "
 			+ "(SELECT tour_id, title, subTitle, img, rownum as num FROM "
 			+ "(SELECT tour_id, title, subTitle, img FROM tour "

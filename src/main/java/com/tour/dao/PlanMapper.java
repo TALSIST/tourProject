@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Select;
 
-import com.tour.persistence.CityVO;
 import com.tour.persistence.PlaceVO;
 import com.tour.persistence.SubCategoryVO;
 import com.tour.persistence.TopCategoryVO;

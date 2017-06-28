@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tour.dao.PlanDAO;
-import com.tour.persistence.cityVO;
-import com.tour.persistence.placeVO;
-import com.tour.persistence.subCategoryVO;
-import com.tour.persistence.topCategoryVO;
+import com.tour.persistence.CityVO;
+import com.tour.persistence.PlaceVO;
+import com.tour.persistence.SubCategoryVO;
+import com.tour.persistence.TopCategoryVO;
 
 @Controller
 public class Plancontroller {
@@ -22,23 +22,23 @@ public class Plancontroller {
 	
 	@RequestMapping("/dayselect2")
 	public String dayselect(Model model){
-		List<topCategoryVO> topList = dao.setTopCategory();
+		List<TopCategoryVO> topList = dao.setTopCategory();
 		model.addAttribute("topList", topList);
 		return "plan/dayselect";
 	}
 	
 	
 	@RequestMapping("/dayselectTop")
-	public @ResponseBody List<subCategoryVO> TopSelect(int topCategoryId, Model model){
-		List<subCategoryVO> subList = dao.setSubCategory(topCategoryId);
+	public @ResponseBody List<SubCategoryVO> TopSelect(int topCategoryId, Model model){
+		List<SubCategoryVO> subList = dao.setSubCategory(topCategoryId);
 		model.addAttribute("subList", subList);
 		
 		return subList;
 	}
 	
 	@RequestMapping("/getLocationList")
-	public @ResponseBody List<placeVO> locationList(String city_id){
-		List<placeVO> locList = dao.getloc(city_id);
+	public @ResponseBody List<PlaceVO> locationList(String city_id){
+		List<PlaceVO> locList = dao.getloc(city_id);
 		return locList;
 	}
 	

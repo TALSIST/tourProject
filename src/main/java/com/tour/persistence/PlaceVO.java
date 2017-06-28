@@ -1,9 +1,9 @@
 package com.tour.persistence;
 
-public class placeVO {
-	private int placeId;
-	private int cityId;
-	private int subCategoryId;
+public class PlaceVO {
+	private int place_id;
+	private int city_id;
+	private int sub_category_id;
 	private String name;
 	private String explaination;
 	private String address;
@@ -12,25 +12,26 @@ public class placeVO {
 	private String image;
 	private int selection;
 	private int good;
-	private int latitude;
-	private int longitude;
-	public int getPlaceId() {
-		return placeId;
+	private String latitude;
+	private String longitude;
+	
+	public int getPlace_id() {
+		return place_id;
 	}
-	public void setPlaceId(int placeId) {
-		this.placeId = placeId;
+	public void setPlace_id(int place_id) {
+		this.place_id = place_id;
 	}
-	public int getCityId() {
-		return cityId;
+	public int getCity_id() {
+		return city_id;
 	}
-	public void setCityId(int cityId) {
-		this.cityId = cityId;
+	public void setCity_id(int city_id) {
+		this.city_id = city_id;
 	}
-	public int getSubCategoryId() {
-		return subCategoryId;
+	public int getSub_category_id() {
+		return sub_category_id;
 	}
-	public void setSubCategoryId(int subCategoryId) {
-		this.subCategoryId = subCategoryId;
+	public void setSub_category_id(int sub_category_id) {
+		this.sub_category_id = sub_category_id;
 	}
 	public String getName() {
 		return name;
@@ -80,18 +81,17 @@ public class placeVO {
 	public void setGood(int good) {
 		this.good = good;
 	}
-	public int getLatitude() {
+	public String getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(int latitude) {
+	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
-	public int getLongitude() {
+	public String getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(int longitude) {
+	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
-	
 	
 }

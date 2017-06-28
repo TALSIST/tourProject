@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,14 +13,88 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="/resources/css/owl.carousel2.css" rel="stylesheet">
+<link href="/resources/css/plan_sub.css" rel="stylesheet">
+<script src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
 <script>
+	
 	$(document).ready(function(){
-	    $('[data-toggle="tooltip"]').tooltip();   
-	});
+		
+		 $('#topcate_sub').change(function() {
+		        var topCategoryId = $('select.form-control').find(':selected').data('id');
+		        console.log("topID = "+topCategoryId);
+		        $.ajax({
+					type:'POST',
+					url:'/dayselectTop',
+					data:{"topCategoryId" : topCategoryId},
+					success:function(response){
+						alert(JSON.stringify(response));
+						console.log(response[0].top_Category_Id);
+						$('#callsub').attr('value',JSON.stringify(response));
+						var sub = "";
+						for(var i=0; i<response.length;i++){
+							sub+="<option data-id="+response[i].set_Category_Id+">"+response[i].name+"</option>";
+						}
+						$('#subcate_sub').html(""+sub+"");
+					}
+				});
+		        
+		        
+		        
+		    });
+		 
 
-	$(function(){
+		 
+
+	});
+	
+	
+	
+	//상위카테고리 클릭이벤트 구현
+	$(function(e){
+		$('#map_tag_select_box').click(function(){
+			 var container = $(".et_slide");
+			 var _parent_sel_box = $(e.target).attr('id');
+			if($('#map_tag_select_box').attr('data-is_open')=="0"){
+				 container.slideUp(300);
+				 $('.et_slide_parent').attr('data-is_open','1');
+			}else if($('#map_tag_select_box').attr('data-is_open')=="1"){
+				$('.et_slide_parent').removeClass('on');
+				 container.slideDown(300);
+				 $('.et_slide_parent').attr('data-is_open','0');
+			}
+		});
+	
+		//하위카테고리 클릭이벤트 구현	
+		$('#map_subcate_select_box').click(function(){
+			/*  var container = $(".et_slide2");
+			 var _parent_sel_box = $(e.target).attr('id');
+			 //open
+			if($('#map_subcate_select_box').attr('data-is_open')=="0"){
+				 $('.et_slide_parent2').attr('data-is_open','1');
+				 container.slideUp(300);
+			}else if($('#map_subcate_select_box').attr('data-is_open')=="1"){	//Close
+				$('.et_slide_parent2').removeClass('on');
+				 $('.et_slide_parent2').attr('data-is_open','0');
+				 container.slideDown(300);
+			} */
+		});
+		
+		$('.list_title_option_menu').click(function(){
+			console.log('ddddd');
+			/* $.ajax({
+				 type:'POST',
+				 url:'/getLocationList'
+				 data:{"cityname":$('.list_title span').attr('data-id')},
+				 success:function(response){
+					 console.log(response);
+				 }
+			 }); */
+		});
 		
 	});
+	
+	          
 
 </script>
 </head>
@@ -245,7 +320,7 @@
 <div id="on_city_open_btn"></div>
 	<div id="city_list" data="310">			<!-- 도시변경클릭시 Start -->
 		<div class="list_title">
-			<span>서울</span>
+			<span data-id="447">서울</span>
 	         <div class="list_title_option_menu" data-is_open="off">도시 변경</div>
 	   </div>
    
@@ -295,24 +370,24 @@
 			</div>
 		</div>
 		<div class="list_category_box">
+			 <div class="list_tag_box" style="height:40%">
+			 	<label for="sel5">상위 카테고리</label>
+				  <select class="form-control" id="topcate_sub">
+				      <c:forEach var="topcate" items="${topList }">
+				    	<option data-id="${topcate.getTop_Category_Id() }">${topcate.getName() }</option>
+				    </c:forEach>
+				  </select>
+			</div>
 			
-				<button id="topcategory" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-					상위카테고리  
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu">
-			      <li><a href="#">HTML</a></li>
-			      <li><a href="#">CSS</a></li>
-			      <li><a href="#">JavaScript</a></li>
-	  		  </ul>
 			<div class="clear"></div>
-			
-			 <div class="list_tag_box">
-				<div id="map_tag_select_box" class="et_slide_parent" data-is_open="1">태그 선택</div>
-				<div id="map_tag_select_sub_box" class="et_slide" style="display:block;">
-					<div class="item" data-check="0" data="301012">건축물</div>
-				</div>
-			</div>                      
+			<br>
+			 
+			 <div class="list_tag_box" style="height:40%">
+				<label for="sel5">하위카테고리</label>
+				 <select class="form-control" id="subcate_sub">
+				  </select>
+			</div>   
+     
 		</div>
 	</div>
 	 <!-- 장소검색 END -->

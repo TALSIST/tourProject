@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tour.dao.Detail_ScheduleDAO;
-import com.tour.persistence.tourVO;
+import com.tour.persistence.TourVO;
 
 @Controller
 public class MyPageController {
@@ -20,8 +20,8 @@ public class MyPageController {
 	//마이페이지 들어갈때
 	@RequestMapping("/mypage") 
 	public String mypage_page(HttpSession session,Model model){
-		List<tourVO> list= dao.tourList(1);
-		System.out.println(list.get(0).getTourId());
+		List<TourVO> list= dao.tourList(1);
+		System.out.println(list.get(0).getTour_id());
 		model.addAttribute("list",list);
 		return "mypage/mypage";
 	}

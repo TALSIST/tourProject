@@ -49,6 +49,9 @@
 		
 	<beans:bean id="planMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
 		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.tour.dao.PlanMapper" />
+		
+	<beans:bean id="Detail_ScheduleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.tour.dao.Detail_ScheduleMapper" />
 	<!-- Restful 처리 -->
 	<beans:bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
 

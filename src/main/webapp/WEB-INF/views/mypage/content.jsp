@@ -22,9 +22,9 @@
         <c:if test="${list!=null }">
         <c:forEach var="vo" items="${list}">
         	<div class="col-md-4 col-sm-6">
-       
+   tour_id=${vo.tour_id } 
                 <div class="thumbnail">
-                    <a href="detail_content.do"><img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth
+                    <a href="detail_content.do?"><img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth
                     =700&photoreference=key=AIzaSyCoxAzj933Z0kM-ZJObD0V0CRmn05vH000" alt=""></a>
                     <div class="caption">
                     	

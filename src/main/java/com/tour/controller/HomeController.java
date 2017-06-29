@@ -53,10 +53,10 @@ public class HomeController {
 		return "main/list";
 	}
 	
-	@RequestMapping("/mypage")
+	/*@RequestMapping("/mypage")
 	public String mypage_page(){
 		return "mypage/mypage";
-	}
+	}*/
 	
 	@RequestMapping("/login")
 	public String login(){

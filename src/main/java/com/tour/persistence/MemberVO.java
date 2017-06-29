@@ -1,17 +1,18 @@
 package com.tour.persistence;
 
-public class memberVO {
-	private int memberId;
+public class MemberVO {
+	private int member_id;
 	private String id;
 	private String password;
 	private String name;
 	private String phone;
 	private String email;
-	public int getMemberId() {
-		return memberId;
+	
+	public int getMember_id() {
+		return member_id;
 	}
-	public void setMemberId(int memberId) {
-		this.memberId = memberId;
+	public void setMember_id(int member_id) {
+		this.member_id = member_id;
 	}
 	public String getId() {
 		return id;
@@ -43,6 +44,5 @@ public class memberVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 	
 }

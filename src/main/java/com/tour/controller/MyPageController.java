@@ -37,6 +37,23 @@ public class MyPageController {
 		model.addAttribute("my_page_gubun","gaeyo2.jsp");
 		return "mypage/mypage";
 	}
-	
+	@RequestMapping("/story")
+	public String story(Model model){
+		model.addAttribute("jsp_page","detail_mypage/detail_content");
+		model.addAttribute("my_page_gubun","story.jsp");
+		return "mypage/mypage";
+	}
+	@RequestMapping("/memo")
+	public String memo(Model model){
+		model.addAttribute("jsp_page","detail_mypage/detail_content");
+		model.addAttribute("my_page_gubun","memo.jsp");
+		return "mypage/mypage";
+	}
+	@RequestMapping("/map")
+	public String map(Model model){
+		model.addAttribute("jsp_page","detail_mypage/detail_content");
+		model.addAttribute("my_page_gubun","map.jsp");
+		return "mypage/mypage";
+	}
 	
 }

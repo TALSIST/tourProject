@@ -70,22 +70,17 @@
     </div>
   </header><!-- #header -->
   
-    <!-- Parallax -->
+    <!-- Parallax
 
     <div class="block bg-primary block-pd-lg block-bg-overlay text-center" data-bg-img="/resources/img/cover_mypage.jpg" data-settings='{"stellar-background-ratio": 0.6}' data-toggle="parallax-bg">
       <h2 style="font-size:50px">
         	여행일정
       </h2>
 
-      <!-- <img alt="Bell - A perfect theme" class="gadgets-img hidden-md-down" src="/resources/img/gadgets.png"> -->
     </div>
-    <!-- /Parallax -->
+    /Parallax -->
   
   	<div class="container text-center">
-  	
-  	<h2>여행일정목록</h2>
- 	<p>내가 만든 일정을 완성하세요!</p>
-
     <c:if test="${jsp_page ==null }">
     	<jsp:include page="content.jsp"></jsp:include>
     </c:if>

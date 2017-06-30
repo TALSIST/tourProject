@@ -19,7 +19,7 @@
 	<div class="plan_mnu_box" style="width:1110px;">
 		<a href="gaeyo2"><div class="plan_mnu on">개요</div></a>
 		<div class="plan_mnu_line"></div>
-		<a href="detail_cotent/schedule"><div class="plan_mnu on">일정표</div></a>
+		<a href="time_schedule?tour_id=44"><div class="plan_mnu on">일정표</div></a>
 		<div class="plan_mnu_line"></div>
 		<div class="plan_mnu on">지도</div>
 		<div class="plan_mnu_line"></div>

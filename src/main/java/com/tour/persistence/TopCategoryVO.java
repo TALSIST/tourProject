@@ -3,7 +3,6 @@ package com.tour.persistence;
 public class TopCategoryVO {
 	private int top_category_id;
 	private String name;
-	
 	public int getTop_category_id() {
 		return top_category_id;
 	}
@@ -16,5 +15,10 @@ public class TopCategoryVO {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	
+	
+	
+	
 
 }

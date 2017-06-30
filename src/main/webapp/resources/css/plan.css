@@ -19,6 +19,17 @@ time, mark, audio, video {
     font-size: 100%;
     font: inherit;
 }
+#city_list .day_spot_item .img_box {
+    width: 82px;
+    height: 75px;
+    position: relative;
+    cursor: pointer;
+    margin: 0px;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+}
 
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {

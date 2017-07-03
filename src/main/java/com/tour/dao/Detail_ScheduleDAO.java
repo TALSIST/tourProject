@@ -20,6 +20,7 @@ public class Detail_ScheduleDAO {
 	public List<DetailScheduleVO> detailMyPage(int tour_id){
 		return scheduleMapper.detailMyPage(tour_id);
 	}
+	
 	/*
 	 * VO 대문자
 	 * 퍼시스턴스 -> VO

@@ -603,8 +603,8 @@ body{
 
 .spot_img{
 	float:left;
-	width:70px;
-	height:70px;
+	width:150px;
+	height:150px;
 }
 
 .spot_content_box{
@@ -1180,7 +1180,7 @@ body{
 	z-index:10;
 }
 
-/* 코멘트 리스트 */
+/* 肄붾찘�듃 由ъ뒪�듃 */
 .cmt_sh_box{
 	height:40px;
 	width:100%;

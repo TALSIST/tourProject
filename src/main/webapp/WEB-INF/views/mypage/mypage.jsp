@@ -83,10 +83,9 @@
   
   	<div class="container text-center">
   	
-  	<h2>여행일정목록</h2>
- 	<p>내가 만든 일정을 완성하세요!</p>
-
     <c:if test="${jsp_page ==null }">
+	    <h2>여행일정목록</h2>
+	 	<p>내가 만든 일정을 완성하세요!</p>
     	<jsp:include page="content.jsp"></jsp:include>
     </c:if>
     <c:if test="${jsp_page !=null }">

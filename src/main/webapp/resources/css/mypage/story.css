@@ -1,0 +1,74 @@
+.btnhover {
+    position:relative;
+    font-family:sans-serif;
+    width:100px;
+    height:35px;
+    border:solid 2px #39afc9;
+    margin:0 auto;
+    text-align:center;
+    float:left;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.btnhover a {
+    
+    position:relative;
+    padding:0px;
+    text-transform:uppercase;
+    text-decoration: none;
+    color:#39afc9;
+    font-size:0.8rem;
+    font-weight:600;
+    line-height:30px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    z-index: 1000;
+
+ 
+}
+
+.user-friendly {
+  
+
+  min-width:100%;
+  padding:0px;
+  float:left;
+  
+}
+
+.btnhover:hover a {
+
+    color:#ffffff;
+  
+}
+
+
+.backcolor {
+    position: absolute;
+    width:100%;
+    bottom:0;
+    height:0px;
+    margin:0 auto;
+    padding:0px;
+    background-color: #39afc9;
+    -webkit-transition: .2s ease;
+    -moz-transition: .2s ease;
+    -o-transition: .2s ease;
+    -ms-transition: .2s ease;
+    transition: .2s ease;
+
+}
+
+.btnhover:hover {
+
+     color:#ffffff;
+
+}
+
+.btnhover:hover .backcolor {
+  
+    height:32px;
+}

@@ -6,9 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-body {
-	padding: 20px;
-}
 
 #chartdiv, #map-canvas {
 	width: 100%;
@@ -63,6 +60,6 @@ body {
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjdiZZjAmalE56JzPh-f5hRJI28zOXsXw"></script>
 	<div id="chartdiv"></div>
 	<div id="map-canvas"></div>
-	<script src="/resources/js/mypage/map/map.js"></script>
+	<script src="/resources/js/mypage/map.js"></script>
 </body>
 </html>

@@ -5,90 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<style>
-@import
-	url(https://fonts.googleapis.com/css?family=Open+Sans:400,800,700,600,300)
-	;
-
-body {
-	margin: 0;
-	font-family: 'Open Sans', sans-serif;
-	background: #eee;
-	font-size: 16px;
-	line-height: 1;
-}
-
-p {
-	margin: 0;
-	padding: 0;
-	line-height: 1.5;
-}
-
-h3 {
-	margin: 0;
-	padding: 0;
-	font-size: 140%;
-	font-weight: normal;
-	line-height: 1.5;
-}
-
-.postit1, .postit2, .postit3, .postit4 {
-	position: relative;
-	padding: 25px;
-	display: inline-block;
-	-webkit-box-shadow: 0 8px 10px -7px #999;
-	-moz-box-shadow: 0 8px 10px -7px #999;
-	box-shadow: 0 8px 10px -7px #999;
-	-webkit-border-bottom-right-radius: 60px 10px;
-	-moz-border-radius-bottomright: 60px 10px;
-	border-bottom-right-radius: 60px 10px;
-	margin: 20px 0 20px 20px;
-}
-
-.postit1 h3, .postit2 h3, .postit3 h3, .postit4 h3 {
-	border-top-width: 2px;
-	border-top-style: dotted;
-	margin: 0 -25px;
-	padding: 15px 25px 0 25px;
-}
-
-.postit1 {
-	background: #fefabc;
-}
-
-.postit1 h3 {
-	border-top-color: #dbd581;
-}
-
-.postit2 {
-	background: #FDD7DB;
-}
-
-.postit2 h3 {
-	border-top-color: #E6A1A8;
-}
-
-.postit3 {
-	background: #EAF763;
-}
-
-.postit3 h3 {
-	border-top-color: #72A201;
-}
-
-.postit4 {
-	background: #B9EAF6;
-}
-
-.postit4 h3 {
-	border-top-color: #6DB4C4;
-}
-</style>
+<link rel="stylesheet" href="/resources/css/mypage/style.css">
+<link rel="stylesheet" href="/resources/css/mypage/memo.css">
 </head>
 <body>
-	<div class="btn-wrapper">
-		<button type="button" class="btn" style="margin:20px">메모 작성</button>
-	</div>
+	<div class="col-md-12 example-title">
+            <h2>메모</h2>
+            <p>여행에 관련된 간략 정보를 메모해두세요</p>
+    </div>
 	<div class="postit1">
 		<h3>Shopping list</h3>
 		<p>

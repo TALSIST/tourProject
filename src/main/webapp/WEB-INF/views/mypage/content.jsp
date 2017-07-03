@@ -24,7 +24,7 @@
     <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
       <i class="fa fa-remove"></i>
     </a>
-    <img src="/w3images/avatar_g2.jpg" style="width:45%;" class="w3-round"><br><br>
+    <img src="/resources/img/mypage/user.png" style="width:45%;" class="w3-round"><br><br>
     <h4><b>닉네임</b></h4>
     <p class="w3-text-grey">자기소개</p>
   </div>
@@ -50,63 +50,28 @@
 
   <!-- Header -->
   <header id="portfolio">
-    <a href="#"><img src="/w3images/avatar_g2.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+    <a href="#"><img src="/resources/img/mypage/user.png" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
     <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
     <div class="w3-container">
-    <h1><b>마이페이지 제목</b></h1>
+    <h1 style="margin-top:30px"><b>마이페이지 제목</b></h1>
     <div class="w3-section w3-bottombar w3-padding-16">
       <button class="w3-button w3-black">완성된 일정</button>
       <button class="w3-button w3-white">계획중인 일정</button>
     </div>
     </div>
   </header>
-  
+
   <!--Photo Grid-->
   <div class="w3-row-padding">
+   <c:forEach var="vo" items="${list }">
     <div class="w3-third w3-container w3-margin-bottom">
-      <a href="/detail_content"><img src="#" alt="Norway" style="width:100%" class="w3-hover-opacity"></a>
+      <a href="/detail_content?tour_id=${vo.tour_id }"><img src="/resources/img/mypage/osaca.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity"></a>
       <div class="w3-container w3-white">
-        <p><b>여행 제목</b></p>
-        <p>여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목</p>
+        <p style="margin:20px"><b>${vo.title }</b></p>
+        <p><input type="button" value="수정하기">&nbsp;<input type="button" value="삭제하기"></p>
       </div>
     </div>
-    <div class="w3-third w3-container w3-margin-bottom">
-      <a href="/detail_content"><img src="#" alt="Norway" style="width:100%" class="w3-hover-opacity"></a>
-      <div class="w3-container w3-white">
-        <p><b>여행 제목</b></p>
-        <p>여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목</p>
-      </div>
-    </div>
-    <div class="w3-third w3-container w3-margin-bottom">
-      <a href="/detail_content"><img src="#" alt="Norway" style="width:100%" class="w3-hover-opacity"></a>
-      <div class="w3-container w3-white">
-        <p><b>여행 제목</b></p>
-        <p>여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목</p>
-      </div>
-    </div>
-  </div>
-  <div class="w3-row-padding">
-    <div class="w3-third w3-container w3-margin-bottom">
-      <a href="/detail_content"><img src="#" alt="Norway" style="width:100%" class="w3-hover-opacity"></a>
-      <div class="w3-container w3-white">
-        <p><b>여행 제목</b></p>
-        <p>여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목</p>
-      </div>
-    </div>
-    <div class="w3-third w3-container w3-margin-bottom">
-      <a href="/detail_content"><img src="#" alt="Norway" style="width:100%" class="w3-hover-opacity"></a>
-      <div class="w3-container w3-white">
-        <p><b>여행 제목</b></p>
-        <p>여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목</p>
-      </div>
-    </div>
-    <div class="w3-third w3-container w3-margin-bottom">
-      <a href="/detail_content"><img src="#" alt="Norway" style="width:100%" class="w3-hover-opacity"></a>
-      <div class="w3-container w3-white">
-        <p><b>여행 제목</b></p>
-        <p>여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목 여행 소제목</p>
-      </div>
-    </div>
+    </c:forEach>
   </div>
 
   <!-- Pagination -->

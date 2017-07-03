@@ -21,33 +21,18 @@
 <script src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
 <script type="text/javascript" src="/resources/js/shadowbox.js"></script>
 <script>
-	Shadowbox.init({
-	    players:['iframe']
-	    });
+
+	var temp = ${sessionScope.startDay};
+	var temp2 = ${sessionScope.endDay};
+	var tempDate=new Date();
 	
-	$(function(){
-	      $('#comm1').click(function(){
-	         alert("1.경로추천 박스 누름");
-	         Shadowbox.open({
-	            content:"routecommend.do",
-	            player:'iframe',
-	            title:'경로추천',
-	            width:500,
-	            height:600
-	         });
-	      });
-	      $('#plan_complete_btn').click(function(){
-	         alert("완료버튼 누름");
-	         Shadowbox.open({
-	            content:"complete.do",
-	            player:'iframe',
-	            title:'완료창',
-	            width:500,
-	            height:600
-	         });
-	      });
-	   }); 
-	   
+	var startSeconds =new Date(temp);
+	var endSeconds =new Date(temp2);
+		
+	 Shadowbox.init({
+	  	  	players:['iframe']
+		}); 
+
 	   function initMap(p) {
 	      console.log("p는?"+p);
 	      var place;
@@ -112,7 +97,6 @@
 			        +"<div style=\"position:absolute;top:35px;left:40px;width:22px;height:20px;\" >"
 			        +"<img src=\" /resources/img/plan/remove.png \" class=\"memo_indi\" style=\"width:22px;height:20px;\">"
 			        +"</div>"
-			        
 		        	+"</div>"
 		        	+"<div class=\"fl info_box\">"
 			        +"<div class=\"title\">"+response[0].name+"</div>"
@@ -132,62 +116,84 @@
 			
 				}
 				
-				
-				
 			}); 
 			
 		});
 	}
 	
-	
-	$(document).ready(function(){
-		var temp = ${sessionScope.startDay};
-		var temp2 = ${sessionScope.endDay};
+	//넘어온 날짜만큼 DAY1,DAY2만들기
+	function setSepDay(){
 		
-		var startSeconds =new Date(temp);
 		alert("startSeconds          " + startSeconds);
-		var endSeconds =new Date(temp2);
 		alert("endSeconds          " + endSeconds);
-		/* var startDate = startSeconds.getTime();
-		alert("startDate      "+startDate);
-		var EndDate=endSeconds.getTime();
-		alert("EndDate              "+ EndDate); */
-		var tempDate=new Date();
+		
 		var btMs = temp2 - temp ;
 	    var btDay = btMs / (1000*60*60*24) ;
-		//console.log(btDay);
-		console.log(tempDate);
-		console.log(btMs + "       ");
-		console.log(btDay + "       ");
-		
+	    
+		var startMonth = tempDate.setDate(startSeconds.getDate()+1);
 		var week = new Array('일','월','화','수','목','금','토');
-	
-		
-		//day추가버튼시 클릭 이벤트 구현
-		//이건 실제로 레디될때..구현되야할 기능이고.. .나중에 추가누르면 append시키면됨;;
-		$('#dayAdd').click(function(){
+		alert("     "+btDay);
+		if(btDay!=0){
 			var createDay="";
 			createDay+="<li id=\"show_all_day\" >전체 일정 보기</li>";
 			for(var i=0; i<btDay+1;i++){
-			tempDate.setDate(startSeconds.getDate()+i);
-			createDay+="<li data=\"1\" data-date=\"06.14\" data-day_week=\"3\" original-title=\"서울\">"
-			         +"<div class=\"fl cat_date_left_box\">"   
-		            +"<div class=\"cat_left_day\">DAY"+(i+1)+"</div>"
-		            +"<div class=\"cat_left_date\">"+(tempDate.getMonth()+1)+" 월 "+(tempDate.getDate())+" 일</div>"
-		         +"</div>"
-		         +"<div class=\"fl cat_date_right_box\">"
-		            +"<div class=\"cat_right_weekday\">"+week[tempDate.getDay()]+"요일</div>"
-		            +"<div class=\"cat_right_city\">서울</div>"
-		         +"</div>"
-		         +"<div class=\"clear\"></div>"
-		      +"</li>";
-		      
-		      
+				tempDate.setDate(startSeconds.getDate()+i);
+				createDay+="<li data=\"1\" data-week="+week[tempDate.getDay()]+"요일"+"  data-date="+(tempDate.getMonth()+1)+"."+(tempDate.getDate())+" data-day_week=\"3\" data-day="+(i+1)+" original-title=\"서울\">"
+				        +"<input type=\"hidden\" data-date="+(tempDate.getMonth()+1)+"."+(tempDate.getDate())+" data-week="+week[tempDate.getDay()]+"요일>" 
+						+"<div class=\"fl cat_date_left_box\">"   
+			            +"<div class=\"cat_left_day\">DAY"+(i+1)+"</div>"
+			            +"<div class=\"cat_left_date\">"+(tempDate.getMonth()+1)+" 월 "+(tempDate.getDate())+" 일"+"</div>"
+			         +"</div>"
+			         +"<div class=\"fl cat_date_right_box\">"
+			            +"<div class=\"cat_right_weekday\">"+week[tempDate.getDay()]+"요일</div>"
+			            +"<div class=\"cat_right_city\">서울</div>"
+			         +"</div>"
+			         +"<div class=\"clear\"></div>"
+			      +"</li>";
 			}
 			$('#cat_menu').html(createDay);
-			$('#schedule_detail_box').html();
+			setDayLocList();
+		}
+	}
+	
+	
+	//DAY1, DAY2 클릭시 이벤트 구현
+	function setDayLocList(){
+		
+		$('#cat_menu li').click(function(){
+			var date = $(this).attr('data-date');			//날짜 -7.10일
+			var week= $(this).attr('data-week');			//요일
+			var day = $(this).attr('data-day');				//몇번째날인지
+			
+			$('#sepDay').text("DAY"+day+"|  "+date+"|  ("+week+")");
+			
 			
 		});
+				
+		
+		
+	}
+	
+	
+	
+	
+	//DAY1, DAY2클릭시 이벤트구현
+	
+	
+	$(document).ready(function(){
+		
+		setSepDay();		//DAY설정하기
+		setDayLocList();		//동적추가부분..
+		
+		
+		//day추가버튼시 클릭 이벤트 구현 (추가할때마다 마지막날의 초만큼 더해줌)
+		$('#dayAdd').click(function(){
+			temp2 +=1000*60*60*24;		//하루치 초를 더해줌.
+			setSepDay();
+			
+		});
+		
+		
 		
 		$('#cat_menu').sortable();
 		
@@ -259,6 +265,28 @@
 				}
 			});
 		});
+		//===========================민정==================
+		//민정이꺼
+		$('#comm1').click(function(){
+	         alert("1.경로추천 박스 누름");
+	         Shadowbox.open({
+	            content:"routecommend.do",
+	            player:'iframe',
+	            title:'경로추천',
+	            width:500,
+	            height:600
+	         });
+	      });
+	      $('#plan_complete_btn').click(function(){
+	         alert("완료버튼 누름");
+	         Shadowbox.open({
+	            content:"complete.do",
+	            player:'iframe',
+	            title:'완료창',
+	            width:500,
+	            height:600
+	         });
+	      });
 	});
 	
  	 function addClick(){
@@ -272,8 +300,6 @@
 			data:{"name":name},
 			success:function(response){
 				console.log(response);
-				
-				
 				
 			}
 		});
@@ -300,23 +326,7 @@
 		});
 	
 		
-		
-		
-		//하위카테고리 클릭이벤트 구현	
-		$('#map_subcate_select_box').click(function(){
-			/*  var container = $(".et_slide2");
-			 var _parent_sel_box = $(e.target).attr('id');
-			 //open
-			if($('#map_subcate_select_box').attr('data-is_open')=="0"){
-				 $('.et_slide_parent2').attr('data-is_open','1');
-				 container.slideUp(300);
-			}else if($('#map_subcate_select_box').attr('data-is_open')=="1"){	//Close
-				$('.et_slide_parent2').removeClass('on');
-				 $('.et_slide_parent2').attr('data-is_open','0');
-				 container.slideDown(300);
-			} */
-		});
-		
+
 		
 		//하위 카테고리 선택시 여행지 리스트가 해당되는것만 나옴
 		$('#subcate_sub').change(function() {
@@ -410,9 +420,9 @@
 	
 	
 </script>
-<script async defer
+ <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6rZnP1jhdyQEEje0CSjX-V_v8UouCqi0&libraries=places&callback=initMap">
-</script>	
+</script>	 
 </head>
 <body>
 	
@@ -492,7 +502,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6rZnP1jhdyQEEje0CSjX-V_v
 	     
 	       <div id="schedule_detail_title" data-date="06-14" style="display: block;">
 	               <div class="fl schedule_detail_title_text" style="width:245px;padding-left:10px;font-size:15px;">
-		               	<div class="fl">DAY1 <span style="color:#999999">|</span> 06.14(수요일)</div>
+		               	<div class="fl" id="sepDay">DAY1 <span style="color:#999999">|</span> 06.14(수요일)</div>
 		               	<div class="fl day_reset_btn"></div>		<!-- 해당날짜 여행지 Reset -->
 		               	<div class="fr day_next_btn"></div>			<!-- 다음날짜 -->
 		               	<div class="fr day_prev_btn"></div>			<!-- 이전날짜 -->
@@ -509,7 +519,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6rZnP1jhdyQEEje0CSjX-V_v
 	
 	        <!--//(s)스케쥴 디테일 리스트-->
 	        <div id="schedule_detail_box" class="connectedSortable ui-sortable" style="height: 447px; display: block;">
-		        <div class="day_spot_item" data="1" data-set_day="1" data-rel_srl="6659" data-pl_type="0" data-no="0" data-pl_cat="400" data-latlng="37.57000700,126.99927500" data-ci="310">
+		        <div  class="day_spot_item" data="1" data-set_day="1" data-rel_srl="6659" data-pl_type="0" data-no="0" data-pl_cat="400" data-latlng="37.57000700,126.99927500" data-ci="310">
 			        <div class="item_ctrl_box" style="display: none;">
 				        <div class="fl btn_del" title="삭제">
 				        	<img src="/res/img/workspace/new/item_del_icon_a.png">
@@ -714,12 +724,12 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6rZnP1jhdyQEEje0CSjX-V_v
      </iframe>
       </div>    
 	</div>
-	<!-- 장소 상세보기 클릭시 설명나옴 -->
-   <!-- <div id="select_detail_view_spot" data="6659" data-no="0" data-cat="400" data-only_clip="1" data-clip_yn="y" class="visible" style="left: 0px; display: block;"><div class="detail_view_full_box"><div id="detail_spot_to_inspot" data-ci="310" data-rel_srl="6659" data-pl_type="0">+일정에 추가</div><div id="detail_close_btn"></div><a class="spot_title" href="/ko/city/seoul_310/shopping/gwangjang-market_6659" target="_blank">광장시장</a><div class="spot_img"><div class="detail_img_overlay"></div><img src="http://img.earthtory.com/img/place_img/310/6659_0_et.jpg"><div class="spot_cnt_box"></div></div><div id="detail_content" style="height: 356px;"><div class="info_first"><div class="in_full_box"><div class="info_memo"><div style="font-size:15px;color:#363636;font-weight:bold;text-align:left;padding-bottom:10px;padding-left:8px;">예산</div><div style="padding-left:10px;padding-bottom:15px;"><div id="budget_currency_select_list"><div data="KRW">KRW</div><div data="USD">USD</div></div><div id="budget_currency" data="KRW" class="fl">KRW</div><div class="fl"><input type="text" class="budget_input" placeholder="0" onkeyup="return isNumberKey(event)"></div><div class="clear"></div></div><div style="font-size:15px;color:#363636;font-weight:bold;text-align:left;padding-bottom:10px;padding-left:8px;">메모</div><textarea id="memo_input" data-type="inspot" data-set_day="1" data-set_order="1" data-pl_type="0"></textarea><div id="memo_save">저장</div></div></div><div class="in_full_box"><div style="line-height:22px;font-size:11px;color:#808080;padding-bottom:20px;font-size:13px;"><img src="/res/img/workspace/new/tip_desc_icon.png" style="vertical-align:top;"> 광장시장은 최초의 상설시장이면서 1904년 동대문시장이라는 이름으로 출발했으며 이전에는 한복과 포목등을 주로 판매하였으나 지금은 원단과 패션 부자재를 주로 판매하는 곳으로 패션업계에 종사하는 사람들이 많이 찾는 곳이며 구제품을 구입하고자 하는 사람들도 많이 찾는다 그 외에도 다른 재래시장과 달리 먹거리가 다양하고 맛있어 쇼핑을 위해 찾는 사람들 못지 않게 음식을 즐기기 위해 찾는 사람 또한 많이 있다 저녁이 되면 보기만 해도 군침이 흐르는 다양한 종류의 음식들이 줄지어 가게를 이루고 있으며 서민적인 먹거리들로 가득하다 광장시장에서도 유난히 사람들이 많이 찾는 곳으로 순희네빈대떡, 복민횟집, 마약김밥 등이 있으며 광장시장을 오랫동안 지키며 전통을 이어가고 있다 </div><div class="information"><div style="width:100%;padding:15px;border:solid #d4d4d4 1px;"><div style="color:#808080;font-size:13px;padding-left:20px;background:url('/res/img/workspace/new/addr_desc_icon.png') no-repeat 2px 2px;line-height:16px;padding-bottom:10px;">269-39 Yeji-dong, Jongno-gu, Seoul, South Korea</div><div class="sub_title fl">카테고리</div><div class="sub_info fl">식당가/푸드코트, 시장/쇼핑거리</div><div class="clear"></div><div class="sub_title fl">영업시간</div><div class="sub_info fl">월~토 - 09:00~18:00<br></div><div class="clear"></div><div class="sub_title fl">홈페이지</div><div class="sub_info fl"><a href="http://www.kwangjangmarket.co.kr" target="_blank">http://www.kwangjangmarket.co.kr</a></div><div class="clear"></div><div id="fq_attr_box"></div><div id="fq_open_box"></div><div class="clear"></div></div><div class="sub_desc"></div></div><div class="clear"></div></div></div><div class="info_second"><div class="info_section_line"></div><div class="in_full_box"><div id="review_title_box" style="font-size:15px;color:#363636;font-weight:bold;padding-bottom:10px;" class="fl">리뷰</div><div class="map_review_w_btn fr" onclick="et_modal('548px','352px','1','0','/ko/modal/review?pl_srl=6659','2','1');">리뷰쓰기</div><div class="clear"></div><div id="review_item_box"><div class="cmmt_content_box"><div class="cmmt_c_user"><img src="http://graph.facebook.com/1108963139175010/picture?type=large" class="cmmt_content_uimg"><div class="cmmt_c_user_txt"><div class="cmmt_c_user_name">송준일<span>&nbsp;&nbsp;2016-06-14 21:40:50</span><div class="clear"></div></div><div class="cmmt_c_user_level"><img src="http://earthtory.com/res/img/common/web/mgrade_8_ko.png" alt=""><div class="rv_cnt">2개의 평가</div><div class="clear"></div></div></div><div class="clear"></div></div><div class="cmmt_content"><div class="cmmt_content_info"><span>좋아요!</span></div>asdsadsa<div class="cmmt_content_bottom"><div class="clear"></div></div></div></div><div class="clear" style="height:10px;width:1px;"></div></div><div class="clear"></div></div></div><div class="info_third" style="padding-top:30px;"><div style="font-size:15px;color:#363636;font-weight:bold;padding-bottom:10px;padding-left:20px;">블로그</div><a href="http://blog.naver.com/pianocl?Redirect=Log&amp;logNo=221030827704" target="_blank"><div class="in_full_box"><div class="blog_item"><div class="blog_title" style="font-size:15px;color:#1a7ad9;padding-bottom:5px;font-weight:bold;line-height:20px;">서울 광장시장- 누드김밥과 잡채.../원조누드치즈김밥</div><div style="font-size:12px;color:#363636;line-height:20px;">아니 오히려 더 정감있고 저렴한 가격의 좋은 김밥이지요 오랫동안 성업 하시길 바라며 매력있는 사장님, 다음에 또 뵙겠습니다. 연락처: ***-****-**** 주소: 서울 종로구 예지동 2-1 광장시장내 41호</div></div></div></a><a href="http://blog.naver.com/dream88915?Redirect=Log&amp;logNo=221012634370" target="_blank"><div class="in_full_box"><div class="blog_item"><div class="blog_title" style="font-size:15px;color:#1a7ad9;padding-bottom:5px;font-weight:bold;line-height:20px;">비오는날 데이트로 좋은, 서울 광장시장 맛집 투어 !</div><div style="font-size:12px;color:#363636;line-height:20px;">비오는날 데이트로 좋은, 서울 광장시장 맛집 투어 ! 밖에 돌아다니기 좋아하는 나는 비가 오는날이면 뭘 해야하나, 어딜가야하나 늘 고민이다. 이날은 "비오는날은 빈대떡과 막걸리지~!"를 외치며 야심차게... </div></div></div></a><a href="http://blog.naver.com/pure7193?Redirect=Log&amp;logNo=221022615941" target="_blank"><div class="in_full_box"><div class="blog_item"><div class="blog_title" style="font-size:15px;color:#1a7ad9;padding-bottom:5px;font-weight:bold;line-height:20px;">서울 광장시장 맛집 청계천 나들이 :: 가볼만한 곳*</div><div style="font-size:12px;color:#363636;line-height:20px;">오로지 빈대떡 하나를 먹기위해 서울 광장시장 갔어요 일산 근처 엄청 맛있는 전집가서 먹어도 되지만, 빈대떡보다 더 기대됐던 나들이 때문에♡ @ 서울 광장시장 먹방투어, 청계천 나들이 :: 꼬보일상* 행복한... </div></div></div></a><a href="http://blog.naver.com/loveju33?Redirect=Log&amp;logNo=221003726935" target="_blank"><div class="in_full_box"><div class="blog_item"><div class="blog_title" style="font-size:15px;color:#1a7ad9;padding-bottom:5px;font-weight:bold;line-height:20px;">서울 광장시장 탐방기 드디어~ 빈대떡을 먹다~ㅋ</div><div style="font-size:12px;color:#363636;line-height:20px;">서울 광장시장 탐방기 드디어~ 빈대떡을 먹다~ㅋ 여러분~~ 서울 광장시장 고고~~ 주말에 나들이~ 갔어요 성남에서 가는건 정말 멀잖아요 서울 나간김에 ㅋㅋ 탐방하고 왔네요~ 역시나 사람들이 엄청 분벼서 사진도... </div></div></div></a><a href="http://blog.naver.com/notianna1?Redirect=Log&amp;logNo=221011474209" target="_blank"><div class="in_full_box"><div class="blog_item"><div class="blog_title" style="font-size:15px;color:#1a7ad9;padding-bottom:5px;font-weight:bold;line-height:20px;">서울가볼만한곳 &lt;서울광장시장&gt;먹거리가 풍성한 이곳~</div><div style="font-size:12px;color:#363636;line-height:20px;">서울 가볼만한 곳- 서울 광장시장 서울의 명소중 꽤 인기있는 이곳 볼거리와 먹거리가 풍성한 이곳 낮보단 밤이 더 활기찬 이곳 서울광장시장 나들이 낮보다 밤이 더 활기찬 서울광장시장 먹거리편입니다 항상... </div></div></div></a><a href="http://blog.naver.com/lay7556?Redirect=Log&amp;logNo=220999351376" target="_blank"><div class="in_full_box"><div class="blog_item"><div class="blog_title" style="font-size:15px;color:#1a7ad9;padding-bottom:5px;font-weight:bold;line-height:20px;">[요니맛집여행] 서울 여행 / 서울 맛집 / 광장시장 /</div><div style="font-size:12px;color:#363636;line-height:20px;">양파짱아지가 완전히 생양파.. 장아찌가 아닌듯...ㅋㅋㅋ 그래도 느끼함을 없애주니 굳 대박막걸리도 같이먹었는데 왜이렇게 달던지... 역시 막걸리가 술중에 제일 맛있는듯 즐거웠던 서울 광장시장 탐방 끝~!!</div></div></div></a><a href="http://blog.naver.com/feb23jh?Redirect=Log&amp;logNo=221011841627" target="_blank"><div class="in_full_box"><div class="blog_item"><div class="blog_title" style="font-size:15px;color:#1a7ad9;padding-bottom:5px;font-weight:bold;line-height:20px;">서울 광장시장 빈대떡 육회 한 접시</div><div style="font-size:12px;color:#363636;line-height:20px;">서울 광장시장 빈대떡 육회 한 접시 할 거 없는 안산 까페에서 죽치고 있지 말고 서울 놀러 가자고 하니 네가 가고 싶은 데로 가자고, 울산 촌 친구 배려해주는 경기도 친구님 덕에 다녀온 광장시장ㅋ 전철로... </div></div></div></a><a href="http://blog.naver.com/haluday?Redirect=Log&amp;logNo=221021542090" target="_blank"><div class="in_full_box"><div class="blog_item"><div class="blog_title" style="font-size:15px;color:#1a7ad9;padding-bottom:5px;font-weight:bold;line-height:20px;">서울 가볼만한곳 재래시장 광장시장</div><div style="font-size:12px;color:#363636;line-height:20px;">물으면 추천할수 있는곳 서울광장시장입니다. 한국관광 100선에 광장시장이 선정되었네요~ 정말 외국인 관광객들도 눈에띄게 많아졌습니다. 빈대떡과 마약김밥은 서울 가볼만한곳 광장시장의 대표... </div></div></div></a><a href="http://blog.naver.com/jsm917?Redirect=Log&amp;logNo=221026649037" target="_blank"><div class="in_full_box"><div class="blog_item"><div class="blog_title" style="font-size:15px;color:#1a7ad9;padding-bottom:5px;font-weight:bold;line-height:20px;">서울 광장시장육회맛집, 육사시미 진주육회</div><div style="font-size:12px;color:#363636;line-height:20px;">광장시장육회맛집 진주육회에 갔다왔습니다. 입구가 환합니다. 조명이 있어서 그런지...어째거나... 홈페이지는 www.jinjuzip.com 이고, 참고 url: http://cafe.naver.com/sioneview/14356 위치는 주 소 : 서울시 종로구... </div></div></div></a><a href="http://blog.naver.com/hjkwon063?Redirect=Log&amp;logNo=221001930960" target="_blank"><div class="in_full_box"><div class="blog_item"><div class="blog_title" style="font-size:15px;color:#1a7ad9;padding-bottom:5px;font-weight:bold;line-height:20px;">서울 광장시장 맛집 - 마약김밥 원조 모녀김밥</div><div style="font-size:12px;color:#363636;line-height:20px;">서울 광장시장 맛집 - 마약김밥 원조 모녀김밥 오늘 이야기 하고자 하는 곳은 서울 광장시장 맛집 모녀꼬마마약김밥 입니다. 일반적으로 광장시장 모녀김밥으로 부르는 사람들이 많답니다. 보통 이곳은... </div></div></div></a></div></div><div class="clear"></div></div><div class="detail_view_bottom"></div></div> - -->
 
 		</div>
 	
 	<div class="clear"></div>
 	</div>
+	
+	
 </body>
 </html>

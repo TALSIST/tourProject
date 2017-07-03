@@ -9,28 +9,100 @@
 </head>
 <body>
 
-<div class="login" id="id01">
-  <div class="login-screen">
-  <button type="button" class="close" 
- onclick="document.getElementById('id01').style.display='none'" >&times;</button>
-   <div class="app-title">
-     <h1>Login</h1>
-   </div>
- 	<div class="login-form">
-  <div class="control-group">
-	<input type="text" class="login-field" value="" placeholder="username" id="login-name"> 
-	<label class="login-field-icon fui-user" for="login-name"></label>
-  </div>
-  <div class="control-group">
-	<input type="password" class="login-field" value="" placeholder="password" id="login-pass"> 
-	<label class="login-field-icon fui-lock" for="login-pass"></label>
-  </div>
-	<a class="btn btn-primary btn-large btn-block" href="#">login</a> 
+<div id="id01" class="modal fade" role="dialog">
+
+  <div class="modal-dialog">
+   <button type="button" class="close" data-dismiss="modal">&times;</button>
+  <div class="modal-content">
+	  	<div class="absolute-wrap-signup">
+	  <div class="signup-wrap hide">
+	    <form action="post" id="sign_form">
+	      <div class="row">
+	        <div class="col-12">
+	          <h1 class="hide-fade">Sign Up</h1>
+	        </div>
+	      </div>
+	      <div class="row">
+	        <div class="col-12">
+	          <div class="input-group hide-down">
+	            <input type="text" class="name" required/>
+	            <span class="valid-icon"></span>
+	            <label for="name">Name</label>
+	            <span class="bottom-border"></span>
+	          </div>
+	          <div class="input-group">
+	            <input type="email" class="check-email" required/>
+	            <span class="valid-icon"></span>
+	            <label for="email">Email</label>
+	            <span class="bottom-border"></span>
+	          </div>
+	          <div class="input-group">
+	            <input type="password" class="check-password" required/>
+	            <span class="valid-icon"></span>
+	            <label for="password">Password</label>
+	            <span class="bottom-border"></span>
+	          </div>
+	          <div class="input-group hide-up">
+	            <input type="password" class="check-equal" required/>
+	            <span class="valid-icon"></span>
+	            <label for="password">Verify Password</label>
+	            <span class="bottom-border"></span>
+	          </div>
+	        </div>
+	      </div>
+	      <div class="row login-footer">
+	        <div class="col-7">
+	          <a href="#" class="btn signup">Sign Up</a>
+	        </div>
+	        <div class="col-5">
+	          <a class="btn btn-pink hide-signup-btn" id="show-signup" href="#">Login</a>
+	        </div>
+	      </div>
+	    </form>
+	  </div>
+	  </div>
+	  </div>
+	</div>
 	
-	<a class="login-link" href="#">Lost your password?</a>
+	<div class="login-wrap">
+	  <form action="post" id="login-form">
+	    <div class="row">
+	      <div class="col-12">
+	        <h1 class="hide-fade delay-6">Login</h1>
+	      </div>
+	    </div>
+	    <div class="row">
+	      <div class="col-12">
+	        <div class="input-group">
+	          <input type="email" class="check-email" required/>
+	          <span class="valid-icon"></span>
+	          <label for="email">Email</label>
+	          <span class="bottom-border"></span>
+	        </div>
+	        <div class="input-group">
+	          <input type="password" class="check-password" required/>
+	          <span class="valid-icon"></span>
+	          <label for="password">Password</label>
+	          <span class="bottom-border"></span>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="row login-footer">
+	      <div class="col-7">
+	        <a href="#" class="btn login">Login</a>
+	      </div>
+	      <div class="col-5">
+	        <a class="btn btn-pink show-signup-btn" href="#">Sign Up</a>
+	      </div>
+	    </div>
+	    <div class="row login-footer">
+	      <div class="col-12 hide-fade delay-7">
+	        <a class="forgot" href="#">Forgot Password?</a>
+	      </div>
+	    </div>
+	  </form>
+	</div>
   </div>
- </div>
-</div>
 </body>
 
 </html>

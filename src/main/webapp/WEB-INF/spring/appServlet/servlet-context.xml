@@ -50,6 +50,9 @@
 	<beans:bean id="planMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
 		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.tour.dao.PlanMapper" />
 		
+	<beans:bean id="MemberMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.tour.dao.MemberMapper" />
+	
 	<beans:bean id="Detail_ScheduleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
 		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.tour.dao.Detail_ScheduleMapper" />
 	<!-- Restful 처리 -->

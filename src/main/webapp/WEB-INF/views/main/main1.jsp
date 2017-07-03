@@ -26,7 +26,14 @@
     <link href="/resources/css/style1.css" rel="stylesheet">
     
     <!-- 삽입시킨 css -->
-	<link href="/resources/css/bootstrap.min.css" rel="stylesheet">
+   <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
+   
+   <!-- login css -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+     <link rel='stylesheet prefetch' href='resources/css/anaeyg.css'>
+    <link rel="stylesheet" href="resources/css/login.css">
+   
+   
   </head>
 
   <body>
@@ -43,11 +50,11 @@
 
         <div class="col-md-12">
           <h1 style="font-size:62px">
-            	나만의 여행 플래너 위드어스!
+               나만의 여행 플래너 위드어스!
           </h1>
 
           <p class="tagline">
-            	쉽고 빠르게 여행을 계획하세요. 
+               쉽고 빠르게 여행을 계획하세요. 
           </p>
           <a class="btn btn-full" href="#about" style="background-color: #199EB8; font-weight: 800; padding: 15px 45px; border-radius: 50px">여행 일정 만들기</a>
         </div>
@@ -90,54 +97,150 @@
       </nav><!-- #nav-menu-container -->
       
       <nav class="nav social-nav pull-right hidden-sm-down">
-        <a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a> <a href="#"><i class="fa fa-envelope"></i></a>
+        <a data-toggle="modal" data-target="#id01"><i class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a> <a href="#"><i class="fa fa-envelope"></i></a>
+        
       </nav>
     </div>
   </header><!-- #header -->
   
-  	<div class="container text-center">
-  	<h2>인기 여행 일정</h2>
- 	<p>다른 여행자들의 일정을 참고해 나만의 여행을 계획해보세요!</p>
-  	
+  <div id="id01" class="modal fade" role="dialog">
 
-	<!-- content include -->
+  <div class="modal-dialog">
+   <button type="button" class="close" data-dismiss="modal">&times;</button>
+  <div class="modal-content">
+        <div class="absolute-wrap-signup">
+     <div class="signup-wrap hide">
+       <form action="post" id="sign_form">
+         <div class="row">
+           <div class="col-12">
+             <h1 class="hide-fade">Sign Up</h1>
+           </div>
+         </div>
+         <div class="row">
+           <div class="col-12">
+             <div class="input-group hide-down">
+               <input type="text" class="name" required/>
+               <span class="valid-icon"></span>
+               <label for="name">Name</label>
+               <span class="bottom-border"></span>
+             </div>
+             <div class="input-group">
+               <input type="email" class="check-email" required/>
+               <span class="valid-icon"></span>
+               <label for="email">Email</label>
+               <span class="bottom-border"></span>
+             </div>
+             <div class="input-group">
+               <input type="password" class="check-password" required/>
+               <span class="valid-icon"></span>
+               <label for="password">Password</label>
+               <span class="bottom-border"></span>
+             </div>
+             <div class="input-group hide-up">
+               <input type="password" class="check-equal" required/>
+               <span class="valid-icon"></span>
+               <label for="password">Verify Password</label>
+               <span class="bottom-border"></span>
+             </div>
+           </div>
+         </div>
+         <div class="row login-footer">
+           <div class="col-7">
+             <a href="#" class="btn signup">Sign Up</a>
+           </div>
+           <div class="col-5">
+             <a class="btn btn-pink hide-signup-btn" id="show-signup" href="#">Login</a>
+           </div>
+         </div>
+       </form>
+     </div>
+     </div>
+     </div>
+   </div>
+   
+   <div class="login-wrap">
+     <form action="post" id="login-form">
+       <div class="row">
+         <div class="col-12">
+           <h1 class="hide-fade delay-6">Login</h1>
+         </div>
+       </div>
+       <div class="row">
+         <div class="col-12">
+           <div class="input-group">
+             <input type="email" class="check-email" required/>
+             <span class="valid-icon"></span>
+             <label for="email">Email</label>
+             <span class="bottom-border"></span>
+           </div>
+           <div class="input-group">
+             <input type="password" class="check-password" required/>
+             <span class="valid-icon"></span>
+             <label for="password">Password</label>
+             <span class="bottom-border"></span>
+           </div>
+         </div>
+       </div>
+       <div class="row login-footer">
+         <div class="col-7">
+           <a href="#" class="btn login">Login</a>
+         </div>
+         <div class="col-5">
+           <a class="btn btn-pink show-signup-btn" href="#">Sign Up</a>
+         </div>
+       </div>
+       <div class="row login-footer">
+         <div class="col-12 hide-fade delay-7">
+           <a class="forgot" href="#">Forgot Password?</a>
+         </div>
+       </div>
+     </form>
+   </div>
+  </div>
+  
+     <div class="container text-center">
+     <h2>인기 여행 일정</h2>
+    <p>다른 여행자들의 일정을 참고해 나만의 여행을 계획해보세요!</p>
+     
+
+   <!-- content include -->
    <!-- Page Content -->
     <div class="container1">
         <!-- Page Features -->
 
-			<div class="row text-center">
+         <div class="row text-center">
 
-				<c:forEach var="vo" items="${list }">
-					<div class="col-md-4 col-sm-6">
-						<div class="thumbnail">
-							<img class="cool_img" src="/resources/img/${vo.img }" alt="">
-							<div class="caption">
-								<h3>${vo.title }</h3>
-								<p>${vo.subTitle }</p>
-								<p>
-									<a href="${vo.tour_id }" class="btn btn-primary">찜하기</a> <a
-										href="#" class="btn btn-default">자세히</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</c:forEach>
-				
-				<!-- /content include -->
-			</div>
-			<div class="btn btn-full" onclick="location.href='/list?page=1'" style="font-color:white; background-color: #199EB8; font-weight: 800; padding: 15px 45px; border-radius: 50px; ">더보기</div>
+            <c:forEach var="vo" items="${list }">
+               <div class="col-md-4 col-sm-6">
+                  <div class="thumbnail">
+                     <img class="cool_img" src="/resources/img/${vo.img }" alt="">
+                     <div class="caption">
+                        <h3>${vo.title }</h3>
+                        <p>${vo.subTitle }</p>
+                        <p>
+                           <a href="${vo.tour_id }" class="btn btn-primary">찜하기</a> <a
+                              href="#" class="btn btn-default">자세히</a>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+            </c:forEach>
+            
+            <!-- /content include -->
+         </div>
+         <div class="btn btn-full" onclick="location.href='/list?page=1'" style="font-color:white; background-color: #199EB8; font-weight: 800; padding: 15px 45px; border-radius: 50px; ">더보기</div>
 
-			<!-- About -->
+         <!-- About -->
 
     <section class="about" id="about">
       <div class="container text-center">
         
         <h2>
-          	여행 일정 통계
+             여행 일정 통계
         </h2>
 
         <p>
-           	어디로 갈까? 전세계 1,000개 이상의 여행 일정을 확인하고 나만의 일정을 계획해 보세요. 
+              어디로 갈까? 전세계 1,000개 이상의 여행 일정을 확인하고 나만의 일정을 계획해 보세요. 
         </p>
 
         <div class="row stats-row">
@@ -334,7 +437,7 @@
     <section class="portfolio" id="portfolio">
       <div class="container text-center">
         <h2>
-          	인기도시 TOP8
+             인기도시 TOP8
         </h2>
 
       </div>
@@ -347,7 +450,7 @@
               <div class="portfolio-over">
                 <div>
                   <h3 class="card-title">
-                    	런던
+                       런던
                   </h3>
                 </div>
               </div></a>
@@ -360,7 +463,7 @@
               <div class="portfolio-over">
                 <div>
                   <h3 class="card-title">
-                  	  파리
+                       파리
                   </h3>
                 </div>
               </div></a>
@@ -373,7 +476,7 @@
               <div class="portfolio-over">
                 <div>
                   <h3 class="card-title">
-                   	 바르셀로나
+                       바르셀로나
                   </h3>
                 </div>
               </div></a>
@@ -386,7 +489,7 @@
               <div class="portfolio-over">
                 <div>
                   <h3 class="card-title">
-                    	베네치아
+                       베네치아
                   </h3>
                 </div>
               </div></a>
@@ -401,7 +504,7 @@
               <div class="portfolio-over">
                 <div>
                   <h3 class="card-title">
-                    	타이페이
+                       타이페이
                   </h3>
                 </div>
               </div></a>
@@ -414,7 +517,7 @@
               <div class="portfolio-over">
                 <div>
                   <h3 class="card-title">
-                   	싱가포르
+                      싱가포르
                   </h3>
                 </div>
               </div></a>
@@ -427,7 +530,7 @@
               <div class="portfolio-over">
                 <div>
                   <h3 class="card-title">
-                    	제주도
+                       제주도
                   </h3>
                 </div>
               </div></a>
@@ -440,7 +543,7 @@
               <div class="portfolio-over">
                 <div>
                   <h3 class="card-title">
-                    	방콕
+                       방콕
                   </h3>
                 </div>
               </div></a>
@@ -695,8 +798,13 @@
     <script src="/resources/lib/parallax/parallax.js"></script>
     <script src="/resources/lib/lockfixed/lockfixed.min.js"></script>
     
+    
     <!-- Template Specisifc Custom Javascript File -->
     <script src="/resources/js/custom.js"></script>
+    
+    <!-- login박스. -->
+    <script src="resources/js/login.js"></script>
+    
     
   </body>
 </html>

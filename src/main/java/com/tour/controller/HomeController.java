@@ -28,7 +28,12 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/list")
-	public String main_list(int page, Model model){ //리스트에서 토탈과 동시에 스타트랑 end를 줘야 한다! 
+	public String main_list(int page, Model model){ 
+		return "main/list";
+	}
+	
+	@RequestMapping("/result")
+	public String main_result(int page, Model model){ //리스트에서 토탈과 동시에 스타트랑 end를 줘야 한다! 
 		int totalpage=dao.contenttotalpage();
 		model.addAttribute("totalpage", totalpage);
 		int rowSize=9;
@@ -50,8 +55,9 @@ public class HomeController {
 		model.addAttribute("list", list);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
-		return "main/list";
+		return "main/result";
 	}
+	
 	
 	/*@RequestMapping("/mypage")
 	public String mypage_page(){

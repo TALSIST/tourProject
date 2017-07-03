@@ -40,20 +40,6 @@
         </c:if>
             
 
-            <!-- <div class="col-md-4 col-sm-6">
-                <div class="thumbnail">
-                    <img src="/resources/img/porf-2.jpg" alt="">
-                    <div class="caption">
-                        <h3>노르웨이 산에서 자전거타기</h3>
-                        <p>슝슝슝~!</p>
-                        <p>
-                            <a href="#" class="btn btn-info">수정하기</a> <a href="#" class="btn btn-warning">삭제하기</a>
-                        </p>
-                    </div>
-                </div>
-            </div> -->
-            
-
         </div>
         <!-- /.row -->
 

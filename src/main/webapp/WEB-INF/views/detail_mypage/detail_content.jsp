@@ -17,11 +17,15 @@
 			no-repeat;background-size:cover;background-position:cetner;"></div>
 	</div>
 	<div class="plan_mnu_box" style="width:1110px;">
-		<a href="gaeyo2"><div class="plan_mnu on">개요</div></a>
+		<a href="gaeyo2?tour_id=${list[1].tour_id }"><div class="plan_mnu on">개요</div></a>
 		<div class="plan_mnu_line"></div>
-		<a href="detail_cotent/schedule"><div class="plan_mnu on">일정표</div></a>
+		<a href="time_schedule?tour_id=44"><div class="plan_mnu on">일정표</div></a>
 		<div class="plan_mnu_line"></div>
-		<div class="plan_mnu on">지도</div>
+		<a href="story"><div class="plan_mnu on">스토리</div></a>
+		<div class="plan_mnu_line"></div>
+		<a href="memo"><div class="plan_mnu on">메모</div></a>
+		<div class="plan_mnu_line"></div>
+		<a href="map"><div class="plan_mnu on">지도</div></a>
 		<div class="plan_mnu_line"></div>
 		<div class="plan_mnu on">댓글</div>
 	</div>

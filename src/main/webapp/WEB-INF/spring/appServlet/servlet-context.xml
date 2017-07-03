@@ -58,6 +58,10 @@
 	<!-- Restful 처리 -->
 	<beans:bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
 
+	<!-- TimeShedule -->
+	<beans:bean id="TimeShceduleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.tour.dao.TimeScheduleMapper"
+	/>
 
 	
 </beans:beans>

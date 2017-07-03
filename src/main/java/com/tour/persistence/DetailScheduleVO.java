@@ -11,7 +11,28 @@ public class DetailScheduleVO {
 	private String memo;
 	private int budget;
 	private String transportation;
-	
+	private PlaceVO placeVO;
+	private int day;
+	private String gubun;
+
+	public String getGubun() {
+		return gubun;
+	}
+	public void setGubun(String gubun) {
+		this.gubun = gubun;
+	}
+	public int getDay() {
+		return day;
+	}
+	public void setDay(int day) {
+		this.day = day;
+	}
+	public PlaceVO getPlaceVO() {
+		return placeVO;
+	}
+	public void setPlaceVO(PlaceVO placeVO) {
+		this.placeVO = placeVO;
+	}
 	public int getDetail_schedule_id() {
 		return detail_schedule_id;
 	}

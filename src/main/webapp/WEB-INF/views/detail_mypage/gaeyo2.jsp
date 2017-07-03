@@ -1,43 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
 <html>
 <head>
+
+<!-- <link href="/resources/css/gaeyo.less" rel="stylesheet/less"> -->
+<!-- <link href="/resources/css/plan_sub.css" rel="stylesheet"> -->
 <link href="/resources/css/gaeyo.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
+<script src="/resources/lib/jquery/jquery.min.js"></script>
+<!-- <script src="/resources/js/gaeyo.js"></script> -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
+<script>
+function scrollFix(a){
+	window.scrollTO(a,0)
+}
+function up(){
+	a=document.body.scrollLeft;
+	
+}
+</script>
+
 </head>
 <body>
-<div class="container">
-    <div class="page-header">
-        <h1 id="timeline">나의 계획 일정 </h1>
-    </div>
-    <ul class="timeline">
+<div class="wrap">
+<ul class="timeline">
+   <c:forEach var="vo" items="${list }">
+  <li>
+   	 
+      <header class="year">
+      		<div style="border:1px solid;width:70px;">DAY${vo.day }</div>
+      </header>
     
-    	<!-- 왼쪽 계획일정 -->
-        <li>
-          <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
-          <div class="timeline-panel">
-          <img src="http://cfile4.uf.tistory.com/image/2654EE455335350D086DB1" class="spot_img">
-            <div class="timeline-heading">
-              <h4 class="timeline-title">    낙산공원</h4>
-              <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>     대학로에 있어용</small></p>
-            </div>
-          </div>
-        </li>
-        <p>&nbsp;</p>
-        <!-- 오른쪽 계획일정 -->
-        <li class="timeline-inverted">
-          <div class="timeline-badge warning"><i class="glyphicon glyphicon-credit-card"></i></div>
-          <div class="timeline-panel">
-          <img src="http://korean.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=168&fileTy=MEDIA&fileNo=1&thumbTy=L" class="spot_img">
-            <div class="timeline-heading">
-              <h4 class="timeline-title">    경복궁</h4>
-              <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>    광화문에 갑시다</small></p>
-            </div>
-          </div>
-        </li>
-    </ul>
+        <div class="box">
+        <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${vo.placeVO.image }&key=AIzaSyAMbeNVdxJghsGGfBjDJwHPqYXXqgb-D0E" class="spot_img" style="float:left;width:80px;height:83px;">
+             <h4 align="left">&nbsp;${vo.placeVO.name }</h4>
+              <p align="left">&nbsp;&nbsp;${vo.placeVO.address }</p>
+        </div>
+        <c:if test="${vo.gubun>0 }">
+        <div style="display:block;height:3px;border:0;border-top:3px solid #041102;margin:1em 0;padding:0;"></div>
+   		</c:if>
+    </li>
+    </c:forEach>
+</ul>
 </div>
+
 </body>
 </html>

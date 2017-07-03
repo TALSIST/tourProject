@@ -12,52 +12,42 @@
 
 <!-- Favicon -->
 <link href="/resources/img/favicon.ico" rel="icon">
-
 <!-- Google Fonts -->
 <link
 	href="https://fonts.googleapis.com/css?family=Raleway:400,500,700|Roboto:400,900"
 	rel="stylesheet">
-
 <!-- Bootstrap CSS File -->
 <link href="/resources/lib/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
-
 <!-- Libraries CSS Files -->
 <link href="/resources/lib/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet">
-
 <!-- Main Stylesheet File -->
 <link href="/resources/css/style1.css" rel="stylesheet">
-
 <!-- 삽입시킨 css -->
 <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
-<style>
-.pagination {
-	display: inline-block;
-}
 
-.pagination a {
-	color: black;
-	float: left;
-	padding: 8px 16px;
-	text-decoration: none;
-	transition: background-color .3s;
-	border: 1px solid #ddd;
-}
 
-.pagination a.active {
-	background-color: #199EB8;
-	color: white;
-	border: 1px solid #199EB8;
-}
+<script src="http://code.jquery.com/jquery.js"></script>
+<script>
+$(function(){ 
+	$.ajax({
+		type:"POST",
+		url:"result.do",
+		data:{"page": "1"},
+		success:function(response){
+			$('#result').html(response);
+		}
+	});
 
-.pagination a:hover:not(.active ) {
-	background-color: #ddd;
-}
-</style>
+	
+});
+</script>
 </head>
 
 <body>
+	
+
 	<!-- Header -->
 	<header id="header">
 		<div class="container">
@@ -112,62 +102,32 @@
 		<!-- <img alt="Bell - A perfect theme" class="gadgets-img hidden-md-down" src="/resources/img/gadgets.png"> -->
 	</div>
 	<!-- /Parallax -->
-
-	<div class="container text-center">
-
-		<h2>모든일정목록</h2>
-		<p>다양한 사람들이 만든 일정을 확인하세요!</p>
-
-		<!-- content include -->
-		<div class="container1">
-        <!-- Page Features -->
-        
-        <div class="row text-center">
-        
-        <c:forEach var="vo" items="${list }">
-            <div class="col-md-4 col-sm-6">
-                <div class="thumbnail">
-                    <img src="/resources/img/${vo.img }" alt="">
-                    <div class="caption">
-                        <h3>${vo.title }</h3>
-                        <p>${vo.subTitle }</p>
-                        <p>
-                            <a href="${vo.tour_id }" class="btn btn-primary">찜하기</a> <a href="#" class="btn btn-default">자세히</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            </c:forEach>
-		<!-- /content include -->
+	
+	<div class="container">
+	<div class="panel-group">
+    	<div class="panel panel-default">
+      	<div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse1">Collapsible list group</a>
+        </h4>
+      	</div>
+      	<div id="collapse1" class="panel-collapse collapse">
+        <ul class="list-group">
+          <li class="list-group-item">One</li>
+          <li class="list-group-item">Two</li>
+          <li class="list-group-item">Three</li>
+        </ul>
+        <div class="panel-footer">Footer</div>
+      	</div>
+    	</div>
+  		</div>
+		</div>
 	</div>
-	<center>
-	<div class="pagination">
-	<c:if test="${startPage==1 }">
-  	<a href="javascript:">&laquo;</a>
-  	</c:if>
-  	<c:if test="${startPage!=1 }">
-  	<a href="/list?page=${startPage-1 }">&laquo;</a>
-  	</c:if>
-  	
-  	<c:forEach var="i" begin="${startPage }" end="${endPage }">
-  	<c:if test="${i==page }">
-  	<a href="/list?page=${i }" class="active">${i }</a>
-  	</c:if>
-  	<c:if test="${i!=page }">
-  	<a href="/list?page=${i }">${i }</a>
-  	</c:if>
-  	</c:forEach>
-  	
-  	<c:if test="${endPage==totalpage }">
-  	<a href="javascript:">&raquo;</a>
-  	</c:if>
-  	<c:if test="${endPage!=totalpage }">
-  	<a href="/list?page=${endPage+1 }">&raquo;</a>
-  	</c:if>
+
+	<!-- result들어갈 자리 -->
+	<div id=result>
+	
 	</div>
-	</center>
-
-
 
 	<!-- @component: footer -->
 

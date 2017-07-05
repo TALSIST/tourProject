@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,9 +26,9 @@
 <link href="/resources/css/style1.css" rel="stylesheet">
 <!-- 삽입시킨 css -->
 <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery.js"></script>
 
-
-<script src="http://code.jquery.com/jquery.js"></script>
 <script>
 	$(function() {
 		$.ajax({
@@ -43,13 +43,22 @@
 		});
 
 		$("#down").click(function() {
-			if ($("#filter").css("display") == "none") {
+			if ($('[name="hiddenTab"]').css("display") == "none") {
+				$(this).text("올리기");
 				$("#filter").css("display", "block");
-				$("#tab").css("display", "block");
+				$('[name="hiddenTab"]').css("display", "block");
 			} else {
+				$(this).text("▼");
 				$("#filter").css("display", "none");
-				$("#tab").css("display", "none");
+				$('[name="hiddenTab"]').css("display", "none");
 			}
+		});
+		$('[name="continent"]').click(function(){
+			var i = $(this).attr('value');
+			$('[name="continent"]').css("color", "black");
+			$(this).css("color", "#199EB8");
+			$('[name="all"]').css("display", "none");
+			$("#"+i).css("display","block");
 		});
 	});
 </script>
@@ -120,7 +129,7 @@
 			<!-- 필터 -->
 			<li class="list-group-item" style="display: none" id="filter">
 				<div class="row">
-					<div class="col-md-3 col-sm-2">필터</div>
+					<div class="col-md-3 col-sm-2" style="font-weight: bold">필터</div>
 					<div class="col-md-9 col-sm-10">검색결과</div>
 				</div>
 			</li>
@@ -135,64 +144,64 @@
 					<div class="col-md-1 col-sm-1">미국</div>
 					<div class="col-md-1 col-sm-1">대만</div>
 					<div class="col-md-2 col-sm-2">프랑스</div>
-					<div class="col-md-2 col-sm-2" id="down" style="cursor: pointer">▼</div>
+					<div class="col-md-2 col-sm-2" id="down" style="cursor: pointer; color:#199EB8">▼</div>
 				</div>
 			</li>
 			<!-- 탭 -->
-			<li class="list-group-item" id=tab style="display:none">
-				<ul class="nav nav-tabs">
-					<li class="active"><a data-toggle="tab" href="#home">아시아</a></li>
-					<li><a data-toggle="tab" href="#menu1">유럽</a></li>
-					<li><a data-toggle="tab" href="#menu2">남태평양</a></li>
-					<li><a data-toggle="tab" href="#menu3">북미</a></li>
-					<li><a data-toggle="tab" href="#menu3">중남미</a></li>
-				</ul>
-
-				<div class="tab-content">
-					<div id="home" class="tab-pane fade in active">
-					<div class="col-md-2 col-sm-2">일본</div>
-					<div class="col-md-2 col-sm-2">마카오</div>
-					<div class="col-md-2 col-sm-2">말레이시아</div>
-					<div class="col-md-2 col-sm-2">베트남</div>
-					<div class="col-md-2 col-sm-2">싱카포르</div>
-					<div class="col-md-2 col-sm-2">인도</div>
-					<div class="col-md-2 col-sm-2">중국</div>
-					<div class="col-md-2 col-sm-2">캄보디아</div>
-					</div>
-					<div id="menu1" class="tab-pane fade">
-					<div class="col-md-1 col-sm-1">국내</div>
-					<div class="col-md-1 col-sm-1">일본</div>
-					<div class="col-md-1 col-sm-1">홍콩</div>
-					<div class="col-md-1 col-sm-1">태국</div>
-					<div class="col-md-1 col-sm-1">미국</div>
-					<div class="col-md-1 col-sm-1">대만</div>
-					<div class="col-md-2 col-sm-2">프랑스</div>
-					</div>
-					<div id="menu2" class="tab-pane fade">
-					<div class="col-md-1 col-sm-1">유럽</div>
-					<div class="col-md-1 col-sm-1">일본</div>
-					<div class="col-md-1 col-sm-1">홍콩</div>
-					<div class="col-md-1 col-sm-1">태국</div>
-					<div class="col-md-1 col-sm-1">미국</div>
-					<div class="col-md-1 col-sm-1">대만</div>
-					<div class="col-md-2 col-sm-2">프랑스</div>
-					</div>
-					<div id="menu3" class="tab-pane fade">
-					<div class="col-md-1 col-sm-1">중남미닷</div>
-					<div class="col-md-1 col-sm-1">일본</div>
-					<div class="col-md-1 col-sm-1">홍콩</div>
-					<div class="col-md-1 col-sm-1">태국</div>
-					<div class="col-md-1 col-sm-1">미국</div>
-					<div class="col-md-1 col-sm-1">대만</div>
-					<div class="col-md-2 col-sm-2">프랑스</div>
-					</div>
-				</div>
+			<li class="list-group-item" name=hiddenTab style="display:none; cursor:pointer">
 				<div class="row">
-					<div class="col-md-1 col-sm-1">아시아</div>
+					<div class="col-md-2 col-sm-2" name="continent" value="europe" style="color:#199EB8">유럽</div>
+					<div class="col-md-2 col-sm-2" name="continent" value="southPacific">남태평양</div>
+					<div class="col-md-2 col-sm-2" name="continent" value="northAmerica">북미</div>
+					<div class="col-md-2 col-sm-2" name="continent" value="middleAmerica">중남미</div>
+					<div class="col-md-2 col-sm-2" name="continent" value="asia">아시아</div>
+				</div>
+			</li>
+			<li class="list-group-item" name=hiddenTab style="display:none">
+				<div class="row" id="europe" name="all" style="display:block">
+					<div class="col-md-2 col-sm-2">아일랜드</div>	
+					<div class="col-md-2 col-sm-2">영국</div>
+					<div class="col-md-2 col-sm-2">스웨덴</div>
+					<div class="col-md-2 col-sm-2">이탈리아</div>
+					<div class="col-md-2 col-sm-2">스페인</div>
+					<div class="col-md-2 col-sm-2">헝가리</div>
+					<div class="col-md-2 col-sm-2">핀란드</div>
+					<div class="col-md-2 col-sm-2">터키</div>
+					<div class="col-md-2 col-sm-2">포르투갈</div>
+					<div class="col-md-2 col-sm-2">슬로베니아</div>
+					<div class="col-md-2 col-sm-2">폴란드</div>
+					<div class="col-md-2 col-sm-2">프랑스</div>
+				</div>
+				<div class="row" id="southPacific" name="all" style="display:none">
+					<div class="col-md-2 col-sm-2">뉴질랜드</div>
+					<div class="col-md-2 col-sm-2">괌</div>
+					<div class="col-md-2 col-sm-2">사이판</div>
+					<div class="col-md-2 col-sm-2">피지</div>
+					<div class="col-md-2 col-sm-2"></div>
+					<div class="col-md-2 col-sm-2"></div>
+				</div>
+				<div class="row" id="northAmerica" name="all" style="display:none">
+					<div class="col-md-2 col-sm-2">자메이카</div>
+					<div class="col-md-2 col-sm-2">에콰도르</div>
+					<div class="col-md-2 col-sm-2">브라질</div>
+					<div class="col-md-2 col-sm-2">아르헨티나</div>
+					<div class="col-md-2 col-sm-2">멕시코</div>
+					<div class="col-md-2 col-sm-2">페루</div>
+					<div class="col-md-2 col-sm-2">콜롬비아</div>
+				</div>
+				<div class="row" id="middleAmerica" name="all" style="display:none">
+					<div class="col-md-2 col-sm-2">캐나다</div>
+					<div class="col-md-2 col-sm-2">미국</div>
+				</div>
+					<div class="row" id="asia" name=all style="display:none">
+					<div class="col-md-2 col-sm-2">아직없음</div>
 				</div>
 			</li>
 			<li class="list-group-item">
-				<div class="row"></div>
+				<div align="center">
+				<input type=text placeholder="여행지를 검색하세요" size=30>
+				<input type=button value=검색>
+				</div>
 			</li>
 		</ul>
 	</div>
@@ -248,7 +257,7 @@
 
 
     <!-- Required JavaScript Libraries -->
-	<script src="/resources/lib/jquery/jquery.min.js"></script>
+
 	<script src="/resources/lib/superfish/hoverIntent.js"></script>
 	<script src="/resources/lib/superfish/superfish.min.js"></script>
 	<script src="/resources/lib/tether/js/tether.min.js"></script>

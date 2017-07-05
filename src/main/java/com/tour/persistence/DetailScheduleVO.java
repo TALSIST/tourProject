@@ -1,6 +1,8 @@
 package com.tour.persistence;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DetailScheduleVO {
 	private int detail_schedule_id;
@@ -81,5 +83,4 @@ public class DetailScheduleVO {
 	public void setTransportation(String transportation) {
 		this.transportation = transportation;
 	}
-	
 }

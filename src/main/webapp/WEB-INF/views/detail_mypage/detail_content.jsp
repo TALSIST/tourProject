@@ -21,11 +21,9 @@
 		<div class="plan_mnu_line"></div>
 		<a href="time_schedule?tour_id=44"><div class="plan_mnu on">일정표</div></a>
 		<div class="plan_mnu_line"></div>
-		<a href="story"><div class="plan_mnu on">스토리</div></a>
+		<a href="story?tour_id=${tour_id }"><div class="plan_mnu on">스토리</div></a>
 		<div class="plan_mnu_line"></div>
-		<a href="memo"><div class="plan_mnu on">메모</div></a>
-		<div class="plan_mnu_line"></div>
-		<a href="map"><div class="plan_mnu on">지도</div></a>
+		<a href="map?tour_id=${tour_id }"><div class="plan_mnu on">지도</div></a>
 		<div class="plan_mnu_line"></div>
 		<div class="plan_mnu on">댓글</div>
 	</div>

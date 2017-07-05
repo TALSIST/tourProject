@@ -28,10 +28,7 @@
     <!-- 삽입시킨 css -->
    <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
    
-   <!-- login css -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-     <link rel='stylesheet prefetch' href='resources/css/anaeyg.css'>
-    <link rel="stylesheet" href="resources/css/login.css">
+   
    
    
   </head>

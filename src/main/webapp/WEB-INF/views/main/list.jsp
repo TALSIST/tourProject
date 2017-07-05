@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,23 +30,33 @@
 
 <script src="http://code.jquery.com/jquery.js"></script>
 <script>
-$(function(){ 
-	$.ajax({
-		type:"POST",
-		url:"result.do",
-		data:{"page": "1"},
-		success:function(response){
-			$('#result').html(response);
-		}
-	});
+	$(function() {
+		$.ajax({
+			type : "POST",
+			url : "result.do",
+			data : {
+				"page" : "1"
+			},
+			success : function(response) {
+				$('#result').html(response);
+			}
+		});
 
-	
-});
+		$("#down").click(function() {
+			if ($("#filter").css("display") == "none") {
+				$("#filter").css("display", "block");
+				$("#tab").css("display", "block");
+			} else {
+				$("#filter").css("display", "none");
+				$("#tab").css("display", "none");
+			}
+		});
+	});
 </script>
 </head>
 
 <body>
-	
+
 
 	<!-- Header -->
 	<header id="header">
@@ -102,32 +112,93 @@ $(function(){
 		<!-- <img alt="Bell - A perfect theme" class="gadgets-img hidden-md-down" src="/resources/img/gadgets.png"> -->
 	</div>
 	<!-- /Parallax -->
-	
+
+	<!-- 검색창 -->
 	<div class="container">
-	<div class="panel-group">
-    	<div class="panel panel-default">
-      	<div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" href="#collapse1">Collapsible list group</a>
-        </h4>
-      	</div>
-      	<div id="collapse1" class="panel-collapse collapse">
-        <ul class="list-group">
-          <li class="list-group-item">One</li>
-          <li class="list-group-item">Two</li>
-          <li class="list-group-item">Three</li>
-        </ul>
-        <div class="panel-footer">Footer</div>
-      	</div>
-    	</div>
-  		</div>
-		</div>
+		<h2>일정 검색</h2>
+		<ul class="list-group">
+			<!-- 필터 -->
+			<li class="list-group-item" style="display: none" id="filter">
+				<div class="row">
+					<div class="col-md-3 col-sm-2">필터</div>
+					<div class="col-md-9 col-sm-10">검색결과</div>
+				</div>
+			</li>
+			<!-- 검색기본 -->
+			<li class="list-group-item">
+				<div class="row">
+					<div class="col-md-2 col-sm-2" style="font-weight: bold">여행지</div>
+					<div class="col-md-1 col-sm-1">국내</div>
+					<div class="col-md-1 col-sm-1">일본</div>
+					<div class="col-md-1 col-sm-1">홍콩</div>
+					<div class="col-md-1 col-sm-1">태국</div>
+					<div class="col-md-1 col-sm-1">미국</div>
+					<div class="col-md-1 col-sm-1">대만</div>
+					<div class="col-md-2 col-sm-2">프랑스</div>
+					<div class="col-md-2 col-sm-2" id="down" style="cursor: pointer">▼</div>
+				</div>
+			</li>
+			<!-- 탭 -->
+			<li class="list-group-item" id=tab style="display:none">
+				<ul class="nav nav-tabs">
+					<li class="active"><a data-toggle="tab" href="#home">아시아</a></li>
+					<li><a data-toggle="tab" href="#menu1">유럽</a></li>
+					<li><a data-toggle="tab" href="#menu2">남태평양</a></li>
+					<li><a data-toggle="tab" href="#menu3">북미</a></li>
+					<li><a data-toggle="tab" href="#menu3">중남미</a></li>
+				</ul>
+
+				<div class="tab-content">
+					<div id="home" class="tab-pane fade in active">
+					<div class="col-md-2 col-sm-2">일본</div>
+					<div class="col-md-2 col-sm-2">마카오</div>
+					<div class="col-md-2 col-sm-2">말레이시아</div>
+					<div class="col-md-2 col-sm-2">베트남</div>
+					<div class="col-md-2 col-sm-2">싱카포르</div>
+					<div class="col-md-2 col-sm-2">인도</div>
+					<div class="col-md-2 col-sm-2">중국</div>
+					<div class="col-md-2 col-sm-2">캄보디아</div>
+					</div>
+					<div id="menu1" class="tab-pane fade">
+					<div class="col-md-1 col-sm-1">국내</div>
+					<div class="col-md-1 col-sm-1">일본</div>
+					<div class="col-md-1 col-sm-1">홍콩</div>
+					<div class="col-md-1 col-sm-1">태국</div>
+					<div class="col-md-1 col-sm-1">미국</div>
+					<div class="col-md-1 col-sm-1">대만</div>
+					<div class="col-md-2 col-sm-2">프랑스</div>
+					</div>
+					<div id="menu2" class="tab-pane fade">
+					<div class="col-md-1 col-sm-1">유럽</div>
+					<div class="col-md-1 col-sm-1">일본</div>
+					<div class="col-md-1 col-sm-1">홍콩</div>
+					<div class="col-md-1 col-sm-1">태국</div>
+					<div class="col-md-1 col-sm-1">미국</div>
+					<div class="col-md-1 col-sm-1">대만</div>
+					<div class="col-md-2 col-sm-2">프랑스</div>
+					</div>
+					<div id="menu3" class="tab-pane fade">
+					<div class="col-md-1 col-sm-1">중남미닷</div>
+					<div class="col-md-1 col-sm-1">일본</div>
+					<div class="col-md-1 col-sm-1">홍콩</div>
+					<div class="col-md-1 col-sm-1">태국</div>
+					<div class="col-md-1 col-sm-1">미국</div>
+					<div class="col-md-1 col-sm-1">대만</div>
+					<div class="col-md-2 col-sm-2">프랑스</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-1 col-sm-1">아시아</div>
+				</div>
+			</li>
+			<li class="list-group-item">
+				<div class="row"></div>
+			</li>
+		</ul>
 	</div>
 
 	<!-- result들어갈 자리 -->
-	<div id=result>
-	
-	</div>
+	<div id=result></div>
 
 	<!-- @component: footer -->
 

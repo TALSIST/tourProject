@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tour.persistence.CityVO;
 import com.tour.persistence.DetailScheduleVO;
+import com.tour.persistence.PlaceVO;
 import com.tour.persistence.ScheduleDayVO;
+import com.tour.persistence.TourVO;
 
 @Repository
 public class TimeScheduleDAO {
 	
 	@Autowired
-	TimeScheduleMapper tsMapper;
-	
+	TimeScheduleMapper tsMapper;	
 	
 	public List<ScheduleDayVO> tourDateList(int tour_id){
 		//System.out.println("TimeScheduleDAO.tourDateList");
@@ -25,5 +26,17 @@ public class TimeScheduleDAO {
 	
 		return list;
 	}
+	
+	public TourVO tourData(int tour_id){
+		TourVO vo=tsMapper.tourData(tour_id);
+		return vo;
+	}
+	
+	public List<PlaceVO> tourPlaceList(int tour_id){
+		//System.out.println("tourPlaceList");
+		List<PlaceVO> list=tsMapper.tourPlaceList(tour_id);
+		return list;
+	}
+
 
 }

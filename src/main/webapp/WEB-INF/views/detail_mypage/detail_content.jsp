@@ -8,6 +8,26 @@
 <link href="/resources/css/plan_sub.css" rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+ $(function(){
+	$('#btnExcel').click(function(){
+		//alert('click');
+		 var tour_id=$('#TourIdVal').val();
+		$.ajax({
+			type:'POST',
+			url:"/time_schedule_excel",
+			data:{"tour_id":tour_id},
+			success:function(response)
+			{
+				alert('Excel 파일이 저장 되었습니다. \n\n'+response);
+			}
+		});
+
+	});
+});  
+
+</script>
 </head>
 <body>
 <div class="plan_page" style="width:1120px;" >
@@ -27,7 +47,11 @@
 		<div class="plan_mnu_line"></div>
 		<a href="map?tour_id=${list2[1].tour_id }"><div class="plan_mnu on">지도</div></a>
 		<div class="plan_mnu_line"></div>
-		<div class="plan_mnu on"style="float:right;color:green;border:1px solid;">엑셀로 다운받기</div>
+		<div class="plan_mnu on"style="float:right;color:green;border:1px solid;" id="btnExcel">
+			엑셀로 다운받기
+		</div>
+		
+		<input type=hidden id="TourIdVal"  value="${list2[1].tour_id }">
 	
 	</div>
 	

@@ -1402,19 +1402,8 @@ img {
 	border-radius: 4px;
 	-webkit-transition: all .2s ease-in-out;
 	-o-transition: all .2s ease-in-out;
-	transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out
 }
-/*이미지 커지기 */
-.cool_img:hover{
-            -webkit-transform:scale(1.2); /*  크롬 */
-            -moz-transform:scale(1.2); /* FireFox */
-            -o-transform:scale(1.2); /* Opera */
-            transform:scale(1.2);
-            transition: transform .50s;
-            -o-transition: transform .5s;
-            -moz-transition: transform .5s;
-            -webkit-transition: transform .5s;
-        }
 
 .img-circle {
 	border-radius: 50%
@@ -5459,12 +5448,10 @@ a.badge:focus, a.badge:hover {
 	border-radius: 4px;
 	-webkit-transition: border .2s ease-in-out;
 	-o-transition: border .2s ease-in-out;
-	transition: border .2s ease-in-out;
-	overflow:hidden;
+	transition: border .2s ease-in-out
 }
 
-/*이미지 크기 일정하게*/
-.thumbnail a>img, .thumbnail>img { 
+.thumbnail a>img, .thumbnail>img { //일정 이미지크기
 	margin-right: auto;
 	margin-left: auto;
 	weight:350px;

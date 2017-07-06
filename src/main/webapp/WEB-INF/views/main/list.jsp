@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,52 +12,102 @@
 
 <!-- Favicon -->
 <link href="/resources/img/favicon.ico" rel="icon">
-
 <!-- Google Fonts -->
 <link
 	href="https://fonts.googleapis.com/css?family=Raleway:400,500,700|Roboto:400,900"
 	rel="stylesheet">
-
 <!-- Bootstrap CSS File -->
 <link href="/resources/lib/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
-
 <!-- Libraries CSS Files -->
 <link href="/resources/lib/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet">
-
 <!-- Main Stylesheet File -->
 <link href="/resources/css/style1.css" rel="stylesheet">
-
 <!-- 삽입시킨 css -->
 <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
-<style>
-.pagination {
-	display: inline-block;
-}
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery.js"></script>
 
-.pagination a {
-	color: black;
-	float: left;
-	padding: 8px 16px;
-	text-decoration: none;
-	transition: background-color .3s;
-	border: 1px solid #ddd;
-}
-
-.pagination a.active {
-	background-color: #199EB8;
-	color: white;
-	border: 1px solid #199EB8;
-}
-
-.pagination a:hover:not(.active ) {
-	background-color: #ddd;
-}
-</style>
+<script>
+	function all(){
+		$.ajax({ //초기화
+			type : "POST",
+			url : "result",
+			data : {
+				"page" : "1"
+			},
+			success : function(response) {
+				$('#result').html(response);
+			}
+		});
+	}
+		
+	$(function() {
+		all();
+		
+		//필터 내용 변경마다 ajax
+		$("#tagSearch").click(function(){
+			$.ajax({
+				type : "POST",
+				url : "result",
+				data : {
+					"page" :"1",
+					"countryName" : $("#filter").children('[data="country"]').text()
+				},
+				success : function(response){
+					$("#result").html(response);
+				}
+			});
+		});
+		
+		
+		//확장
+		$("#down").click(function() {
+			if ($('[name="hiddenTap"]').css("display") == "none") {
+				$(this).text("접기");
+				$('[name="hiddenTap"]').slideDown("slow");
+			} else {
+				$(this).text("더보기");
+				$('[name="hiddenTap"]').slideUp("slow");
+			}
+		});
+		//대륙클릭시 확장
+		$('[name="continent"]').click(function(){
+			var i = $(this).attr('value');
+			$('[name="continent"]').css("color", "black");
+			$(this).css("color", "#199EB8");
+			$('[name="all"]').css("display", "none");
+			$("#"+i).css("display","block");
+		});
+		//국가 클릭시 필터에 태그 추가
+		$('[name="country"]').click(function(){
+			var countryName=$(this).text();
+			$("#tags").append("<div class='col-sm-2 col-md-2' name='hashtag' style='cursor: pointer' type='country' data='"+countryName+" x'>"+countryName+" x</div>");
+			if($("#tags").has("div")){
+				$("#filter").css("display", "block");
+			}
+			$('[name="hiddenTap"]').css("display", "none");
+			$('[name="recommandTab"]').css("display", "none");
+		});		
+	});
+	//필터내 태그 클릭시 삭제
+	$(document).on("click", '[name="hashtag"]', function(){
+		var tagName=$(this).text();
+		$("#tags").children('[data=\"'+tagName+'\"]').remove();
+		
+		if($("#tags").children().size()==0){
+			$("#filter").css("display", "none");
+			$('[name="hiddenTap"]').css("display", "block");
+			$('[name="recommandTab"]').css("display", "block");
+			all();
+		}
+	});
+</script>
 </head>
 
 <body>
+
 	<!-- Header -->
 	<header id="header">
 		<div class="container">
@@ -109,65 +159,85 @@
 		data-toggle="parallax-bg">
 		<h2 style="font-size: 50px">여행일정</h2>
 
-		<!-- <img alt="Bell - A perfect theme" class="gadgets-img hidden-md-down" src="/resources/img/gadgets.png"> -->
 	</div>
 	<!-- /Parallax -->
 
-	<div class="container text-center">
-
-		<h2>모든일정목록</h2>
-		<p>다양한 사람들이 만든 일정을 확인하세요!</p>
-
-		<!-- content include -->
-		<div class="container1">
-        <!-- Page Features -->
-        
-        <div class="row text-center">
-        
-        <c:forEach var="vo" items="${list }">
-            <div class="col-md-4 col-sm-6">
-                <div class="thumbnail">
-                    <img src="/resources/img/${vo.img }" alt="">
-                    <div class="caption">
-                        <h3>${vo.title }</h3>
-                        <p>${vo.subTitle }</p>
-                        <p>
-                            <a href="${vo.tour_id }" class="btn btn-primary">찜하기</a> <a href="#" class="btn btn-default">자세히</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            </c:forEach>
-		<!-- /content include -->
+	<!-- 검색창 -->
+	<div class="container">
+		<h2>일정 검색</h2>
+		<ul class="list-group">
+			<!-- 필터 -->
+			<li class="list-group-item" style="display: none" id="filter">
+				<div class="row">
+					<div class="col-md-2 col-sm-2" style="font-weight: bold">필터</div>
+					<div class="col-md-9 col-sm-9" id="tags"></div>
+					<div class="col-md-1 col-sm-1" ><input type=button value="검색" id="tagSearch"></div>
+				</div>
+			</li>
+			<!-- 검색기본 -->
+			<li class="list-group-item" name="recommandTab">
+				<div class="row">
+					<div class="col-md-2 col-sm-2" style="font-weight: bold">추천 여행지</div>
+					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">사이판</div>
+					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">미국</div>
+					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">이탈리아</div>
+					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">영국</div>
+					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">뉴질랜드</div>
+					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">괌</div>
+					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">페루</div>
+					<div class="col-md-2 col-sm-2" id="down" style="cursor: pointer; color:#199EB8">더보기</div>
+				</div>
+			</li>
+			<!-- 대륙탭 -->
+			<li class="list-group-item" name=hiddenTap style="display:none; cursor:pointer">
+				<div class="row">
+					<div class="col-md-2 col-sm-2" name="continent" value="europe" style="color:#199EB8">유럽</div>
+					<div class="col-md-2 col-sm-2" name="continent" value="southPacific">남태평양</div>
+					<div class="col-md-2 col-sm-2" name="continent" value="northAmerica">북미</div>
+					<div class="col-md-2 col-sm-2" name="continent" value="middleAmerica">중남미</div>
+					<div class="col-md-2 col-sm-2" name="continent" value="asia">아시아</div>
+				</div>
+			</li>
+			<!-- 대륙별 국가 띄우기 -->
+			<li class="list-group-item" name=hiddenTap style="display:none">
+				<div class="row" id="europe" name="all" style="display:block">
+				<c:forEach var="countryName" items="${eList}">
+					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">${countryName}</div>	
+				</c:forEach>
+				</div>
+				<div class="row" id="southPacific" name="all" style="display:none">
+				<c:forEach var="countryName" items="${sList}">
+					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">${countryName}</div>	
+				</c:forEach>
+				</div>
+				<div class="row" id="northAmerica" name="all" style="display:none">
+				<c:forEach var="countryName" items="${nList}">
+					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">${countryName}</div>	
+				</c:forEach>
+				</div>
+				<div class="row" id="middleAmerica" name="all" style="display:none">
+				<c:forEach var="countryName" items="${mList}">
+					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">${countryName}</div>	
+				</c:forEach>
+				</div>
+				<div class="row" id="asia" name="all" style="display:none">
+				<c:forEach var="countryName" items="${aList}">
+					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">${countryName}</div>	
+				</c:forEach>
+				</div>
+			</li>
+			
+			<li class="list-group-item" name=hiddenTap style="display:none">
+				<div align="center">
+					<input type=text placeholder="여행지를 검색하세요" size=30>
+					<input type=button value=직접검색>
+				</div>
+			</li>		
+		</ul>
 	</div>
-	<center>
-	<div class="pagination">
-	<c:if test="${startPage==1 }">
-  	<a href="javascript:">&laquo;</a>
-  	</c:if>
-  	<c:if test="${startPage!=1 }">
-  	<a href="/list?page=${startPage-1 }">&laquo;</a>
-  	</c:if>
-  	
-  	<c:forEach var="i" begin="${startPage }" end="${endPage }">
-  	<c:if test="${i==page }">
-  	<a href="/list?page=${i }" class="active">${i }</a>
-  	</c:if>
-  	<c:if test="${i!=page }">
-  	<a href="/list?page=${i }">${i }</a>
-  	</c:if>
-  	</c:forEach>
-  	
-  	<c:if test="${endPage==totalpage }">
-  	<a href="javascript:">&raquo;</a>
-  	</c:if>
-  	<c:if test="${endPage!=totalpage }">
-  	<a href="/list?page=${endPage+1 }">&raquo;</a>
-  	</c:if>
-	</div>
-	</center>
 
-
+	<!-- result들어갈 자리 -->
+	<div id=result></div>
 
 	<!-- @component: footer -->
 
@@ -217,7 +287,7 @@
 
 
     <!-- Required JavaScript Libraries -->
-	<script src="/resources/lib/jquery/jquery.min.js"></script>
+
 	<script src="/resources/lib/superfish/hoverIntent.js"></script>
 	<script src="/resources/lib/superfish/superfish.min.js"></script>
 	<script src="/resources/lib/tether/js/tether.min.js"></script>

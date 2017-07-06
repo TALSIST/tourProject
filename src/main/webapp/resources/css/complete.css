@@ -1,0 +1,8 @@
+@charset "utf-8";
+
+#this_modal_title{font-size:20px;float:left;margin:20px;font-weight:normal;font-family:'nanum';}
+.modal_btn_close{margin-right:0px;}
+.modal_textarea{width:350px;height:80px;};
+.theme_div{width:400px;height:100px;margin:100px;}
+.theme_img{border:1px solid gray;}
+.theme_radio{float:left;width:100px;height:100px;}

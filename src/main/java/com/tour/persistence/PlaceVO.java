@@ -14,7 +14,14 @@ public class PlaceVO {
 	private int good;
 	private String latitude;
 	private String longitude;
+	private SubCategoryVO subcategory;
 	
+	public SubCategoryVO getSubcategory() {
+		return subcategory;
+	}
+	public void setSubcategory(SubCategoryVO subcategory) {
+		this.subcategory = subcategory;
+	}
 	public int getPlace_id() {
 		return place_id;
 	}

@@ -11,10 +11,17 @@ public class ScheduleDayVO {
 	private String day_title;
 	private String day_day;
 	private String day_order;
+	private String day_title_short;
 	
 	List<CityVO>   cityVO;
 	List<PlaceVO> placeVO;
 	
+	public String getDay_title_short() {
+		return day_title_short;
+	}
+	public void setDay_title_short(String day_title_short) {
+		this.day_title_short = day_title_short;
+	}
 	public int getTour_id() {
 		return tour_id;
 	}

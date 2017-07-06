@@ -44,7 +44,7 @@ html, body{overflow:hidden !important;}
   background:url('/res/img/workspace/new/cu_next_icon.png') no-repeat 225px 30px;
 }
 #country_list_box .item:hover{
-	background-color:#f7f7f7;
+   background-color:#f7f7f7;
 }
 
 .item .img_box {
@@ -71,7 +71,7 @@ html, body{overflow:hidden !important;}
   position: relative;
 }
 #city_list_box .item:hover{
-	background-color:#f7f7f7;
+   background-color:#f7f7f7;
 }
 .spot_to_inspot{  cursor: pointer;
   position: absolute;
@@ -86,7 +86,7 @@ html, body{overflow:hidden !important;}
      font-weight: bold;
      text-align: center;
      min-width: 40px;
-	 padding:2px;
+    padding:2px;
      border: 1px solid black;
      white-space: nowrap;
    }

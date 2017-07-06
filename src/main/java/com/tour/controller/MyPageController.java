@@ -34,7 +34,7 @@ public class MyPageController {
 	public String detail_content(@ModelAttribute("tour_id") int tour_id,Model model){
 		List<DetailScheduleVO> list = dao.detailMyPage(tour_id);
 		list = util.getDay(list);
-		model.addAttribute("list",list);
+		model.addAttribute("list2",list);
 		model.addAttribute("jsp_page","detail_mypage/detail_content");
 		return "mypage/mypage";
 	}
@@ -42,14 +42,35 @@ public class MyPageController {
 	public String gaeyo(int tour_id,Model model){
 		List<DetailScheduleVO> list = dao.detailMyPage(tour_id);
 		list = util.getDay(list);
-		model.addAttribute("list",list);
+		model.addAttribute("list2",list);
 		model.addAttribute("jsp_page","detail_mypage/detail_content");
 		model.addAttribute("my_page_gubun","gaeyo2.jsp");
 		return "mypage/mypage";
 	}
 
+<<<<<<< HEAD
+=======
+	@RequestMapping("/story")
+	public String story(int tour_id,Model model){
+		List<DetailScheduleVO> list = dao.detailMyPage(tour_id);
+		model.addAttribute("list2",list);
+		model.addAttribute("jsp_page","detail_mypage/detail_content");
+		model.addAttribute("my_page_gubun","story.jsp");
+		return "mypage/mypage";
+	}
+	@RequestMapping("/memo")
+	public String memo(int tour_id,Model model){
+		List<DetailScheduleVO> list = dao.detailMyPage(tour_id);
+		model.addAttribute("list2",list);
+		model.addAttribute("jsp_page","detail_mypage/detail_content");
+		model.addAttribute("my_page_gubun","memo.jsp");
+		return "mypage/mypage";
+	}
+>>>>>>> 74ab25b6d9950a24f1d0f60c9310c7a968232a87
 	@RequestMapping("/map")
-	public String map(Model model){
+	public String map(int tour_id,Model model){
+		List<DetailScheduleVO> list = dao.detailMyPage(tour_id);
+		model.addAttribute("list2",list);
 		model.addAttribute("jsp_page","detail_mypage/detail_content");
 		model.addAttribute("my_page_gubun","map.jsp");
 		return "mypage/mypage";

@@ -6,20 +6,33 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.tour.persistence.MainContentVO;
+
 @Repository
 public class MainContentDAO {
 	@Autowired
 	private MainContentMapper mcMapper;
 	
-	public int contenttotalpage(){
-		return mcMapper.contenttotalpage();
+	public int contentTotalPage(){
+		return mcMapper.contentTotalPage();
+	}
+	public int contentTotalPage(String countryName){
+		return mcMapper.contentTotalPage(countryName);
 	}
 	
 	public List<MainContentVO> contentData(Map map){
 		return mcMapper.contentData(map);
 	}
 	
+	public List<MainContentVO> contentDataSearch(Map map){
+		return mcMapper.contentDataSearch(map);
+	}
+	
 	public List<MainContentVO> contentDataMain(){ //메인페이지에서 띄우는거~!
 		return mcMapper.contentDataMain();
+	}
+	
+	public List<String> countryFromContinent(String continentName){
+		return mcMapper.countryFromContinent(continentName);
 	}
 }

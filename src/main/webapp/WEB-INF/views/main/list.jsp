@@ -30,10 +30,10 @@
 <script src="https://code.jquery.com/jquery.js"></script>
 
 <script>
-	$(function() {
-		$.ajax({
+	function all(){
+		$.ajax({ //초기화
 			type : "POST",
-			url : "result.do",
+			url : "result",
 			data : {
 				"page" : "1"
 			},
@@ -41,18 +41,38 @@
 				$('#result').html(response);
 			}
 		});
-
+	}
+		
+	$(function() {
+		all();
+		
+		//필터 내용 변경마다 ajax
+		$("#tagSearch").click(function(){
+			$.ajax({
+				type : "POST",
+				url : "result",
+				data : {
+					"page" :"1",
+					"countryName" : $("#filter").children('[data="country"]').text()
+				},
+				success : function(response){
+					$("#result").html(response);
+				}
+			});
+		});
+		
+		
+		//확장
 		$("#down").click(function() {
-			if ($('[name="hiddenTab"]').css("display") == "none") {
-				$(this).text("올리기");
-				$("#filter").css("display", "block");
-				$('[name="hiddenTab"]').css("display", "block");
+			if ($('[name="hiddenTap"]').css("display") == "none") {
+				$(this).text("접기");
+				$('[name="hiddenTap"]').slideDown("slow");
 			} else {
-				$(this).text("▼");
-				$("#filter").css("display", "none");
-				$('[name="hiddenTab"]').css("display", "none");
+				$(this).text("더보기");
+				$('[name="hiddenTap"]').slideUp("slow");
 			}
 		});
+		//대륙클릭시 확장
 		$('[name="continent"]').click(function(){
 			var i = $(this).attr('value');
 			$('[name="continent"]').css("color", "black");
@@ -60,12 +80,33 @@
 			$('[name="all"]').css("display", "none");
 			$("#"+i).css("display","block");
 		});
+		//국가 클릭시 필터에 태그 추가
+		$('[name="country"]').click(function(){
+			var countryName=$(this).text();
+			$("#tags").append("<div class='col-sm-2 col-md-2' name='hashtag' style='cursor: pointer' type='country' data='"+countryName+" x'>"+countryName+" x</div>");
+			if($("#tags").has("div")){
+				$("#filter").css("display", "block");
+			}
+			$('[name="hiddenTap"]').css("display", "none");
+			$('[name="recommandTab"]').css("display", "none");
+		});		
+	});
+	//필터내 태그 클릭시 삭제
+	$(document).on("click", '[name="hashtag"]', function(){
+		var tagName=$(this).text();
+		$("#tags").children('[data=\"'+tagName+'\"]').remove();
+		
+		if($("#tags").children().size()==0){
+			$("#filter").css("display", "none");
+			$('[name="hiddenTap"]').css("display", "block");
+			$('[name="recommandTab"]').css("display", "block");
+			all();
+		}
 	});
 </script>
 </head>
 
 <body>
-
 
 	<!-- Header -->
 	<header id="header">
@@ -118,7 +159,6 @@
 		data-toggle="parallax-bg">
 		<h2 style="font-size: 50px">여행일정</h2>
 
-		<!-- <img alt="Bell - A perfect theme" class="gadgets-img hidden-md-down" src="/resources/img/gadgets.png"> -->
 	</div>
 	<!-- /Parallax -->
 
@@ -129,26 +169,27 @@
 			<!-- 필터 -->
 			<li class="list-group-item" style="display: none" id="filter">
 				<div class="row">
-					<div class="col-md-3 col-sm-2" style="font-weight: bold">필터</div>
-					<div class="col-md-9 col-sm-10">검색결과</div>
+					<div class="col-md-2 col-sm-2" style="font-weight: bold">필터</div>
+					<div class="col-md-9 col-sm-9" id="tags"></div>
+					<div class="col-md-1 col-sm-1" ><input type=button value="검색" id="tagSearch"></div>
 				</div>
 			</li>
 			<!-- 검색기본 -->
-			<li class="list-group-item">
+			<li class="list-group-item" name="recommandTab">
 				<div class="row">
-					<div class="col-md-2 col-sm-2" style="font-weight: bold">여행지</div>
-					<div class="col-md-1 col-sm-1">국내</div>
-					<div class="col-md-1 col-sm-1">일본</div>
-					<div class="col-md-1 col-sm-1">홍콩</div>
-					<div class="col-md-1 col-sm-1">태국</div>
-					<div class="col-md-1 col-sm-1">미국</div>
-					<div class="col-md-1 col-sm-1">대만</div>
-					<div class="col-md-2 col-sm-2">프랑스</div>
-					<div class="col-md-2 col-sm-2" id="down" style="cursor: pointer; color:#199EB8">▼</div>
+					<div class="col-md-2 col-sm-2" style="font-weight: bold">추천 여행지</div>
+					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">사이판</div>
+					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">미국</div>
+					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">이탈리아</div>
+					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">영국</div>
+					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">뉴질랜드</div>
+					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">괌</div>
+					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">페루</div>
+					<div class="col-md-2 col-sm-2" id="down" style="cursor: pointer; color:#199EB8">더보기</div>
 				</div>
 			</li>
-			<!-- 탭 -->
-			<li class="list-group-item" name=hiddenTab style="display:none; cursor:pointer">
+			<!-- 대륙탭 -->
+			<li class="list-group-item" name=hiddenTap style="display:none; cursor:pointer">
 				<div class="row">
 					<div class="col-md-2 col-sm-2" name="continent" value="europe" style="color:#199EB8">유럽</div>
 					<div class="col-md-2 col-sm-2" name="continent" value="southPacific">남태평양</div>
@@ -157,52 +198,41 @@
 					<div class="col-md-2 col-sm-2" name="continent" value="asia">아시아</div>
 				</div>
 			</li>
-			<li class="list-group-item" name=hiddenTab style="display:none">
+			<!-- 대륙별 국가 띄우기 -->
+			<li class="list-group-item" name=hiddenTap style="display:none">
 				<div class="row" id="europe" name="all" style="display:block">
-					<div class="col-md-2 col-sm-2">아일랜드</div>	
-					<div class="col-md-2 col-sm-2">영국</div>
-					<div class="col-md-2 col-sm-2">스웨덴</div>
-					<div class="col-md-2 col-sm-2">이탈리아</div>
-					<div class="col-md-2 col-sm-2">스페인</div>
-					<div class="col-md-2 col-sm-2">헝가리</div>
-					<div class="col-md-2 col-sm-2">핀란드</div>
-					<div class="col-md-2 col-sm-2">터키</div>
-					<div class="col-md-2 col-sm-2">포르투갈</div>
-					<div class="col-md-2 col-sm-2">슬로베니아</div>
-					<div class="col-md-2 col-sm-2">폴란드</div>
-					<div class="col-md-2 col-sm-2">프랑스</div>
+				<c:forEach var="countryName" items="${eList}">
+					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">${countryName}</div>	
+				</c:forEach>
 				</div>
 				<div class="row" id="southPacific" name="all" style="display:none">
-					<div class="col-md-2 col-sm-2">뉴질랜드</div>
-					<div class="col-md-2 col-sm-2">괌</div>
-					<div class="col-md-2 col-sm-2">사이판</div>
-					<div class="col-md-2 col-sm-2">피지</div>
-					<div class="col-md-2 col-sm-2"></div>
-					<div class="col-md-2 col-sm-2"></div>
+				<c:forEach var="countryName" items="${sList}">
+					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">${countryName}</div>	
+				</c:forEach>
 				</div>
 				<div class="row" id="northAmerica" name="all" style="display:none">
-					<div class="col-md-2 col-sm-2">자메이카</div>
-					<div class="col-md-2 col-sm-2">에콰도르</div>
-					<div class="col-md-2 col-sm-2">브라질</div>
-					<div class="col-md-2 col-sm-2">아르헨티나</div>
-					<div class="col-md-2 col-sm-2">멕시코</div>
-					<div class="col-md-2 col-sm-2">페루</div>
-					<div class="col-md-2 col-sm-2">콜롬비아</div>
+				<c:forEach var="countryName" items="${nList}">
+					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">${countryName}</div>	
+				</c:forEach>
 				</div>
 				<div class="row" id="middleAmerica" name="all" style="display:none">
-					<div class="col-md-2 col-sm-2">캐나다</div>
-					<div class="col-md-2 col-sm-2">미국</div>
+				<c:forEach var="countryName" items="${mList}">
+					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">${countryName}</div>	
+				</c:forEach>
 				</div>
-					<div class="row" id="asia" name=all style="display:none">
-					<div class="col-md-2 col-sm-2">아직없음</div>
+				<div class="row" id="asia" name="all" style="display:none">
+				<c:forEach var="countryName" items="${aList}">
+					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">${countryName}</div>	
+				</c:forEach>
 				</div>
 			</li>
-			<li class="list-group-item">
+			
+			<li class="list-group-item" name=hiddenTap style="display:none">
 				<div align="center">
-				<input type=text placeholder="여행지를 검색하세요" size=30>
-				<input type=button value=검색>
+					<input type=text placeholder="여행지를 검색하세요" size=30>
+					<input type=button value=직접검색>
 				</div>
-			</li>
+			</li>		
 		</ul>
 	</div>
 

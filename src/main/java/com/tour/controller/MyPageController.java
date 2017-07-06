@@ -47,15 +47,6 @@ public class MyPageController {
 		model.addAttribute("my_page_gubun","gaeyo2.jsp");
 		return "mypage/mypage";
 	}
-
-	@RequestMapping("/memo")
-	public String memo(int tour_id,Model model){
-		List<DetailScheduleVO> list = dao.detailMyPage(tour_id);
-		model.addAttribute("list2",list);
-		model.addAttribute("jsp_page","detail_mypage/detail_content");
-		model.addAttribute("my_page_gubun","memo.jsp");
-		return "mypage/mypage";
-	}
 	@RequestMapping("/map")
 	public String map(int tour_id,Model model){
 		List<DetailScheduleVO> list = dao.detailMyPage(tour_id);

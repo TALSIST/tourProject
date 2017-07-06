@@ -1,4 +1,4 @@
-package com.tour.dao;
+package com.tour.persistence;
 
 public class MainContentVO {
 	private int tour_id;
@@ -6,7 +6,7 @@ public class MainContentVO {
 	private String subTitle;
 	private String img;
 	private String completion_status;
-	private int hist;
+	private int hits;
 
 	public int getTour_id() {
 		return tour_id;
@@ -48,12 +48,12 @@ public class MainContentVO {
 		this.completion_status = completion_status;
 	}
 
-	public int getHist() {
-		return hist;
+	public int getHits() {
+		return hits;
 	}
 
-	public void setHist(int hist) {
-		this.hist = hist;
+	public void setHits(int hits) {
+		this.hits = hits;
 	}
 
 }

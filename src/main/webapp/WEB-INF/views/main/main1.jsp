@@ -65,22 +65,21 @@
     <div class="container">
     
       <div id="logo" class="pull-left">
-        <a href="index.html"><img src="/resources/img/logo-nav.png" alt="" title="" /></img></a>
+        <a href="#"><img src="/resources/img/logo-nav.png" alt="" title="" /></img></a>
         <!-- Uncomment below if you prefer to use a text image -->
         <!--<h1><a href="#hero">Bell</a></h1>-->
       </div>
         
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#features">여행일정만들기</a></li>
-          <li><a href="#portfolio">준비중</a></li>
-          <li><a href="#team">준비중</a></li>
-          <li class="menu-has-children"><a href="">마이페이지</a>
+          <li><a href="/main1">home</a></li>
+          <li><a href="#">여행일정만들기</a></li>
+          <li><a href="#">여행지추천서비스(준비중)</a></li>
+          <li><a href="#">MUST DO(준비중)</a></li>
+          <li class="menu-has-children" style="align:left"><a href="">마이페이지</a>
             <ul>
               <li><a href="#">클립보드</a></li>
               <li><a href="/mypage">여행일정</a></li>
-              <li><a href="#">Q&A</a></li>
               <li class="menu-has-children"><a href="#">설정</a>
                 <ul>
                   <li><a href="#">개인정보변경</a></li>

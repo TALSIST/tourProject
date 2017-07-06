@@ -30,16 +30,62 @@
 <script src="http://code.jquery.com/jquery.js"></script>
 <script>
 $(function(){
-	$('.pagenum').click(function(){
+	$('.pagenum').click(function(){//번호를 누르면
 		var page=$(this).text();
-		$.ajax({
-			type:"POST",
-			url:"result.do",
-			data:{"page": page},
-			success:function(response){
-				$('#result').html(response);
+		var countryName= <%= request.getAttribute("countryName")%>
+		if(countryName==null){
+			$.ajax({
+				type:"POST",
+				url:"result",
+				data:{"page": page
+				},
+				success:function(response){
+					$('#result').html(response);
+				}
+			});
+		}else{
+			var countryName= <%= request.getAttribute("countryName")%>
+			if(countryName==null){
+				$.ajax({
+					type:"POST",
+					url:"result",
+					data:{"page": page,
+						"countryName" : <%= request.getAttribute("countryName")%>
+					},
+					success:function(response){
+						$('#result').html(response);
+					}
+				});
 			}
-		});
+		}
+	});
+	//화살표를 누르면
+	$('.arrow').click(function(){
+		var page=$(this).text();
+		var countryName= <%= request.getAttribute("countryName")%>
+		if(countryName==null){
+			$.ajax({
+				type:"POST",
+				url:"result",
+				data:{"page": $(this).attr("page")
+				},
+				success:function(response){
+					$('#result').html(response);
+				}
+			});
+		}else{
+			$.ajax({
+				type:"POST",
+				url:"result",
+				data:{"page": $(this).attr("page"),
+					"countryName" : <%= request.getAttribute("countryName")%>
+				},
+				success:function(response){
+					$('#result').html(response);
+				}
+			});
+		}
+		
 	});
 });
 </script>
@@ -59,7 +105,7 @@ $(function(){
         <c:forEach var="vo" items="${list }">
             <div class="col-md-4 col-sm-6">
                 <div class="thumbnail">
-                    <img src="/resources/img/${vo.img }" alt="">
+                    <img src="/resources/img/${vo.img }" >
                     <div class="caption">
                         <h3>${vo.title }</h3>
                         <p>${vo.subTitle }</p>
@@ -81,7 +127,7 @@ $(function(){
   	<a href="javascript:">&laquo;</a>
   	</c:if>
   	<c:if test="${startPage!=1 }">
-  	<a href="/list?page=${startPage-1 }">&laquo;</a>
+  	<a href="#" page="${startPage-1 }" class="arrow">&laquo;</a>
   	</c:if>
   	
   	<c:forEach var="i" begin="${startPage }" end="${endPage }">
@@ -97,7 +143,7 @@ $(function(){
   	<a href="javascript:">&raquo;</a>
   	</c:if>
   	<c:if test="${endPage!=totalpage }">
-  	<a href="/list?page=${endPage+1 }">&raquo;</a>
+  	<a href="#" page="${endPage+1 }" class="arrow">&raquo;</a>
   	</c:if>
 	</div>
 	</center>

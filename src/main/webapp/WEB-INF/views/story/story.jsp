@@ -94,7 +94,7 @@ header div img {
 												<div class="w3-row">
 													<div class="w3-col m8 s12" style="margin-bottom: 10px;">
 														<p>
-															<a class="w3-button w3-padding-large w3-white w3-border" href="story/read?tour_id=${tour_id }">
+															<a class="w3-button w3-padding-large w3-white w3-border" href="story/read?tour_id=${tour_id }&story_id=${story.story_id}">
 																<b>READ MORE »</b>
 															</a>
 														</p>
@@ -102,7 +102,7 @@ header div img {
 													<div class="w3-col m4 w3-hide-small">
 														<span class="w3-padding-large w3-right" style="width:200px;text-align:right">
 															<b>Comments</b>
-															<span class="w3-tag">0</span>
+															<span class="w3-tag">${story.hit }</span>
 														</span>
 													</div>
 												</div>

@@ -30,7 +30,7 @@ border:1px dotted; border-color:#BDBDBD; width:10%; border-radius: 4px; float:ri
 		<div class="panel z-depth-1">
 			<div class="panel-content">
 
-				<form action="/story/create" method="post">
+				<form id="form1" action="/story/create" method="post">
 				<input type="hidden" name="tour_id" value="${tour_id }">
 				
 				<div class="row">
@@ -39,7 +39,7 @@ border:1px dotted; border-color:#BDBDBD; width:10%; border-radius: 4px; float:ri
 
 						<select class="form-control boxed-input" id="tourDate" onChange="itemChange(${tour_id })" style="width: 200px; margin-bottom: 10px">
 							<!-- 여행날짜 선택 (선택하지 않으면 선택하라는 경고창)-->
-							<option>-- 여행 날짜 선택</option>
+							<option value="N">-- 여행 날짜 선택</option>
 							<c:set var="i" value="0"/>
 							<c:forEach var="schedulePlan" items="${schedulePlans }">
 								<option value="${schedulePlan.tour_date }">day${i = i + 1 } (${schedulePlan.tour_date })</option>
@@ -52,13 +52,11 @@ border:1px dotted; border-color:#BDBDBD; width:10%; border-radius: 4px; float:ri
 
 						<div class="form-group" style="margin-bottom: 30px">
 							<div>
-								<input type="text" class="form-control boxed-input"
-									id="inputBanco" placeholder="제목">
+								<input type="text" class="form-control boxed-input" name="title" placeholder="제목">
 							</div>
 						</div>
 
-						<textarea class="form-control boxed-input" rows="3"
-							id="inputDescricao" placeholder="여행 내용"
+						<textarea class="form-control boxed-input" rows="3" name="content" placeholder="여행 내용"
 							style="margin-bottom: 30px"></textarea>
 
 						<div id="wrapper" style="display:table; width: 100%; height: 200px; margin-bottom: 30px;border: 1px dotted; border-radius: 4px; background:#F6F6F6">
@@ -87,7 +85,7 @@ border:1px dotted; border-color:#BDBDBD; width:10%; border-radius: 4px; float:ri
 	<script src="/resources/js/mypage/upload.js"></script>
 	<script id="template" type="text/x-handlebars-template">
 		<div id="fileUploadDiv">
-			<div id="uploadedImg"><img src="{{imgsrc}}"></div>
+			<div id="uploadedImg"><img src="{{imgsrc}}" style="width:100%;height:100%"></div>
 			<div id="fileDelBtnDiv"><a data-src="{{fullName}}" style="color:#BDBDBD">X</a></div>
 		</div>	
 	</script>
@@ -98,10 +96,10 @@ border:1px dotted; border-color:#BDBDBD; width:10%; border-radius: 4px; float:ri
 			
 			$.getJSON("/story/getPlace/"+tour_id+"/"+selectedDate, function(data){
 				var option = "";
-				option += "<option>-- 장소 선택</option>";
-	
-				$(data).each(function(){
-					option += "<option value='"+this.detail_schedule_id+"'>"+this.name+"</option>"
+				option += "<option value='N'>-- 장소 선택</option>";
+				
+				 $.each(data, function(key,state) {
+					option += "<option value='"+key+"'>"+state.name+"</option>"
 				});
 				
 				$("#tourPlace").append(option);
@@ -109,6 +107,7 @@ border:1px dotted; border-color:#BDBDBD; width:10%; border-radius: 4px; float:ri
 		}
 	
 		var template = Handlebars.compile($("#template").html());
+		
 		
 		$("#dropImages").on("dragenter dragover", function(event){
 			event.preventDefault();
@@ -158,6 +157,33 @@ border:1px dotted; border-color:#BDBDBD; width:10%; border-radius: 4px; float:ri
 				}
 			});
 		})
+		
+		$("#form1").submit(function(event){
+			event.preventDefault();
+			
+			var selectedDate = $("#tourDate option:selected").val();
+			var selectedPlace = $("#tourPlace option:selected").val();
+			var that = $(this);
+			var str = "";
+			
+			if(selectedDate == 'N'){
+				alert("여행 날짜를 선택하세요!");
+				return;	
+			}
+			if(selectedPlace == 'N'){
+				alert("여행 장소를 선택하세요!");
+				return;
+			}
+			
+			$("#fileContainer a").each(function(index){
+				str += "<input type='hidden' name='imageFiles["+index+"]' value='"+$(this).attr("data-src")+"'>";
+				
+			});
+			str += "<input type='hidden' name='detail_schedule_id' value='"+selectedPlace+"'>";
+			
+			that.append(str);
+			that.get(0).submit();
+		});
 	</script>
 </body>
 </html>

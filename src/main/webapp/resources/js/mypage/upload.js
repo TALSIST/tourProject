@@ -20,7 +20,7 @@ function getFileInfo(fullName){
 		
 		return {fileName:fileName, imgsrc:imgsrc, getLink:getLink, fullName:fullName};
 	}else{
-		alert("이미지만 첨부할 수 있어요");
+		alert("no!!");
 		return;
 	}
 	

@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -22,11 +24,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tour.persistence.DetailScheduleVO;
 import com.tour.persistence.PlaceVO;
 import com.tour.persistence.SchedulePlanVO;
+import com.tour.persistence.StoryVO;
 import com.tour.service.StoryService;
 import com.tour.util.MediaUtils;
 import com.tour.util.UploadFileUtils;
@@ -51,6 +56,7 @@ public class StoryController {
 		}
 		
 		model.addAttribute("schedulePlans", schedulePlans);
+		model.addAttribute("uploadPath", uploadPath);
 		model.addAttribute("jsp_page","detail_mypage/detail_content");
 		model.addAttribute("my_page_gubun","../story/story.jsp");
 		return "mypage/mypage";
@@ -64,6 +70,27 @@ public class StoryController {
 		model.addAttribute("jsp_page","detail_mypage/detail_content");
 		model.addAttribute("my_page_gubun","../story/storyCreate.jsp");
 		return "mypage/mypage";
+	}
+	
+	@RequestMapping(value="/create", method=RequestMethod.POST)
+	public String storyCreate(int tour_id, StoryVO story, RedirectAttributes rttr){
+		
+		System.out.println("Title="+story.getTitle());
+		System.out.println("Content="+story.getContent());
+		System.out.println("Detail_schedule_id="+story.getDetail_schedule_id());
+		
+		if(story.getImageFiles() != null){
+			for(int i=0; i<story.getImageFiles().length; i++){
+				System.out.println("Image"+(i+1)+"="+story.getImageFiles()[i]);
+			}
+		}
+		
+		story.setMember_id(18); //임시로 member_id 지정
+		StoryService.insertStory(story);
+		
+		rttr.addAttribute("tour_id", tour_id);
+		
+		return "redirect:/story";
 	}
 	
 	@RequestMapping("/read")
@@ -82,22 +109,21 @@ public class StoryController {
 	
 	@ResponseBody
 	@RequestMapping(value="/getPlace/{tour_id}/{tour_date}", method=RequestMethod.GET)
-	public List<PlaceVO> getPlace(@PathVariable("tour_id") int tour_id, @PathVariable("tour_date") String tour_date){
+	public Map<Integer, PlaceVO> getPlace(@PathVariable("tour_id") int tour_id, @PathVariable("tour_date") String tour_date){
 		List<SchedulePlanVO> schedulePlans = StoryService.selectSchedulePlans(tour_id);
 		
-		List<PlaceVO> places = new ArrayList<PlaceVO>();
+		Map<Integer, PlaceVO> map = new HashMap<Integer, PlaceVO>();
 		
 		for(SchedulePlanVO schedulePlan : schedulePlans){
 			if(schedulePlan.getTour_date().equals(tour_date)){
 				List<DetailScheduleVO> detailSchedules = schedulePlan.getDetailScheduleList();
 				
 				for(DetailScheduleVO detailSchedule : detailSchedules){
-					places.add(detailSchedule.getPlaceVO());
+					map.put(detailSchedule.getDetail_schedule_id(), detailSchedule.getPlaceVO());
 				}
 			}
 		}
-		
-		return places;
+		return map;
 	}
 	
 	@ResponseBody
@@ -156,4 +182,6 @@ public class StoryController {
 		
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
+	
+	
 }

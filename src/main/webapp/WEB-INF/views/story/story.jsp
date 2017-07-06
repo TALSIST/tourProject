@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,44 +69,51 @@ header div img {
 								<span>${schedulePlan.tour_date }</span>
 							</div>
 							<div class="timeline-marker"></div>
-							<div class="timeline-content" style="text-align: left">
-								<div class="w3-card-4 w3-margin w3-white">
-									<!-- image -->
-									<header>
-										<div>
-											<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/jeremiah-wilson-1.jpg" alt>
-										</div>
-									</header>
-									<!-- /.image -->
-									<div class="w3-container" style="margin: 20px">
-										<span class="w3-tag" style="margin-bottom: 10px">2017-07-04</span>
-										<p>Mauris neque quam, fermentum ut nisl vitae, convallis
-											maximus nisl. Sed mattis nunc id lorem euismod placerat.
-											Vivamus porttitor magna enim, ac accumsan tortor cursus at.
-											Phasellus sed ultricies mi non congue ullam corper. Praesent
-											tincidunt sed tellus ut rutrum. Sed vitae justo condimentum,
-											porta lectus vitae, ultricies congue gravida diam non
-											fringilla.</p>
-										<div class="w3-row">
-											<div class="w3-col m8 s12" style="margin-bottom: 10px;width:60%">
-												<p>
-													<a class="w3-button w3-padding-large w3-white w3-border" href="story/read?tour_id=${tour_id }">
-														<b>READ MORE »</b>
-													</a>
-												</p>
+							<c:forEach var="detailSchedule" items="${schedulePlan.detailScheduleList }">
+								<c:forEach var="story" items="${detailSchedule.storyList }">
+									<div>
+									<div class="timeline-content" style="text-align: left">
+										<div class="w3-card-4 w3-margin w3-white" style="width:550px">
+											<!-- image -->
+											<header>
+												<c:forEach var="storyImage" items="${story.storyImageList }">
+													<div>
+													<img src="/resources/upload${storyImage.image }" alt>
+													</div>
+												</c:forEach>
+											</header>
+											<!-- /.image -->
+											<!-- title and content -->
+											<div class="w3-container" style="margin: 10px">
+												<span class="w3-tag" style="margin-bottom: 10px">
+													<fmt:formatDate value="${story.regdate}" pattern="yyyy-MM-dd"/>
+												</span>
+												<p><b>${story.title }</b></p>
+												<p>${story.content }</p>
+												<!-- etc -->
+												<div class="w3-row">
+													<div class="w3-col m8 s12" style="margin-bottom: 10px;">
+														<p>
+															<a class="w3-button w3-padding-large w3-white w3-border" href="story/read?tour_id=${tour_id }">
+																<b>READ MORE »</b>
+															</a>
+														</p>
+													</div>
+													<div class="w3-col m4 w3-hide-small">
+														<span class="w3-padding-large w3-right" style="width:200px;text-align:right">
+															<b>Comments</b>
+															<span class="w3-tag">0</span>
+														</span>
+													</div>
+												</div>
+												<!-- /.etc -->
 											</div>
-											<div class="w3-col m4 w3-hide-small" style="width:40%">
-												<p>
-													<span class="w3-padding-large w3-right">
-														<b>Comments</b>
-														<span class="w3-tag">0</span>
-													</span>
-												</p>
-											</div>
+											<!-- /.title and content -->
 										</div>
 									</div>
-								</div>
-							</div>
+									</div>
+								</c:forEach>
+							</c:forEach>
 						</li>
 					</c:forEach>
 					<!--

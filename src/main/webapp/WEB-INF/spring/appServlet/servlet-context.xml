@@ -57,10 +57,16 @@
 	<!-- Restful 처리 -->
 	<beans:bean id="jacksonMessageConverter"
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
-
+		
+	<beans:bean id="MemberMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.tour.dao.MemberMapper" />
+		
+	<beans:bean id="MainContentMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.tour.dao.MainContentMapper" />
+		
 	<!-- TimeShedule -->
 	<beans:bean id="TimeShceduleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
-		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.tour.dao.TimeScheduleMapper" />
+	p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.tour.dao.TimeScheduleMapper" />
 
 	<!-- Story -->
 	<beans:bean id="StoryMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"

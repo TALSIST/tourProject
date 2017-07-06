@@ -57,7 +57,7 @@ border:1px dotted; border-color:#BDBDBD; width:10%; border-radius: 4px; float:ri
 						</div>
 
 						<textarea class="form-control boxed-input" rows="3" name="content" placeholder="여행 내용"
-							style="margin-bottom: 30px"></textarea>
+							style="margin-bottom: 30px; height:300px"></textarea>
 
 						<div id="wrapper" style="display:table; width: 100%; height: 200px; margin-bottom: 30px;border: 1px dotted; border-radius: 4px; background:#F6F6F6">
 							<div id="dropImages" style="display:table-cell; vertical-align:middle">

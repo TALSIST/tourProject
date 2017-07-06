@@ -2,11 +2,13 @@ package com.tour.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.tour.persistence.DetailScheduleVO;
 import com.tour.persistence.PlaceVO;
@@ -68,4 +70,11 @@ public interface StoryMapper {
 	@Insert("INSERT INTO story (story_id, title, content, regdate, updatedate, hit, detail_schedule_id, member_id) "
 			+ "VALUES (seq_story.nextval, #{title}, #{content}, SYSDATE, SYSDATE, 0, #{detail_schedule_id}, #{member_id})")
 	public void insertStroy(StoryVO story);
+	
+	@Update("UPDATE story SET title = #{title}, content = #{content}, updatedate = SYSDATE, detail_schedule_id = #{detail_schedule_id} "
+			+ "WHERE story_id = #{story_id}")
+	public void updateStory(StoryVO story);
+	
+	@Delete("DELETE FROM story WHERE story_id = #{story_id}")
+	public void deleteStory(int story_id);
 }

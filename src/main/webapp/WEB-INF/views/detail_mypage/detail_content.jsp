@@ -41,17 +41,9 @@
 		<div class="plan_mnu_line"></div>
 		<a href="time_schedule?tour_id=${list2[1].tour_id }"><div class="plan_mnu on">일정표</div></a>
 		<div class="plan_mnu_line"></div>
-<<<<<<< HEAD
 		<a href="story?tour_id=${tour_id }"><div class="plan_mnu on">스토리</div></a>
 		<div class="plan_mnu_line"></div>
 		<a href="map?tour_id=${tour_id }"><div class="plan_mnu on">지도</div></a>
-=======
-		<a href="story?tour_id=${list2[1].tour_id }"><div class="plan_mnu on">스토리</div></a>
-		<div class="plan_mnu_line"></div>
-		<a href="memo?tour_id=${list2[1].tour_id }"><div class="plan_mnu on">메모</div></a>
-		<div class="plan_mnu_line"></div>
-		<a href="map?tour_id=${list2[1].tour_id }"><div class="plan_mnu on">지도</div></a>
->>>>>>> 74ab25b6d9950a24f1d0f60c9310c7a968232a87
 		<div class="plan_mnu_line"></div>
 		<div class="plan_mnu on"style="float:right;color:green;border:1px solid;" id="btnExcel">
 			엑셀로 다운받기

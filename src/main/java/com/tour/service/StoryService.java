@@ -32,4 +32,23 @@ public class StoryService {
 			}
 		}
 	}
+	
+	@Transactional
+	public void updateStory(StoryVO story){
+		storyDao.updateStory(story);
+		storyImgDao.deleteStoryImages(story.getStory_id());
+		if(story.getImageFiles() != null){
+			for(int i=0; i<story.getImageFiles().length; i++){
+				storyImgDao.insertStoryUpdateImages(
+						story.getImageFiles()[i].substring(0,12)+story.getImageFiles()[i].substring(14),
+						story.getStory_id());
+			}
+		}
+	}
+	
+	@Transactional
+	public void deleteStory(int story_id){
+		storyDao.deleteStory(story_id);
+		storyImgDao.deleteStoryImages(story_id);
+	}
 }

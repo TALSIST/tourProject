@@ -44,11 +44,10 @@
 	margin: 3px
 }
 
-<c:forEach var="i" begin="1" end="6">
-input#img-${i}:checked ~ .nav-dots label#img-dot-${i},
-</c:forEach>{
-	background: rgba(0, 0, 0, 0.8);
-}
+<c:set var="size" value="${story.storyImageList.size()}"/>
+<c:forEach var="i" begin="1" end="${size}">
+	input#img-${i}:checked ~ .nav-dots label#img-dot-${i},
+</c:forEach>
 </style>
 </head>
 <body>
@@ -62,103 +61,64 @@ input#img-${i}:checked ~ .nav-dots label#img-dot-${i},
 				<div class="row">
 
 					<div class="col-xs-12 col-sm-7 col-md-7" style="margin: auto;">
+						<form id="form1" action="/story/delete" method="post">
+							<input type="hidden" name="tour_id" value="${tour_id }">
+							<input type="hidden" name="story_id" value="${story.story_id }">
+						</form>
 
-						<input type="text" class="form-control boxed-input" style="margin-bottom: 10px; width: 30%" value="day1 (2017-07-04)" readonly>
-						<input type="text" class="form-control boxed-input" style="margin-bottom: 30px; width: 30%" value="에버랜드" readonly>
+						<input type="text" class="form-control boxed-input" style="margin-bottom: 10px; width: 30%" value="${dayAndDate }" readonly>
+						<input type="text" class="form-control boxed-input" style="margin-bottom: 30px; width: 30%" value="${placeName }" readonly>
 							
 						<div class="form-group" style="margin-bottom: 30px">
 							<div>
-								<input type="text" class="form-control boxed-input" value="제목" readonly>
+								<input type="text" class="form-control boxed-input" value="${story.title }" readonly>
 							</div>
 						</div>
 
 						<!-- image -->
+						<c:if test="${story.storyImageList.size() != 0 }">
    						<ul class="slides" style="margin-bottom:30px">
-							<input type="radio" name="radio-btn" id="img-1" checked />
+   							<c:set var="i" value="0"/>
+   							<c:forEach var="storyImage" items="${story.storyImageList }" varStatus="status" >
+							<input type="radio" name="radio-btn" id="img-${i=i+1}" checked />
 							<li class="slide-container">
 								<div class="slide">
-									<img src="http://farm9.staticflickr.com/8072/8346734966_f9cd7d0941_z.jpg" />
+									<img src="/resources/upload${storyImage.image }" data-src="${storyImage.image }"/>
 								</div>
 								<div class="nav">
-									<label for="img-6" class="prev">&#x2039;</label> 
-									<label for="img-2" class="next">&#x203a;</label>
+									<c:if test="${i == 1 }">
+										<label for="img-${size }" class="prev">&#x2039;</label> 
+									</c:if>
+									<c:if test="${i != 1 }">
+										<label for="img-${i-1 }" class="prev">&#x2039;</label> 
+									</c:if>
+									<c:if test="${i == size }">
+										<label for="img-1" class="next">&#x203a;</label>
+									</c:if>
+									<c:if test="${i != size }">
+										<label for="img-${i+1 }" class="next">&#x203a;</label>
+									</c:if>
 								</div>
 							</li>
-
-							<input type="radio" name="radio-btn" id="img-2" />
-							<li class="slide-container">
-								<div class="slide">
-									<img src="http://farm9.staticflickr.com/8504/8365873811_d32571df3d_z.jpg" />
-								</div>
-								<div class="nav">
-									<label for="img-1" class="prev">&#x2039;</label> 
-									<label for="img-3" class="next">&#x203a;</label>
-								</div>
-							</li>
-
-							<input type="radio" name="radio-btn" id="img-3" />
-							<li class="slide-container">
-								<div class="slide">
-									<img src="http://farm9.staticflickr.com/8068/8250438572_d1a5917072_z.jpg" />
-								</div>
-								<div class="nav">
-									<label for="img-2" class="prev">&#x2039;</label> 
-									<label for="img-4" class="next">&#x203a;</label>
-								</div>
-							</li>
-
-							<input type="radio" name="radio-btn" id="img-4" />
-							<li class="slide-container">
-								<div class="slide">
-									<img src="http://farm9.staticflickr.com/8061/8237246833_54d8fa37f0_z.jpg" />
-								</div>
-								<div class="nav">
-									<label for="img-3" class="prev">&#x2039;</label> 
-									<label for="img-5" class="next">&#x203a;</label>
-								</div>
-							</li>
-
-							<input type="radio" name="radio-btn" id="img-5" />
-							<li class="slide-container">
-								<div class="slide">
-									<img src="http://farm9.staticflickr.com/8055/8098750623_66292a35c0_z.jpg" />
-								</div>
-								<div class="nav">
-									<label for="img-4" class="prev">&#x2039;</label> 
-									<label for="img-6" class="next">&#x203a;</label>
-								</div>
-							</li>
-
-							<input type="radio" name="radio-btn" id="img-6" />
-							<li class="slide-container">
-								<div class="slide">
-									<img src="http://farm9.staticflickr.com/8195/8098750703_797e102da2_z.jpg" />
-								</div>
-								<div class="nav">
-									<label for="img-5" class="prev">&#x2039;</label> 
-									<label for="img-1" class="next">&#x203a;</label>
-								</div>
-							</li>
+							</c:forEach>
 
 							<li class="nav-dots">
-								<label for="img-1" class="nav-dot" id="img-dot-1"></label> 
-								<label for="img-2" class="nav-dot" id="img-dot-2"></label> 
-								<label for="img-3" class="nav-dot" id="img-dot-3"></label> 
-								<label for="img-4" class="nav-dot" id="img-dot-4"></label> 
-								<label for="img-5" class="nav-dot" id="img-dot-5"></label> 
-								<label for="img-6" class="nav-dot" id="img-dot-6"></label>
+								<c:forEach var="storyImage" items="${story.storyImageList }" varStatus="status" >
+									<label for="img-${status.count }" class="nav-dot" id="img-dot-${status.count }"></label>
+								</c:forEach>
 							</li>
 						</ul>
+						</c:if>
 						<!-- /.image -->
 
 						<textarea class="form-control boxed-input" rows="3"
-							style="margin-bottom: 30px" readonly>여행 내용</textarea>
+							style="margin-bottom: 30px; height:300px" readonly>${story.content }</textarea>
 
 						<div class="col-md-12"
 							style="text-align: right; margin-bottom: 30px;">
-							<button class="btn btn-primary" type="submit">수정</button>
-							<button class="btn btn-secundary" type="submit" name="action" style="margin-right: 5px;">삭제</button>
-							<button class="btn btn-default" type="submit">전체 스토리 보기</button>
+							<button class="btn btn-primary" id="goUpdate" type="button">수정</button>
+							<button class="btn btn-secundary" id="goDelete" type="button" style="margin-right: 5px;" onclick="deleteStory()">삭제</button>
+							<button class="btn btn-default" id="goList" type="button">전체 스토리 보기</button>
 						</div>
 
 					</div>
@@ -167,5 +127,30 @@ input#img-${i}:checked ~ .nav-dots label#img-dot-${i},
 			</div>
 		</div>
 	</div>
+	<script>
+		$("#goList").on("click", function(){
+			location.href="/story?tour_id=${tour_id}";
+		});
+		
+		$("#goUpdate").on("click", function(){
+			location.href="/story/update?tour_id=${tour_id}&story_id=${story.story_id}";
+		});
+		
+		function deleteStory(){
+			var arr = [];
+			$(".slide img").each(function(index){
+				arr.push($(this).attr("data-src")); 
+			});
+			//모든 첨부파일을 배열에 저장
+			
+			if(arr.length > 0){
+				$.post("/deleteAllFiles", {files:arr}, function(){
+					
+				});
+			}
+			
+			$("#form1").submit();
+		}
+	</script>
 </body>
 </html>

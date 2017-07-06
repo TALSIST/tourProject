@@ -21,4 +21,12 @@ public class StoryDAO {
 	public void insertStory(StoryVO story){
 		sMapper.insertStroy(story);
 	}
+	
+	public void updateStory(StoryVO story){
+		sMapper.updateStory(story);
+	}
+	
+	public void deleteStory(int story_id){
+		sMapper.deleteStory(story_id);
+	}
 }

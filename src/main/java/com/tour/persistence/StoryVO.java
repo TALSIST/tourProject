@@ -1,5 +1,6 @@
 package com.tour.persistence;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class StoryVO {
 	private int detail_schedule_id;
 	private int member_id;
 	private String[] imageFiles; //업로드 파일을 받을 때 사용
-	private List<StoryImagesVO> storyImageList;
+	private List<StoryImagesVO> storyImageList = new ArrayList<StoryImagesVO>();
 
 	public List<StoryImagesVO> getStoryImageList() {
 		return storyImageList;

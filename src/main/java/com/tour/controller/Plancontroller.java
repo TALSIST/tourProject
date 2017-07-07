@@ -101,7 +101,7 @@ public class Plancontroller {
 	
 	
 	@RequestMapping("/savePlan")
-	public void savePlan(String sendData){
+	public String savePlan(String sendData){
 		System.out.println(sendData);
 		JSONParser parser = new JSONParser();
 		try {
@@ -145,6 +145,7 @@ public class Plancontroller {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		return "mypage/mypage";
 	}
 	
 	

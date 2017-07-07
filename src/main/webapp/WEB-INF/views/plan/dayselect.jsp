@@ -366,7 +366,7 @@
 				  url:'/savePlan',
 				  data:{"sendData":sendData},
 			  	  success:function(){
-			  		
+			  		location.href='/mypage';
 			  	}
 				  
 			  })
@@ -422,7 +422,6 @@
              setDayLocList();
           }
        });
-      
       
       //day추가버튼시 클릭 이벤트 구현 (추가할때마다 마지막날의 초만큼 더해줌)
       $('#dayAdd').click(function(){

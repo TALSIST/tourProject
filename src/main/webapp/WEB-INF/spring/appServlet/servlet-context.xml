@@ -11,7 +11,8 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd"
+		>
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
@@ -46,8 +47,9 @@
 		p:password="#{db['password']}" />
 	<beans:bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean"
 		p:dataSource-ref="ds" />
-	<beans:bean id="mcMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
-		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.tour.dao.MainContentMapper" />
+		
+	<!-- <beans:bean id="mcMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.tour.dao.MainContentMapper" /> -->
 
 	<beans:bean id="planMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
 		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.tour.dao.PlanMapper" />

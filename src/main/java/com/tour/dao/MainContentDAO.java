@@ -17,7 +17,7 @@ public class MainContentDAO {
 		return mcMapper.contentTotalPage();
 	}
 	public int contentTotalPage(String countryName){
-		return mcMapper.contentTotalPage(countryName);
+		return mcMapper.contentTotalPageSearch(countryName);
 	}
 	
 	public List<MainContentVO> contentData(Map map){
@@ -28,7 +28,7 @@ public class MainContentDAO {
 		return mcMapper.contentDataSearch(map);
 	}
 	
-	public List<MainContentVO> contentDataMain(){ //¸ÞÀÎÆäÀÌÁö¿¡¼­ ¶ç¿ì´Â°Å~!
+	public List<MainContentVO> contentDataMain(){ //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½~!
 		return mcMapper.contentDataMain();
 	}
 	

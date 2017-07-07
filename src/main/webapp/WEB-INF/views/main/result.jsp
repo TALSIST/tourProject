@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -95,6 +96,10 @@ $(function(){
 
 		<h2>모든일정목록</h2>
 		<p>다양한 사람들이 만든 일정을 확인하세요!</p>
+		
+		<c:if test="${fn:length(list)==0 }">
+        	<h3 style="color:#199EB8">검색결과가 없습니다.</h3>
+       </c:if>
 
 		<!-- content include -->		
 		<div class="container1">
@@ -102,6 +107,7 @@ $(function(){
         
         <div class="row text-center">
         
+        <c:if test="${fn:length(list)!=0 }">
         <c:forEach var="vo" items="${list }">
             <div class="col-md-4 col-sm-6">
                 <div class="thumbnail">
@@ -116,6 +122,7 @@ $(function(){
                 </div>
             </div>
           </c:forEach>
+          </c:if>
           </div>
 		<!-- /content include -->
 	</div>

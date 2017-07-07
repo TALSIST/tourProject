@@ -32,12 +32,12 @@
 <script>
 	function all(){
 		$.ajax({ //초기화
-			type : "POST",
-			url : "result",
-			data : {
+			type:"POST",
+			url:"result",
+			data:{
 				"page" : "1"
 			},
-			success : function(response) {
+			success:function(response) {
 				$('#result').html(response);
 			}
 		});
@@ -100,7 +100,7 @@
 			$("#filter").css("display", "none");
 			$('[name="hiddenTap"]').css("display", "block");
 			$('[name="recommandTab"]').css("display", "block");
-			all();
+			all();//다 삭제되면 다시 전체 보여주기
 		}
 	});
 </script>

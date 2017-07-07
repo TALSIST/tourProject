@@ -1,5 +1,6 @@
 package com.tour.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,11 +30,11 @@ public class HomeController {
 	
 	@RequestMapping("/list")
 	public String main_list(Model model){
-		List<String> eList=dao.countryFromContinent("À¯·´");
-		List<String> sList=dao.countryFromContinent("³²ÅÂÆò¾ç");
-		List<String> nList=dao.countryFromContinent("ºÏ¹Ì");
-		List<String> mList=dao.countryFromContinent("Áß³²¹Ì");
-		List<String> aList=dao.countryFromContinent("¾Æ½Ã¾Æ");
+		List<String> eList=dao.countryFromContinent("ìœ ëŸ½");
+		List<String> sList=dao.countryFromContinent("ë‚¨íƒœí‰ì–‘");
+		List<String> nList=dao.countryFromContinent("ë¶ë¯¸");
+		List<String> mList=dao.countryFromContinent("ì¤‘ë‚¨ë¯¸");
+		List<String> aList=dao.countryFromContinent("ì•„ì‹œì•„");
 		model.addAttribute("eList", eList);
 		model.addAttribute("sList", sList);
 		model.addAttribute("nList", nList);
@@ -43,11 +44,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/result")
-	public String main_result(String countryName, int page, Model model){ //¸®½ºÆ®¿¡¼­ ÅäÅ»°ú µ¿½Ã¿¡ ½ºÅ¸Æ®¶û end¸¦ Áà¾ß ÇÑ´Ù! 
+	public String main_result(String countryName, int page, Model model){ //ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å»ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½ï¿½Å¸Æ®ï¿½ï¿½ endï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½! 
 		int totalpage=0;
-		if(countryName == null){//ÄÁÆ®¸®ÀÌ¸§ÀÌ ¾ø´Â °æ¿ì,
+		if(countryName == null){//ï¿½ï¿½Æ®ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½,
 			totalpage=dao.contentTotalPage();
-		}else{//ÄÁÆ®¸± ÀÌ¸§ÀÌ ÀÖ´Â °æ¿ì,
+		}else{//ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½,
 			totalpage=dao.contentTotalPage(countryName);
 		}
 		model.addAttribute("totalpage", totalpage);
@@ -56,19 +57,18 @@ public class HomeController {
 		int startPage=page-(page-1)%blockSize;//start page
 		int endPage=startPage+blockSize-1;//end page
 		if(endPage>totalpage){
-			endPage=totalpage;//¸¶Áö¸· ÆäÀÌÁö¸¦ ¿À¹öµÇÁö ¾Êµµ·Ï
+			endPage=totalpage;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½
 		}
-		
 		int startContent = (page*rowSize)-(rowSize-1);//start content
-		int endContent = page*rowSize;//end content ¸¶Áö¸· ÄÁÅÙÃ÷¿¡¼­´Â ¾î¶»°Ô µÉÁö È®ÀÎÇÊ¿ä
+		int endContent = page*rowSize;//end content ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½î¶»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ê¿ï¿½
 		
-		List<MainContentVO> list = null;
+		List<MainContentVO> list = new ArrayList<MainContentVO>();
 		Map map = new HashMap();
-		if(countryName == null){//ÄÁÆ®¸®ÀÌ¸§ÀÌ ¾ø´Â °æ¿ì,
+		if(countryName == null){//ï¿½ï¿½Æ®ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½,
 			map.put("start", startContent);
 			map.put("end", endContent);
 			list = dao.contentData(map);
-		}else{//ÄÁÆ®¸®ÀÌ¸§ÀÌ ÀÖ´Â °æ¿ì,
+		}else{//ï¿½ï¿½Æ®ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½,
 			map.put("start", startContent);
 			map.put("end", endContent);
 			map.put("countryName", countryName);

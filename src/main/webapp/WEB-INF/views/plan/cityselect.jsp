@@ -89,6 +89,7 @@
                        +"<a data-toggle=\"modal\" data-target=\"#myModal\" href=\" /startdate\"><img id=\"startPlan\" src=\"/resources/img/plan/startPlan.png\" style=\"width:30px;\"></a></div>"
                        +"<div class=\"clear\"></div>"
                        +"</div>"
+                       
                   }
                   $('#country_list_box').html(""+sub2+"");
                   startplan();

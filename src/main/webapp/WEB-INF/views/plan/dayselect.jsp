@@ -53,16 +53,22 @@
                             ['가로수길', 37.5206974,127.0225605, 10],
                             ['북촌한옥마을',37.5793998,126.9802342, 10]
                           ]; 
+            // console.log("lat값?"+place[0][1]+",lng값?"+place[0][2])
+             var map = new google.maps.Map(document.getElementById('map'), {
+                   zoom: parseFloat(place[1][3]),
+                   center: {lat: parseFloat(place[1][1]), lng: parseFloat(place[1][2])}
+              });
          }else
          {   console.log("p는 full?"+p);
             place = p;
             console.log("place는?"+place);
+           // console.log("lat값?"+place[0][1]+",lng값?"+place[0][2])
+            var map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: parseFloat(place[0][3]),
+                  center: {lat: parseFloat(place[0][1]), lng: parseFloat(place[0][2])}
+             });
          }
-            console.log("lat값?"+place[0][1]+",lng값?"+place[0][2])
-             var map = new google.maps.Map(document.getElementById('map'), {
-                   zoom: 10,
-                   center: {lat: parseFloat(place[0][1]), lng: parseFloat(place[0][2])}
-              });
+           
 
               for (var i = 0; i < place.length; i++){
                   
@@ -170,27 +176,6 @@
             }
           
          }); 
-         
-         
-         //글에 공유된사람 구하기
-         $.ajax({
-        	 type:'POST',
-         		url: '/getMember',
-         		data : {"tour_id" : tour_id},
-         		success:function(response){
-         			var sub="";
-         			for(var i=0; i<response.length;i++){
-         				sub+="<a class=\"fl\" style=\"margin-right:5px;background:#e5e5e5;border-radius: 20px;width:40px;height:40px;\" original-title="+response[i].id+"> "
-                        +"<div class=\"tooltip\" title=\"test\">"
-                        +"<img src=\/resources/img/plan/user.png\" style=\"width:40px;height:40px;border-radius:20px;\">"
-                     	+"</div>"
-                  		+"</a>";
-         			}
-         		$('#plan_member_list_box').html(""+sub+"");
-         		}
-         });
-         
-         
          
       
       });
@@ -337,11 +322,56 @@
 	   
 	   
 	   
-	   
-	   
-	   
-	   
-	   
+   }
+   function saveTourPlan(){
+	 //완료버튼 클릭시 이벤트 처리
+	      $('#plan_complete_btn').click(function(){
+	    	  //var locCount = $('#schedule_detail_box2').children('.day_spot_item').length;
+	    	  //var id="#schedule_detail_box"+(i+1)+"";
+	           //$(""+id+"").css('display','none');
+	    	  var topCount = $('#schedule_full_box').children('.connectedSortable ui-sortable').length;	//day의 갯수
+	    	  console.log('day 갯수' + topCount);
+	    	  var tourInfomation = new Object();	//여행 id에 대한 정보
+	    	  tourInfomation.tour_id ="3";
+	    	  var tourlist = new Array();
+	    	  for(var i=1;i<=btDay+1;i++){
+	    		  var id="#schedule_detail_box"+(i)+"";
+	    		  console.log('id   '+ id);
+	    		  var subCount = $(""+id+"").children('.day_spot_item').length;			//day_spot_item의 갯수
+	    		  console.log('subCount 갯수' + subCount);
+	    		  var id="#schedule_detail_box"+(i)+" .day_spot_item:nth-child(";
+	    		  for(var j=1;j<=subCount;j++){
+	    			  //E:nth-child(n)
+	    			  var place_id = $(""+id+""+j+")").attr('place_id');	//장소 id.
+	    			  var tour_dateOrder = $(""+id+""+j+")").attr('data-set_day');	//set-day
+	    			  var tour_order=	$(""+id+""+j+")").attr('data');	//몇번쨰 요소인지
+	    			  															//tour_id (글 번호)
+	    			  var tour_fullDate= $(""+id+""+j+")").attr('data-fullDate');
+	    		  	console.log("tour_fullDate : "+ tour_fullDate + "  tour_dateOrder : "+tour_dateOrder+" tour_order= " + tour_order);
+	    			  var sepTour = new Object();
+	    			  sepTour.place_id = place_id;
+	    			  sepTour.tour_dateOrder=tour_dateOrder;
+	    			  sepTour.tour_order=tour_order;
+	    			  sepTour.tour_fullDate=tour_fullDate;
+	    			  sepTour.tour_id = tour_id;
+	    			  tourlist.push(sepTour);
+	    		  }
+	    	  }
+	    	  tourInfomation.tour=tourlist;
+			  var sendData = JSON.stringify(tourInfomation);
+			  alert(sendData);
+			  
+			  $.ajax({
+				  type:'POST',
+				  url:'/savePlan',
+				  data:{"sendData":sendData},
+			  	  success:function(){
+			  		
+			  	}
+				  
+			  })
+			  
+	      });
    }
    
    
@@ -354,6 +384,7 @@
       setDayLocList();      //동적추가부분..
       setDetailBox();         //검색결과를 디테일박스에넣기.
       setShareMember();
+      saveTourPlan();
       var city_id = ${sessionScope.city_id};
       //var city_name = ${sessionScope.city_name};
       $('#city_name').attr('city-id',city_id);
@@ -392,6 +423,7 @@
           }
        });
       
+      
       //day추가버튼시 클릭 이벤트 구현 (추가할때마다 마지막날의 초만큼 더해줌)
       $('#dayAdd').click(function(){
          temp2 +=1000*60*60*24;      //하루치 초를 더해줌.
@@ -408,55 +440,6 @@
       $(".connectedSortable").sortable({
             revert: true
         }); 
-      
-      //완료버튼 클릭시 이벤트 처리
-      $('#plan_complete_btn').click(function(){
-    	  //var locCount = $('#schedule_detail_box2').children('.day_spot_item').length;
-    	  //var id="#schedule_detail_box"+(i+1)+"";
-           //$(""+id+"").css('display','none');
-    	  var topCount = $('#schedule_full_box').children('.connectedSortable ui-sortable').length;	//day의 갯수
-    	  console.log('day 갯수' + topCount);
-    	  var tourInfomation = new Object();	//여행 id에 대한 정보
-    	  tourInfomation.tour_id ="3";
-    	  var tourlist = new Array();
-    	  for(var i=1;i<=btDay+1;i++){
-    		  var id="#schedule_detail_box"+(i)+"";
-    		  console.log('id   '+ id);
-    		  var subCount = $(""+id+"").children('.day_spot_item').length;			//day_spot_item의 갯수
-    		  console.log('subCount 갯수' + subCount);
-    		  var id="#schedule_detail_box"+(i)+" .day_spot_item:nth-child(";
-    		  for(var j=1;j<=subCount;j++){
-    			  //E:nth-child(n)
-    			  var place_id = $(""+id+""+j+")").attr('place_id');	//장소 id.
-    			  var tour_dateOrder = $(""+id+""+j+")").attr('data-set_day');	//set-day
-    			  var tour_order=	$(""+id+""+j+")").attr('data');	//몇번쨰 요소인지
-    			  															//tour_id (글 번호)
-    			  var tour_fullDate= $(""+id+""+j+")").attr('data-fullDate');
-    		  	console.log("tour_fullDate : "+ tour_fullDate + "  tour_dateOrder : "+tour_dateOrder+" tour_order= " + tour_order);
-    			  var sepTour = new Object();
-    			  sepTour.place_id = place_id;
-    			  sepTour.tour_dateOrder=tour_dateOrder;
-    			  sepTour.tour_order=tour_order;
-    			  sepTour.tour_fullDate=tour_fullDate;
-    			  sepTour.tour_id = tour_id;
-    			  tourlist.push(sepTour);
-    		  }
-    	  }
-    	  tourInfomation.tour=tourlist;
-		  var sendData = JSON.stringify(tourInfomation);
-		  alert(sendData);
-		  
-		  $.ajax({
-			  type:'POST',
-			  url:'/savePlan',
-			  data:{"sendData":sendData},
-		  	  success:function(){
-		  		
-		  	}
-			  
-		  })
-		  
-      });
       
       
        $('#topcate_sub').change(function() {

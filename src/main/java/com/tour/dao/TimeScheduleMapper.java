@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.metadata.Column;
 import org.apache.ibatis.annotations.Many;
 
 import com.tour.persistence.CityVO;
@@ -53,6 +54,7 @@ public interface TimeScheduleMapper {
             +"    ,'('||to_char(dts.tour_date,'DY')||')'                       day_day"
             +"		,'DAY '||TO_CHAR((dts.tour_date-stDt.start_date)+1) day_order	 "
             +"    ,TO_CHAR(dts.tour_id)||':'||TO_CHAR(dts.tour_date,'yyyymmdd') tour_id_date "
+            +"    ,to_char(dts.tour_date,'fmMM/fmDD DY') day_title_short "
             +"from 																								"
             +"        (select tour_id, tour_date                                                       "
             +"          from  detail_schedule 															 "
@@ -75,7 +77,7 @@ public interface TimeScheduleMapper {
 			})
 	public List<ScheduleDayVO> tourDateList(int tour_id);
 	
-	@Select("SELECT ct.city_id, ct.name "
+	@Select("SELECT ct.city_id city_id, ct.name name "
                +"FROM   city ct "
                +"           ,(SELECT plc.city_id, ds.TOUR_DATE, ds.TOUR_ORDER "
                +"		        FROM   place plc  "
@@ -91,19 +93,44 @@ public interface TimeScheduleMapper {
                +"GROUP BY ct.city_id, ct.name")
 	public List<CityVO> tourDateCityList(String tour_id_date);
 	
-	@Select("SELECT p.place_id                                 place_id "
+	@Results(
+			{
+				@Result(property="place_id"					, column="place_id"),
+				@Result(property="name"    					, column="name"),
+				@Result(property="address"    				, column="address"),
+				@Result(property="phone"    				, column="phone"),
+				@Result(property="subcategory.name"	, column="sub_category_name")
+			}
+	)
+	@Select("SELECT p.place_id                                    place_id "
 			   +"           ,TO_CHAR(rownum)||'.'||p.name  name "
+			   +"           ,p.address                                     address "
+			   +"           ,p.phone                                       phone "
+			   +"           ,sub.name                                    sub_category_name "
 			   +"FROM   place                p "
-			   +"           ,detail_schedule ds "
+			   +"           ,(select * from detail_schedule "
+			   +"			    order by tour_date, tour_order ) ds "
+			   +"           ,sub_category                               sub "
 			   +"           ,(SELECT TO_NUMBER(SUBSTR(#{tour_id_date},1,INSTR(#{tour_id_date},':')-1)) tour_id "
 		       +"                         ,SUBSTR(#{tour_id_date},instr(#{tour_id_date},':')+1)                           yyyymmdd "
                +"              FROM   dual) idt "
 			   +"WHERE p.place_id = ds.place_id "
 			   +"AND     ds.tour_id = idt.tour_id "
 			   +"AND     TO_CHAR(ds.tour_date,'yyyymmdd')=idt.yyyymmdd "
+			   +"AND     sub.sub_category_id = p.sub_category_id "
 			   +"ORDER BY ds.tour_date, ds.tour_order "
                 )
-	   //+"AND     ds.tour_date = #{tour_date} "
 	public List<PlaceVO> tourDatePlaceList(String tour_id_date);
+	
+	@Select("SELECT * FROM tour "
+			   +"WHERE  tour_id = #{tour_id}")
+	public TourVO tourData(int tour_id);
+	
+	@Select("select p.NAME "
+               +"from   detail_schedule ds "
+               +"         ,place                p "
+               +"where ds.tour_id = #{tour_id} "
+               +"and     p.PLACE_ID = ds.PLACE_ID")
+	public List<PlaceVO> tourPlaceList(int tour_id);
 
 }

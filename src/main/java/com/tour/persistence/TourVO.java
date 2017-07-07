@@ -9,7 +9,15 @@ public class TourVO {
 	private String subtitle;
 	private String img;
 	private String flag;
+	private String image;
 	
+	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	public int getTour_id() {
 		return tour_id;
 	}

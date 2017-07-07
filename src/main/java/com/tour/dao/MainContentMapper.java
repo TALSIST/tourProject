@@ -5,17 +5,46 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Select;
 
+import com.tour.persistence.MainContentVO;
+
 public interface MainContentMapper {
+	//아무것도 없이 검색했을때 전체페이지수
 	@Select("SELECT CEIL(COUNT(*)/9) FROM tour")
-	public int contenttotalpage();
+	public int contentTotalPage();
 	
-	
+	//페이지네이션
 	@Select("SELECT tour_id, title, subTitle, img, num FROM "
 			+ "(SELECT tour_id, title, subTitle, img, rownum as num FROM "
 			+ "(SELECT tour_id, title, subTitle, img FROM tour "
 			+ "ORDER BY tour_id DESC)) WHERE num BETWEEN #{start} AND #{end}")
 	public List<MainContentVO> contentData(Map map);
 	
-	@Select("SELECT tour_id, title, subTitle, img FROM tour WHERE tour_id BETWEEN 1 AND 6")
+	//국가로 검색했을때, 전체페이지수
+	@Select("SELECT CEIL(COUNT(DISTINCT t.tour_id)/9) "
+			+"FROM tour t, detail_schedule d, place p, city ct, country cy "
+			+"WHERE t.tour_id=d.tour_id AND d.place_id=p.place_id "
+			+"AND p.city_id=ct.city_id AND ct.country_id=cy.country_id "
+			+"AND cy.name=#{countryName}")
+	public int contentTotalPage(String countryName);
+	
+	//국가로 검색했을때, 페이지네이션
+	@Select("SELECT tour_id, title, subTitle, img, num FROM "
+			+"(SELECT tour_id, title, subTitle, img, rownum as num FROM "
+			+"(SELECT DISTINCT t.tour_id, t.title, t.subTitle, t.img FROM "
+			+"tour t, detail_schedule d, place p, city ct, country cy "
+			+"WHERE t.tour_id=d.tour_id "
+			+"AND d.place_id=p.place_id "
+			+"AND p.city_id=ct.city_id "
+			+"AND ct.country_id=cy.country_id "
+			+"AND cy.name=#{countryName} " 
+			+"ORDER BY t.tour_id DESC)) WHERE num BETWEEN #{start} AND #{end}")
+	public List<MainContentVO> contentDataSearch(Map map);
+	
+	//메인화면 딱 5개만 띄우기
+	@Select("SELECT tour_id, title, subTitle, img FROM tour WHERE tour_id BETWEEN 2 AND 7")
 	public List<MainContentVO> contentDataMain();
+	
+	//대륙별 국가 찾기
+	@Select("SELECT name FROM country WHERE continent_id=(SELECT continent_id FROM continent WHERE name=#{continentName})")
+	public List<String> countryFromContinent(String continentName);
 }

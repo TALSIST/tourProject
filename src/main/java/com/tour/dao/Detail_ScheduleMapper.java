@@ -31,11 +31,15 @@ public interface Detail_ScheduleMapper {
 	@Select("select * from place where place_id=#{place_id}")
 	public PlaceVO getPlaceVO(int place_id);
 
-	@Select("select * from TOUR t "
+	@Select("select t.TITLE,t.tour_id, IMAGE from TOUR t "
 			+ "INNER JOIN SHARED_MEMBERS s "
 			+ "on t.TOUR_ID = s.TOUR_ID "
 			+ "INNER JOIN MEMBER m "
-			+ "on s.MEMBER_ID =#{member_id} ")
+			+ "on s.MEMBER_ID =#{member_id} "
+			+ "inner join DETAIL_SCHEDULE d on t.TOUR_ID= d.TOUR_ID "
+			+ "inner join PLACE p on p.PLACE_ID=d.PLACE_ID "
+			+ "where rownum=1 ")
 	public List<TourVO> tourList(int member_id);
+	
 	
 }

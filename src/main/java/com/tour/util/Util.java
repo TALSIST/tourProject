@@ -28,16 +28,12 @@ public class Util {
 			int day =(int)((d2-d3)/(1000*60*60*24))+1;
 			list.get(i).setDay(day+day2);
 		}
-		int a=0;
-		for(int i=0;i<list.size()-1;i++){
-			if(list.get(i).getDay()==list.get(i+1).getDay()){
+		for(int i=1;i<list.size();i++){
+			if(list.get(i-1).getDay()==(list.get(i).getDay())){
 				list.get(i).setGubun("0");
-			}else{
-				list.get(i).setGubun("1");
 			}
-			System.out.print(list.get(i).getGubun());
+			
 		}
-		System.out.println(a);
 		return list;
 	}
 }

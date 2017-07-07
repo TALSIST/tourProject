@@ -1,23 +1,34 @@
 package com.tour.controller;
 
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.SessionScope;
 
 import com.tour.dao.PlanDAO;
 import com.tour.persistence.CityVO;
 import com.tour.persistence.CountryVO;
+import com.tour.persistence.DetailScheduleVO;
 import com.tour.persistence.PlaceVO;
 import com.tour.persistence.SubCategoryVO;
 import com.tour.persistence.TopCategoryVO;
+
+import oracle.sql.DATE;
 
 @Controller
 public class Plancontroller {
@@ -81,27 +92,77 @@ public class Plancontroller {
 		return "plan/dayselect";
 	}
 	
-	@RequestMapping("/dddddd")
-	public String dododo(String startDate, String endDate, HttpSession session){
-		/*System.out.println("asdfasdfasdfasdf         "+startDate);
-		if((tourTitle!="") && (startDate!="") && (endDate!="")){
+	
+	
+	@RequestMapping("/savePlan")
+	public void savePlan(String sendData){
+		System.out.println(sendData);
+		JSONParser parser = new JSONParser();
+		try {
+			Object obj = parser.parse(sendData);
+			JSONObject jsonObj = (JSONObject)obj;
+			String tour_id=  (String)jsonObj.get("tour_id");
+			JSONArray jsonarr = (JSONArray)jsonObj.get("tour");
+			
+			//"tour_date": "1",
+			//"tour_order": "1"
+			for(int i=0; i<jsonarr.size(); i++){
+				JSONObject jsonobj = (JSONObject)jsonarr.get(i);
+				int place_id = Integer.parseInt((String)jsonobj.get("place_id"));		//장소 ID
+				String tour_dateOrder =  (String)jsonobj.get("tour_dateOrder");			//Day1 , Day2
+				int tour_order = Integer.parseInt((String)jsonobj.get("tour_order"));		//각날짜의 여행순서
+				String tour_fullDate= (String)jsonobj.get("tour_fullDate");
+				System.out.println("tour_dateOrder : " + tour_dateOrder+" place_id = "+place_id + "  tour_order " +tour_order + " tour_fullDate  " + tour_fullDate);
+				
+				String year = tour_fullDate.substring(0,tour_fullDate.indexOf("-"));
+				String mm = tour_fullDate.substring(tour_fullDate.indexOf("-")+1,tour_fullDate.lastIndexOf("-"));
+				String dd = tour_fullDate.substring(tour_fullDate.lastIndexOf("-")+1,tour_fullDate.length());
+				System.out.println(year+mm+dd);
+				Map map= new HashMap();
+				map.put("year", year);
+				map.put("mm",mm);
+				map.put("dd", dd);
+				
+				Date date = dao.getDate(map);			//데이트 형식
+				
+				DetailScheduleVO vo = new DetailScheduleVO();
+				vo.setPlace_id(place_id);
+				vo.setTour_id(Integer.parseInt(tour_id));
+				vo.setTour_date(date);
+				vo.setTour_order(tour_order);
+				dao.setDetailSchedule(vo);
+				
+			}
 			
 			
-			//DB에 넣기
-			
-		}*/
-		//session.setAttribute("tourTitle", tourTitle);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+//===========================예지부분========================================
+	@RequestMapping("/startTour")
+	public @ResponseBody String startTour(int city_id, String title, String startDate, String endDate, HttpSession session){
+		Map map=new HashMap();
+		map.put("title", title);
+		dao.tourInsert(map);
+		int tour_id=dao.getTourId();
+		dao.setDetailTour(tour_id);
+		dao.setShareTour(tour_id);
+		
+		String city_name = dao.getCityName(city_id);
+		System.out.println("city_name : " + city_name);
+		session.setAttribute("city_name", city_name);
+		session.setAttribute("city_id", city_id);
+		session.setAttribute("tour_id", tour_id);		
+		session.setAttribute("title", title);
 		session.setAttribute("startDay", startDate);
 		session.setAttribute("endDay", endDate);
 		return "plan/dayselect";
-		
-		
 		//성공하면 성공이라고
 		//실패하면 다른페이지로 이동시키기
 	}
-	
-//===========================예지부분========================================
-	
 	@RequestMapping("/getContinentID")
 	   public @ResponseBody List<CountryVO> countryList(String name){
 	      List<CountryVO> conList = dao.countryList(name);
@@ -117,12 +178,38 @@ public class Plancontroller {
 	      System.out.println(cityList);
 	      return cityList;
 	   }
+	   
+	   @RequestMapping("/detailTour")
+	   public @ResponseBody String detailTour(int tour_id){
+			dao.setDetailTour(tour_id);
+		   return "plan/dayselect";
+		   
+	   }
+	   
+	   @RequestMapping("/shareTour")
+	   public @ResponseBody String shareTour(int tour_id){
+			dao.setShareTour(tour_id);
+		   return "plan/dayselect";
+	   }
+	   
+	   
+	   
 //==========================민정 부분=========================================
 	
 	   @RequestMapping("/routecommend")
 	   public String route_comm(){
 	      return "plan/routecommend";
 	   }
+	   
+	   @RequestMapping("/recomm")
+	    public String recomm(String prevLat,String prevlong,String curLat,String curlong,HttpSession session){ 
+		   session.setAttribute("prevLat", prevLat);
+		   session.setAttribute("prevlong", prevlong);
+		   session.setAttribute("curLat", curLat);
+		   session.setAttribute("curlong", curlong);
+		   
+		   return "plan/routecommend";
+	      }
 	   
 	   @RequestMapping("/complete")
 	   public String complete(){

@@ -18,11 +18,12 @@ public class MemberDAO {
    
    public int memberEmailcheck(String email)
    {
-         return mMapper.memberEmailcheck(email);
+        return mMapper.memberEmailcheck(email);
     }
    
-   public String memberGetPwd(String email){
-      return mMapper.memberGetPwd(email);
+   public MemberVO memberInfoData(String email)
+   {
+	   return mMapper.memberInfoData(email);
    }
    
    

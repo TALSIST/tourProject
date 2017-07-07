@@ -49,42 +49,53 @@
       return false;
    }
 
-  function initMap() {
-    var directionsDisplay = new google.maps.DirectionsRenderer;
-    var directionsService = new google.maps.DirectionsService;
+  function initMap() {  
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 7,
       center: {lat: 41.85, lng: -87.65}
     });
-    directionsDisplay.setMap(map);
-    directionsDisplay.setPanel(document.getElementById('tab1'));
-
+    console.log("맵 초기화 생성중");
+    var test22222 =${sessionScope.prevLat};
+    console.log(test22222);
     var control = document.getElementById('floating-panel');
     control.style.display = 'block';
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
-
-    var onChangeHandler = function() {
-      calculateAndDisplayRoute(directionsService, directionsDisplay);
-    };
-    document.getElementById('start').addEventListener('change', onChangeHandler);
-    document.getElementById('end').addEventListener('change', onChangeHandler);
-    document.getElementById('mode').addEventListener('change', onChangeHandler);
+    
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    var directionsService = new google.maps.DirectionsService;
+    directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(document.getElementById('tab1'));
+    
+    marker1 = new google.maps.Marker({
+       map: map,
+       draggle:true,
+       position:{lat:23.299,lng:91.56}
+    });
+    
+    marker2 = new google.maps.Marker({
+       map: map,
+       draggle:true,
+       position:{lat:23.4490,lng:91.43340}
+    });
+    
+    calculateAndDisplayRoute(directionsService, directionsDisplay);
+    console.log("루트그리기실행완료!");
   }
 
+  
   function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-    var start = document.getElementById('start').value;
-    var end = document.getElementById('end').value;
-    var mode = document.getElementById('mode').value;
-    console.log("모드는?"+mode);
+     console.log("루트그리기실행!");
+    var start = marker1;
+    var end = marker2;
     directionsService.route({
-      origin: start,
-      destination: end,
+      origin: {lat:(${sessionScope.prevLat}),lng:(${sessionScope.prevlong})},
+      destination: {lat:(${sessionScope.curLat}),lng:(${sessionScope.curlong})},
       travelMode: 'TRANSIT'
     }, function(response, status) {
       if (status === 'OK') {
         directionsDisplay.setDirections(response);
       } else {
-        window.alert('장소를 정확히 입력해주시기 바랍니다' + status);
+        window.alert('장소에 대한 정보가 정확하지 않습니다' + status);
       }
     });
   }
@@ -95,10 +106,10 @@
 </head>
 <body style="background-color: white; height:100%;scrolling:yes;">
     <div id="floating-panel">
-       <input id="start" class="controls" type="text"
-        placeholder="출발장소를 입력하세요">
-    <input id="end" class="controls" type="text"
-        placeholder="도착장소를 입력하세요">
+       <input type="hidden" id="start" class="controls" type="text"
+        placeholder="출발장소를 입력하세요" value="${sessionScope.start}">
+    <input type="hidden" id="end" class="controls" type="text"
+        placeholder="도착장소를 입력하세요" value="${sessionScope.end}">
     </div>
    <div id="map" class="fl" style="height:280px; position: relative; width:100%; overflow: hidden;">
       <iframe width="500" height="300" scrolling="yes" frameborder="0"
@@ -113,9 +124,9 @@
          <li class="traffic3" rel="tab3" value="DRIVING">자가용</li>
          <li class="traffic4" rel="tab4" value="BICYCLING">자전거</li>
          <div rel="tab5" class="adp-summary">
-            <span class="len" jstcache="59">km</span>
+            <!--<span class="len" jstcache="59">km</span>
             <span class="jum" jstcache="60">.</span>
-            <span class="time" jstcac   he="61">분</span>
+            <span class="time" jstcac   he="61">분</span> -->
          </div>
       </ul>
       <div class="tab_container" height=100%>

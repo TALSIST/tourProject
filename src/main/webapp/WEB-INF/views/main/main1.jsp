@@ -30,8 +30,7 @@
    
    <!-- login css -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-     <link rel='stylesheet prefetch' href='resources/css/anaeyg.css'>
-    <link rel="stylesheet" href="resources/css/login.css">
+     <link rel="stylesheet" href="resources/css/login.css"> 
    
    
   </head>
@@ -68,51 +67,60 @@
     <div class="container">
     
       <div id="logo" class="pull-left">
-        <a href="index.html"><img src="/resources/img/logo-nav.png" alt="" title="" /></img></a>
+        <a href="#"><img src="/resources/img/logo-nav.png" alt="" title="" /></img></a>
         <!-- Uncomment below if you prefer to use a text image -->
         <!--<h1><a href="#hero">Bell</a></h1>-->
       </div>
         
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#features">여행일정만들기</a></li>
-          <li><a href="#portfolio">준비중</a></li>
-          <li><a href="#team">준비중</a></li>
-          <li class="menu-has-children"><a href="">마이페이지</a>
+          <li><a href="/main1">home</a></li>
+          <li><a href="#">여행일정만들기</a></li>
+          <li><a href="#">여행지추천서비스(준비중)</a></li>
+          <li><a href="#">MUST DO(준비중)</a></li>
+          <li>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </li>
+          
+          <!-- 로그인관련 -->
+         <c:if test="${sessionScope.email==null }">
+             <li><a href="/login" data-toggle="modal" data-target="#id01">로그인/회원가입</a></li>
+          </c:if>
+          <c:if test="${sessionScope.email!=null }">
+            <li class="menu-has-children">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${sessionScope.email }님이 로그인 하였습니다.<a href="#"></a>
             <ul>
-              <li><a href="#">클립보드</a></li>
-              <li><a href="/mypage">여행일정</a></li>
-              <li><a href="#">Q&A</a></li>
-              <li class="menu-has-children"><a href="#">설정</a>
+             <li><a href="/mypage">여행일정</a></li>
+              <li><a href="/logout">로그아웃</a></li>
+              
+              <!-- <li class="menu-has-children"><a href="#" >설정</a>
                 <ul>
                   <li><a href="#">개인정보변경</a></li>
                   <li><a href="#">회원탈퇴요청</a></li>
-                </ul>
-              </li>
-              <li><a href="#">로그아웃</a></li>
+               </ul>
+              </li> -->
             </ul>
-          </li>
+            </li>
+       </c:if>
+          
+          
         </ul>
       </nav><!-- #nav-menu-container -->
       
-      <nav class="nav social-nav pull-right hidden-sm-down">
+    <!--   <nav class="nav social-nav pull-right hidden-sm-down">
         <a data-toggle="modal" data-target="#id01"><i class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a> <a href="#"><i class="fa fa-envelope"></i></a>
         
-      </nav>
+      </nav> -->
     </div>
   </header><!-- #header -->
   
   <div id="id01" class="modal fade" role="dialog">
 
   <div class="modal-dialog">
-   <button type="button" class="close" data-dismiss="modal">&times;</button>
   <div class="modal-content">
         <div class="absolute-wrap-signup">
      <div class="signup-wrap hide">
        <form action="post" id="sign_form">
          <div class="row">
            <div class="col-12">
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
              <h1 class="hide-fade">Sign Up</h1>
            </div>
          </div>
@@ -802,9 +810,9 @@
     <!-- Template Specisifc Custom Javascript File -->
     <script src="/resources/js/custom.js"></script>
     
-    <!-- login박스. -->
+   
+        <!-- login박스. -->
     <script src="resources/js/login.js"></script>
-    
     
   </body>
 </html>

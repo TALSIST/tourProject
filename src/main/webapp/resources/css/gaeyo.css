@@ -1,145 +1,94 @@
+body {
+	font-family: sans-serif;
+	font-size: 16px;
+}
+
+.wrap {
+	margin: 2em auto;
+	width: 100%;
+		max-width: 1000px;
+}
+
+h1 {
+	border-bottom: 4px solid #ccc;
+	font-size: 2em;
+	font-weight: 600;
+	margin-bottom: 1em;
+}
+
 .timeline {
-  list-style: none;
-  padding: 20px 0 20px;
-  position: relative;
+    margin: 30px 0;
+    padding: 0;
+    list-style:none;
+    position:relative;
+} 
+ 
+/* The line */
+/* .timeline:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 10px;
+    background: gray;
+    left: 20%;
+    margin-left: -10px;
+} */
+ 
+li {
+    position: relative;
 }
-.timeline:before {
-  top: 0;
-  bottom: 0;
-  position: absolute;
-  content: " ";
-  width: 3px;
-  background-color: #eeeeee;
-  left: 50%;
-  margin-left: -1.5px;
+ 
+/* The date/time */
+.year {
+    display: block;
+    width: 40px;
+    padding-right: 10px;
+    position: absolute;
+    font-size:24px;
 }
-.timeline > li {
-  margin-bottom: 20px;
-  position: relative;
+ 
+/* Right content */
+li .box {
+    margin: 0 0 15px 130px;
+    background: #119EB8;
+    color: white;
+    padding: 1px 20px 10px;
+    position: relative;
 }
-.timeline > li:before,
-.timeline > li:after {
-  content: " ";
-  display: table;
+ 
+.timeline > li:nth-child(odd) .box {
+    background: lightgray;
+    color: black;
 }
-.timeline > li:after {
-  clear: both;
+ 
+/* The triangle */
+.timeline > li .box:after {
+    right: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-right-color: #119EB8;
+    border-width: 10px;
+    top: 5px;
 }
-.timeline > li:before,
-.timeline > li:after {
-  content: " ";
-  display: table;
+ 
+.timeline > li:nth-child(odd) .box:after {
+    border-right-color: lightgray;
 }
-.timeline > li:after {
-  clear: both;
-}
-.timeline > li > .timeline-panel {
-  width: 50%;
-  float: left;
-  border: 1px solid #d4d4d4;
-  border-radius: 2px;
-  padding: 20px;
-  position: relative;
-  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
-}
-.timeline > li.timeline-inverted + li:not(.timeline-inverted),
-.timeline > li:not(.timeline-inverted) + li.timeline-inverted {
-margin-top: -60px;
-}
-
-.timeline > li:not(.timeline-inverted) {
-padding-right:90px;
-}
-
-.timeline > li.timeline-inverted {
-padding-left:90px;
-}
-.timeline > li > .timeline-panel:before {
-  position: absolute;
-  top: 26px;
-  right: -15px;
-  display: inline-block;
-  border-top: 15px solid transparent;
-  border-left: 15px solid #ccc;
-  border-right: 0 solid #ccc;
-  border-bottom: 15px solid transparent;
-  content: " ";
-}
-.timeline > li > .timeline-panel:after {
-  position: absolute;
-  top: 27px;
-  right: -14px;
-  display: inline-block;
-  border-top: 14px solid transparent;
-  border-left: 14px solid #fff;
-  border-right: 0 solid #fff;
-  border-bottom: 14px solid transparent;
-  content: " ";
-}
-.timeline > li > .timeline-badge {
-  color: #fff;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  font-size: 1.4em;
-  text-align: center;
-  position: absolute;
-  top: 16px;
-  left: 50%;
-  margin-left: -25px;
-  background-color: #999999;
-  z-index: 100;
-  border-top-right-radius: 50%;
-  border-top-left-radius: 50%;
-  border-bottom-right-radius: 50%;
-  border-bottom-left-radius: 50%;
-}
-.timeline > li.timeline-inverted > .timeline-panel {
-  float: right;
-}
-.timeline > li.timeline-inverted > .timeline-panel:before {
-  border-left-width: 0;
-  border-right-width: 15px;
-  left: -15px;
-  right: auto;
-}
-.timeline > li.timeline-inverted > .timeline-panel:after {
-  border-left-width: 0;
-  border-right-width: 14px;
-  left: -14px;
-  right: auto;
-}
-.timeline-badge.primary {
-  background-color: #2e6da4 !important;
-}
-.timeline-badge.success {
-  background-color: #3f903f !important;
-}
-.timeline-badge.warning {
-  background-color: #f0ad4e !important;
-}
-.timeline-badge.danger {
-  background-color: #d9534f !important;
-}
-.timeline-badge.info {
-  background-color: #5bc0de !important;
-}
-.timeline-title {
-  margin-top: 0;
-  color: inherit;
-}
-.timeline-body > p,
-.timeline-body > ul {
-  margin-bottom: 0;
-}
-.timeline-body > p + p {
-  margin-top: 5px;
-}
-.spot_img{
-	float:left;
-	width:70px;
-	height:70px;
-	border:1px solid;
-	border-color:#D7F1FA;
+ 
+/* Dots */
+.timeline > li .dot {
+    width:30px;
+    height:30px;
+    -webkit-font-smoothing: antialiased;
+    position: absolute;
+    background: gray;
+    border-radius: 50%;
+    left: 20%;
+    top: 0;
+    margin: -1px 0 0 -20px;
 }

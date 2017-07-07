@@ -44,11 +44,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/result")
-	public String main_result(String countryName, int page, Model model){ //����Ʈ���� ��Ż�� ���ÿ� ��ŸƮ�� end�� ��� �Ѵ�! 
+	public String main_result(String countryName, int page, Model model){ //占쏙옙占쏙옙트占쏙옙占쏙옙 占쏙옙탈占쏙옙 占쏙옙占시울옙 占쏙옙타트占쏙옙 end占쏙옙 占쏙옙占� 占싼댐옙! 
 		int totalpage=0;
-		if(countryName == null){//��Ʈ���̸��� ��� ���,
+		if(countryName == null){//占쏙옙트占쏙옙占싱몌옙占쏙옙 占쏙옙占� 占쏙옙占�,
 			totalpage=dao.contentTotalPage();
-		}else{//��Ʈ�� �̸��� �ִ� ���,
+		}else{//占쏙옙트占쏙옙 占싱몌옙占쏙옙 占쌍댐옙 占쏙옙占�,
 			totalpage=dao.contentTotalPage(countryName);
 		}
 		model.addAttribute("totalpage", totalpage);
@@ -57,18 +57,18 @@ public class HomeController {
 		int startPage=page-(page-1)%blockSize;//start page
 		int endPage=startPage+blockSize-1;//end page
 		if(endPage>totalpage){
-			endPage=totalpage;//������ �������� �������� �ʵ���
+			endPage=totalpage;//占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占십듸옙占쏙옙
 		}
 		int startContent = (page*rowSize)-(rowSize-1);//start content
-		int endContent = page*rowSize;//end content ������ ������������ ��� ���� Ȯ���ʿ�
+		int endContent = page*rowSize;//end content 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쏘떻占쏙옙 占쏙옙占쏙옙 확占쏙옙占십울옙
 		
 		List<MainContentVO> list = new ArrayList<MainContentVO>();
 		Map map = new HashMap();
-		if(countryName == null){//��Ʈ���̸��� ��� ���,
+		if(countryName == null){//占쏙옙트占쏙옙占싱몌옙占쏙옙 占쏙옙占� 占쏙옙占�,
 			map.put("start", startContent);
 			map.put("end", endContent);
 			list = dao.contentData(map);
-		}else{//��Ʈ���̸��� �ִ� ���,
+		}else{//占쏙옙트占쏙옙占싱몌옙占쏙옙 占쌍댐옙 占쏙옙占�,
 			map.put("start", startContent);
 			map.put("end", endContent);
 			map.put("countryName", countryName);

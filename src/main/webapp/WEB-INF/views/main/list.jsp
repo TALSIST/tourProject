@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <title>Trip With Us WITHEARTH</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
@@ -46,21 +46,19 @@
 	$(function() {
 		all();
 		
-		//필터 내용 변경마다 ajax
 		$("#tagSearch").click(function(){
 			$.ajax({
 				type : "POST",
 				url : "result",
 				data : {
 					"page" :"1",
-					"countryName" : $("#filter").children('[data="country"]').text()
+					"countryName" : $("#tags").children('[type="country"]').attr("data")
 				},
 				success : function(response){
 					$("#result").html(response);
 				}
 			});
 		});
-		
 		
 		//확장
 		$("#down").click(function() {
@@ -83,7 +81,7 @@
 		//국가 클릭시 필터에 태그 추가
 		$('[name="country"]').click(function(){
 			var countryName=$(this).text();
-			$("#tags").append("<div class='col-sm-2 col-md-2' name='hashtag' style='cursor: pointer' type='country' data='"+countryName+" x'>"+countryName+" x</div>");
+			$("#tags").append("<div class='col-sm-2 col-md-2' name='hashtag' style='cursor: pointer' type='country' data='"+countryName+"'>"+countryName+" x</div>");
 			if($("#tags").has("div")){
 				$("#filter").css("display", "block");
 			}
@@ -93,7 +91,7 @@
 	});
 	//필터내 태그 클릭시 삭제
 	$(document).on("click", '[name="hashtag"]', function(){
-		var tagName=$(this).text();
+		var tagName=$(this).attr("data");
 		$("#tags").children('[data=\"'+tagName+'\"]').remove();
 		
 		if($("#tags").children().size()==0){

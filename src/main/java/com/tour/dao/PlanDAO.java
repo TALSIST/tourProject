@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.tour.persistence.CityVO;
 import com.tour.persistence.CountryVO;
 import com.tour.persistence.DetailScheduleVO;
+import com.tour.persistence.MemberVO;
 import com.tour.persistence.PlaceVO;
 import com.tour.persistence.SubCategoryVO;
 import com.tour.persistence.TopCategoryVO;
@@ -57,6 +58,10 @@ public class PlanDAO {
 	public void setDetailSchedule(DetailScheduleVO vo){
 		planMapper.setDetailSchedule(vo);
 	}
+	
+	public List<MemberVO> getMember(int tour_id){
+		return planMapper.getMember(tour_id);
+	}
 
 	//==================================================예지부분..
 	   
@@ -81,7 +86,7 @@ public class PlanDAO {
 		   planMapper.setDetailTour(tour_id);
 	   }
 	   
-	   public void setShareTour(int tour_id){
-		   planMapper.setShareTour(tour_id);
+	   public void setShareTour(Map shareMap){
+		   planMapper.setShareTour(shareMap);
 	   }
 }

@@ -24,6 +24,7 @@ import com.tour.dao.PlanDAO;
 import com.tour.persistence.CityVO;
 import com.tour.persistence.CountryVO;
 import com.tour.persistence.DetailScheduleVO;
+import com.tour.persistence.MemberVO;
 import com.tour.persistence.PlaceVO;
 import com.tour.persistence.SubCategoryVO;
 import com.tour.persistence.TopCategoryVO;
@@ -92,6 +93,11 @@ public class Plancontroller {
 		return "plan/dayselect";
 	}
 	
+	@RequestMapping("/getMember")
+	public @ResponseBody List<MemberVO> getMember(int tour_id){
+		List<MemberVO> getMember = dao.getMember(tour_id);
+		return getMember;
+	}
 	
 	
 	@RequestMapping("/savePlan")
@@ -130,6 +136,7 @@ public class Plancontroller {
 				vo.setTour_id(Integer.parseInt(tour_id));
 				vo.setTour_date(date);
 				vo.setTour_order(tour_order);
+				
 				dao.setDetailSchedule(vo);
 				
 			}
@@ -143,13 +150,19 @@ public class Plancontroller {
 	
 //===========================예지부분========================================
 	@RequestMapping("/startTour")
-	public @ResponseBody String startTour(int city_id, String title, String startDate, String endDate, HttpSession session){
+	public @ResponseBody String startTour(String titleimage,int member_id,int city_id, String title, String startDate, String endDate, HttpSession session){
 		Map map=new HashMap();
 		map.put("title", title);
+		map.put("img", titleimage);
 		dao.tourInsert(map);
 		int tour_id=dao.getTourId();
+		System.out.println("startTourddddd  :   " + member_id);
 		dao.setDetailTour(tour_id);
-		dao.setShareTour(tour_id);
+		Map shareMap = new HashMap();
+		shareMap.put("tour_id", tour_id);
+		shareMap.put("member_id", member_id);
+		
+		dao.setShareTour(shareMap);
 		
 		String city_name = dao.getCityName(city_id);
 		System.out.println("city_name : " + city_name);
@@ -186,9 +199,14 @@ public class Plancontroller {
 		   
 	   }
 	   
+	   //dayselect 부분....
 	   @RequestMapping("/shareTour")
-	   public @ResponseBody String shareTour(int tour_id){
-			dao.setShareTour(tour_id);
+	   public @ResponseBody String shareTour(int tour_id,int member_id){
+		   Map shareMap = new HashMap();
+			shareMap.put("tour_id", tour_id);
+			shareMap.put("member_id", member_id);
+			//친구 찾고 그 친구의 멤버아이디를 넘겨주ㄴ도록하자....
+		   dao.setShareTour(shareMap);
 		   return "plan/dayselect";
 	   }
 	   

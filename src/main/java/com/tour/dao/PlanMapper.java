@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Select;
 import com.tour.persistence.CityVO;
 import com.tour.persistence.CountryVO;
 import com.tour.persistence.DetailScheduleVO;
+import com.tour.persistence.MemberVO;
 import com.tour.persistence.PlaceVO;
 import com.tour.persistence.SubCategoryVO;
 import com.tour.persistence.TopCategoryVO;
@@ -51,6 +52,10 @@ public interface PlanMapper {
 			+ " VALUES(SEQ_DETAIL_SCHEDULE.nextval,#{place_id},#{tour_id},#{tour_date},#{tour_order}) ")
 	public void setDetailSchedule(DetailScheduleVO vo);
 	
+	//일정짜기 게시글 공유권한 가져오기
+	@Select("SELECT * FROM member WHERE member_id=(SELECT member_id FROM shared_members WHERE tour_id=#{tour_id})")
+	public List<MemberVO> getMember(int tour_id);
+	
 	//==================================================================예지..
 	
 	@Select("SELECT * FROM country WHERE continent_id=("
@@ -60,7 +65,7 @@ public interface PlanMapper {
 	   @Select("SELECT * FROM city WHERE country_id=(SELECT country_id FROM country where name=#{name})")
 	   public List<CityVO> getcountry(String name); 
 	
-	   @Insert("INSERT INTO tour(tour_id,title) VALUES(SEQ_TOUR.nextval, #{title})")
+	   @Insert("INSERT INTO tour(tour_id,title,img) VALUES(SEQ_TOUR.nextval, #{title},#{img})")
 	   public void tourInsert(Map map);
 	   
 	   @Select("SELECT SEQ_TOUR.currval from dual")
@@ -71,7 +76,7 @@ public interface PlanMapper {
 	      public void setDetailTour(int tour_id);
 	      
 	      @Insert("INSERT INTO shared_members(shared_members_id,tour_id,member_id) VALUES(SEQ_SHARED_MEMBERS.nextval,#{tour_id},#{member_id})")
-	      public void setShareTour(int tour_id);
+	      public void setShareTour(Map shareMap);
 	      
 	
 }

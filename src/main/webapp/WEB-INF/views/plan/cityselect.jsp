@@ -37,6 +37,9 @@
 <script type="text/javascript">
    var startday="";
    var endday="";
+   var member_id='${sessionScope.member_id}';
+   alert("member_id : " + member_id);
+   var titleimage = "";
    $(document).ready(function(){
       $('#tourStartDate').datepicker({
          format:'MM-dd'
@@ -72,6 +75,9 @@
                   }else{
                   var sub2="";
                   for(var i=0; i<response.length; i++){
+                	  if(i==0){
+                		  titleimage = response[i].image;
+                	  }
                      sub2+="<div class=\"item\" data-no=\"0\" data=\"10635\" city_id="+response[i].city_id+" country-id="+response[i].country_id+" city-name="+response[i].name+" data-latitude="+response[i].latitude+" data-longitude="+response[i].longitude+">"
                        +"<div class=\"img_box fl\">"
                        +"<img src=https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="+response[i].image+"&key=AIzaSyAMbeNVdxJghsGGfBjDJwHPqYXXqgb-D0E>"
@@ -99,37 +105,6 @@
 
    
 $(function(){
-   $('#startPlan').click(function(){
-      var startDate = $('#tourStartDate').datepicker("getDate");
-      var endDate=$('#tourEndDate').datepicker("getDate");
-      var title= $('#tourTitle').val();
-      startDate=startDate.getTime();
-      endDate=endDate.getTime();
-      
-      if(title!=""){
-         alert("startDate     " + startDate);
-         $.ajax({
-            type:'POST',
-            url:'/startTour',
-            data:{"startDate" : startDate ,"endDate":endDate,"title":title},
-            success:function(data){
-               alert("title "+title);  
-               $('.modal-content').hide();
-               location.href='/dayselect2';
-               
-            }
-            
-         });
-      }else{
-         alert('타이틀을 입력하세요');
-      }
-      
-      
-      
-      
-      
-   });
-   
    
    $("#cat_menu li").click(function () {
       var continent=$(this).attr('data-val');
@@ -246,7 +221,7 @@ function startplan(){
           $.ajax({
              type:'POST',
              url:'/startTour',
-             data:{"startDate" : startDate ,"endDate":endDate,"title":title,"city_id":city_id },
+             data:{"startDate" : startDate ,"endDate":endDate,"title":title,"city_id":city_id ,"member_id":member_id,"titleimage" : titleimage},
              success:function(data){
                 
                 /* alert("title "+title);   */
@@ -410,10 +385,6 @@ function startplan(){
       </div>
       
     </div>
-      
-      
-      
-      
   </div>
   
   </div>

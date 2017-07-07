@@ -108,7 +108,7 @@
             url:'/addSpot',
             data:{"sub_category_id" : sub_category_id,   "place_id":place_id},
             success:function(response){
-               var sub=" <div class=\"day_spot_item\" data-fullDate="+fullDate+" data="+(data_no+1)+" data-set_day="+set_day+" place_id="+response[0].place_id+" latitude="+response[0].latitude+" longitude="+response[0].longitude+" >"
+               var sub=" <div class=\"day_spot_item\" data-img="+response[0].image+" data-fullDate="+fullDate+" data="+(data_no+1)+" data-set_day="+set_day+" place_id="+response[0].place_id+" latitude="+response[0].latitude+" longitude="+response[0].longitude+" >"
                +"<div class=\"item_ctrl_box\" style=\"display: none;\">"
                  +"<div class=\"fl btn_del\" title=\"삭제\">"
                  +"<img src=\" /resources/img/plan/remove.png \">"
@@ -135,6 +135,15 @@
                  +"</div>"
                  +"<div class=\"clear\"></div>"
                  +"</div>";
+                 var p = new Array();
+                 for(var i=0;i<response.length;i++){
+                    var pi = new Array();
+                    pi.push(response[i].name);
+                    pi.push(response[i].latitude);
+                    pi.push(response[i].longitude);
+                    pi.push(15);
+                 }
+                 p.push(pi);
                for(var i=0; i<=btDay;i++){
                    id="#schedule_detail_box"+(i+1)+"";
                    console.log(id);
@@ -153,6 +162,7 @@
                   //var day=$('.day_spot_item').eq(i+1).attr('data-set_day');
                $("#schedule_full_box").append(sub);
                sub="";
+               initMap(p);
                recomm2();
             }, error:function(request,status,error){
                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -160,6 +170,27 @@
             }
           
          }); 
+         
+         
+         //글에 공유된사람 구하기
+         $.ajax({
+        	 type:'POST',
+         		url: '/getMember',
+         		data : {"tour_id" : tour_id},
+         		success:function(response){
+         			var sub="";
+         			for(var i=0; i<response.length;i++){
+         				sub+="<a class=\"fl\" style=\"margin-right:5px;background:#e5e5e5;border-radius: 20px;width:40px;height:40px;\" original-title="+response[i].id+"> "
+                        +"<div class=\"tooltip\" title=\"test\">"
+                        +"<img src=\/resources/img/plan/user.png\" style=\"width:40px;height:40px;border-radius:20px;\">"
+                     	+"</div>"
+                  		+"</a>";
+         			}
+         		$('#plan_member_list_box').html(""+sub+"");
+         		}
+         });
+         
+         
          
       
       });
@@ -422,6 +453,7 @@
 		  	  success:function(){
 		  		
 		  	}
+			  
 		  })
 		  
       });

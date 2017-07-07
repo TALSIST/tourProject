@@ -31,7 +31,9 @@ public class MemberController {
       map.put("email", email);
       
       dao.memberInsert(map);
-      
+      MemberVO vo = dao.memberInfoData(email);
+      int member_id = vo.getMember_id();
+      session.setAttribute("member_id", member_id);
       session.setAttribute("id", id);
       session.setAttribute("email", email);
       return "main/login";
@@ -44,11 +46,12 @@ public class MemberController {
       MemberVO vo  = dao.memberInfoData(email);
       String pwd = vo.getPassword();
       String id = vo.getId();
-      
+      int member_id = vo.getMember_id();
+      System.out.println(member_id +  "     dddddddddddd");
       if(pwd.equals(password)) {
          session.setAttribute("id", id);
          session.setAttribute("email", email);
-         
+         session.setAttribute("member_id", member_id);
          return "OK";
       }
       return "NO";
@@ -58,7 +61,10 @@ public class MemberController {
    @RequestMapping("/logout")
    public String member_logout(HttpSession session)
    {
-      session.invalidate();
+	   //session.removeAttribute("id");
+      
+	   session.invalidate();
+      
       return "redirect:main1";
    }
 

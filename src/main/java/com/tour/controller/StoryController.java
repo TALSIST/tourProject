@@ -92,7 +92,10 @@ public class StoryController {
 		storyService.insertStory(story);
 		
 		rttr.addAttribute("tour_id", tour_id);
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 07d77ccb16b5074f489d34fae1a8348e21b03de0
 		return "redirect:/story";
 	}
 	

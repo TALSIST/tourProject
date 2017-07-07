@@ -1,6 +1,5 @@
 package com.tour.dao;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -8,24 +7,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +24,6 @@ import com.tour.persistence.CityVO;
 import com.tour.persistence.PlaceVO;
 import com.tour.persistence.ScheduleDayVO;
 import com.tour.persistence.TourVO;
-
 
 @Component
 public class TimeScheduleExcel {
@@ -45,8 +34,7 @@ public class TimeScheduleExcel {
 	public String createExcel(int tour_id){
 		//System.out.println("createExcel");
 		
-		int row_count=0;
-		
+		int row_count=0;		
 		
 		// Workbook 생성
         //Workbook xlsWb = new HSSFWorkbook(); // Excel 2007 이전 버전

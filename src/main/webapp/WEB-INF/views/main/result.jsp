@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -31,7 +31,7 @@
 <script src="http://code.jquery.com/jquery.js"></script>
 <script>
 $(function(){
-	$('.pagenum').click(function(){//¹øÈ£¸¦ ´©¸£¸é
+	$('.pagenum').click(function(){//ë²ˆí˜¸ë¥¼ ëˆ„ë¥´ë©´
 		var page=$(this).text();
 		var countryName= <%= request.getAttribute("countryName")%>
 		if(countryName==null){
@@ -60,7 +60,7 @@ $(function(){
 			}
 		}
 	});
-	//È­»ìÇ¥¸¦ ´©¸£¸é
+	//í™”ì‚´í‘œë¥¼ ëˆ„ë¥´ë©´
 	$('.arrow').click(function(){
 		var page=$(this).text();
 		var countryName= <%= request.getAttribute("countryName")%>
@@ -94,11 +94,11 @@ $(function(){
 <body>
 	<div class="container text-center">
 
-		<h2>¸ğµçÀÏÁ¤¸ñ·Ï</h2>
-		<p>´Ù¾çÇÑ »ç¶÷µéÀÌ ¸¸µç ÀÏÁ¤À» È®ÀÎÇÏ¼¼¿ä!</p>
+		<h2>ëª¨ë“ ì¼ì •ëª©ë¡</h2>
+		<p>ë‹¤ì–‘í•œ ì‚¬ëŒë“¤ì´ ë§Œë“  ì¼ì •ì„ í™•ì¸í•˜ì„¸ìš”!</p>
 		
 		<c:if test="${fn:length(list)==0 }">
-        	<h3 style="color:#199EB8">°Ë»ö°á°ú°¡ ¾ø½À´Ï´Ù.</h3>
+        	<h3 style="color:#199EB8">ê²€ìƒ‰ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤.</h3>
        </c:if>
 
 		<!-- content include -->		
@@ -111,12 +111,12 @@ $(function(){
         <c:forEach var="vo" items="${list }">
             <div class="col-md-4 col-sm-6">
                 <div class="thumbnail">
-                    <img src="/resources/img/${vo.img }" >
+                    <img src=https://maps.googleapis.com/maps/api/place/photo?photoreference=${vo.img}&key=AlzaSyAMbeNVdxJghsGGfBjDJwHPqYXXqgb-D0E >
                     <div class="caption">
                         <h3>${vo.title }</h3>
                         <p>${vo.subTitle }</p>
                         <p>
-                            <a href="${vo.tour_id }" class="btn btn-primary">ÂòÇÏ±â</a> <a href="#" class="btn btn-default">ÀÚ¼¼È÷</a>
+                            <a href="${vo.tour_id }" class="btn btn-primary">ì°œí•˜ê¸°</a> <a href="#" class="btn btn-default">ìì„¸íˆ</a>
                         </p>
                     </div>
                 </div>

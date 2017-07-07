@@ -91,6 +91,8 @@ public class StoryController {
 		story.setMember_id(18); //임시로 member_id 지정
 		storyService.insertStory(story);
 		
+		rttr.addAttribute("tour_id", tour_id);
+
 		return "redirect:/story";
 	}
 	
@@ -127,7 +129,7 @@ public class StoryController {
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public String storyDelete(@ModelAttribute("tour_id") int tour_id, int story_id, RedirectAttributes rttr) throws Exception{
 		storyService.deleteStory(story_id);
-		
+		rttr.addAttribute("tour_id", tour_id);
 		return "redirect:/story";
 	}
 	

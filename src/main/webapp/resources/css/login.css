@@ -37,7 +37,7 @@ label {
 }
 
 .input-group input:focus ~ label, .input-group input.dirty ~ label {
-  color: #FFF;
+  color: black;
   margin-left: -10px;
   margin-top: -43px;
 }
@@ -78,8 +78,8 @@ input.invalid {
 /* LOGIN  */
 
 .login-wrap {
-  background-color: #666;
-  background: linear-gradient(#666, #606060);
+  background-color: white;
+  background: linear-gradient(white, white);
   border-radius: 10px;
   box-shadow: rgba(0,0,0,0.6) 0 4px 3px;
   margin: 60px auto;
@@ -105,14 +105,14 @@ input.invalid {
 }
 
 .login-footer .btn {
-  background-color: #1aedd8;
-  background: linear-gradient(#1aedd8, #12a596);
+  background-color: #199EB8;
+  background: linear-gradient(#199EB8, #199EB8);
   border-radius: 6px;
   box-shadow: rgba(0,0,0,0.8) 0 2px 2px;
   color: #FFF;
   display: block;
   font-weight: bold;
-  padding: 20px 0;
+  padding: 10px 0;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -147,7 +147,7 @@ input.invalid {
 
 .login-footer .btn-pink {
   background-color: #e5162b;
-  background: linear-gradient(#ed5665, #e5162b);
+  background: linear-gradient(#ed5665, #ed5665);
 }
 
 .login-footer {
@@ -156,7 +156,7 @@ input.invalid {
 
 .login-footer .forgot {
   font-size: 14px;
-  color: #FFF;
+  color: black;
   display: block;
   text-align: center;
   text-decoration: none;

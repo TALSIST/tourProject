@@ -15,7 +15,16 @@ public class PlaceVO {
 	private String latitude;
 	private String longitude;
 	private SubCategoryVO subcategory;
+	private CityVO city;
 	
+	
+	
+	public CityVO getCity() {
+		return city;
+	}
+	public void setCity(CityVO city) {
+		this.city = city;
+	}
 	public SubCategoryVO getSubcategory() {
 		return subcategory;
 	}

@@ -6,15 +6,16 @@
 <meta charset="UTF-8">
 <title>Login</title>
 <link rel="stylesheet" href="resources/css/style2.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+ <link rel='stylesheet prefetch' href='resources/css/anaeyg.css'>
+  <link rel="stylesheet" href="resources/css/login.css">
 </head>
 <body>
-
-<div id="id01" class="modal fade" role="dialog">
+<div id="id01" class="modal fade" role="dialog" >
 
   <div class="modal-dialog">
-   <button type="button" class="close" data-dismiss="modal">&times;</button>
   <div class="modal-content">
-	  	<div class="absolute-wrap-signup">
+	  <div class="absolute-wrap-signup">
 	  <div class="signup-wrap hide">
 	    <form action="post" id="sign_form">
 	      <div class="row">
@@ -24,6 +25,7 @@
 	      </div>
 	      <div class="row">
 	        <div class="col-12">
+   			<button type="button" class="close" data-dismiss="modal">&times;</button>
 	          <div class="input-group hide-down">
 	            <input type="text" class="name" required/>
 	            <span class="valid-icon"></span>
@@ -38,7 +40,7 @@
 	          </div>
 	          <div class="input-group">
 	            <input type="password" class="check-password" required/>
-	            <span class="valid-icon"></span>
+	            <span class="invalid-icon"></span>
 	            <label for="password">Password</label>
 	            <span class="bottom-border"></span>
 	          </div>
@@ -73,8 +75,8 @@
 	    </div>
 	    <div class="row">
 	      <div class="col-12">
-	        <div class="input-group">
-	          <input type="email" class="check-email" required/>
+	        <div class="input-group" id="loginemail">
+	          <input type="email"  class="check-email" required/>
 	          <span class="valid-icon"></span>
 	          <label for="email">Email</label>
 	          <span class="bottom-border"></span>
@@ -103,6 +105,8 @@
 	  </form>
 	</div>
   </div>
+  
+
 </body>
 
 </html>

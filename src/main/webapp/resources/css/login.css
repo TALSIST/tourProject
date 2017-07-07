@@ -1,31 +1,4 @@
-/* BASIC */
 
-html {
-  box-sizing: border-box;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
-body {
-  font-family: sans-serif;
-  background-color: #438c97;
-/*   background-image: url(http://nathanhitchings.com/img/stripes.png); */
-}
-
-h1 {
-  border-bottom: 2px solid #333;
-  box-shadow: rgba(255,255,255,0.2) 0 2px 0;
-  color: #FFF;
-  margin: 20px 0 10px;
-}
-
-a {
-  transition: color 0.6s ease;
-}
 
 /* FORM */
 input, select, textarea {

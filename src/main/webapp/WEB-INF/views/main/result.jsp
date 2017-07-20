@@ -111,7 +111,7 @@ $(function(){
         <c:forEach var="vo" items="${list }">
             <div class="col-md-4 col-sm-6">
                 <div class="thumbnail">
-                    <img src=https://maps.googleapis.com/maps/api/place/photo?photoreference=${vo.img}&key=AlzaSyAMbeNVdxJghsGGfBjDJwHPqYXXqgb-D0E >
+                    <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${vo.img}&key=AIzaSyAMbeNVdxJghsGGfBjDJwHPqYXXqgb-D0E" >
                     <div class="caption">
                         <h3>${vo.title }</h3>
                         <p>${vo.subTitle }</p>

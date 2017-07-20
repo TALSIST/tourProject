@@ -88,7 +88,7 @@ public class StoryController {
 			}
 		}
 		
-		story.setMember_id(18); //ÀÓ½Ã·Î member_id ÁöÁ¤
+		story.setMember_id(18); //ï¿½Ó½Ã·ï¿½ member_id ï¿½ï¿½ï¿½ï¿½
 		storyService.insertStory(story);
 		
 		rttr.addAttribute("tour_id", tour_id);
@@ -247,10 +247,10 @@ public class StoryController {
 		if(mType!=null){
 			String front = fileName.substring(0, 12);
 			String end = fileName.substring(14);
-			new File(uploadPath+(front+end).replace('/', File.separatorChar)).delete(); //¿øº»ÆÄÀÏ »èÁ¦
+			new File(uploadPath+(front+end).replace('/', File.separatorChar)).delete(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		}
 		
-		new File(uploadPath+fileName.replace('/', File.separatorChar)).delete(); //½æ³×ÀÏ »èÁ¦
+		new File(uploadPath+fileName.replace('/', File.separatorChar)).delete(); //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}

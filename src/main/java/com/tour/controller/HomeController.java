@@ -10,8 +10,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.tour.R.RManager;
 import com.tour.dao.MainContentDAO;
+import com.tour.daum.DaumManager;
+import com.tour.hadoop.HadoopManager;
+import com.tour.naver.NaverManager;
 import com.tour.persistence.MainContentVO;
+import com.tour.rank.RankManager;
+import com.tour.rank.RankPlaceDAO;
+import com.tour.rank.RankPlaceVO;
+import com.tour.rank.YoutubeManager;
 
 /**
  * Handles requests for the application home page.
@@ -20,11 +28,25 @@ import com.tour.persistence.MainContentVO;
 public class HomeController {
 	@Autowired
 	private MainContentDAO dao;
+	@Autowired
+	private DaumManager dm;
+	@Autowired
+	private NaverManager nm;
+	@Autowired
+	private RManager rm;
+	@Autowired
+	private YoutubeManager ym;
+	@Autowired
+	private HadoopManager hm;
+	@Autowired
+	private RankManager rkm;
 	
 	@RequestMapping("/main1")
 	public String main1_page(Model model){
 		List<MainContentVO> list = dao.contentDataMain();
 		model.addAttribute("list", list);
+		List<RankPlaceVO> rList =rkm.getRankList();
+		model.addAttribute("rList", rList);
 		return "main/main1";
 	}
 	
@@ -44,11 +66,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/result")
-	public String main_result(String countryName, int page, Model model){ //�뜝�룞�삕�뜝�룞�삕�듃�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�깉�뜝�룞�삕 �뜝�룞�삕�뜝�떆�슱�삕 �뜝�룞�삕���듃�뜝�룞�삕 end�뜝�룞�삕 �뜝�룞�삕�뜝占� �뜝�떬�뙋�삕! 
+	public String main_result(String countryName, int page, Model model){  
 		int totalpage=0;
-		if(countryName == null){//�뜝�룞�삕�듃�뜝�룞�삕�뜝�떛紐뚯삕�뜝�룞�삕 �뜝�룞�삕�뜝占� �뜝�룞�삕�뜝占�,
+		if(countryName == null){
 			totalpage=dao.contentTotalPage();
-		}else{//�뜝�룞�삕�듃�뜝�룞�삕 �뜝�떛紐뚯삕�뜝�룞�삕 �뜝�뙇�뙋�삕 �뜝�룞�삕�뜝占�,
+		}else{
 			totalpage=dao.contentTotalPage(countryName);
 		}
 		model.addAttribute("totalpage", totalpage);
@@ -57,18 +79,18 @@ public class HomeController {
 		int startPage=page-(page-1)%blockSize;//start page
 		int endPage=startPage+blockSize-1;//end page
 		if(endPage>totalpage){
-			endPage=totalpage;//�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�떗�벝�삕�뜝�룞�삕
+			endPage=totalpage;
 		}
 		int startContent = (page*rowSize)-(rowSize-1);//start content
-		int endContent = page*rowSize;//end content �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룜�뼸�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �솗�뜝�룞�삕�뜝�떗�슱�삕
+		int endContent = page*rowSize;//end content 
 		
 		List<MainContentVO> list = new ArrayList<MainContentVO>();
 		Map map = new HashMap();
-		if(countryName == null){//�뜝�룞�삕�듃�뜝�룞�삕�뜝�떛紐뚯삕�뜝�룞�삕 �뜝�룞�삕�뜝占� �뜝�룞�삕�뜝占�,
+		if(countryName == null){
 			map.put("start", startContent);
 			map.put("end", endContent);
 			list = dao.contentData(map);
-		}else{//�뜝�룞�삕�듃�뜝�룞�삕�뜝�떛紐뚯삕�뜝�룞�삕 �뜝�뙇�뙋�삕 �뜝�룞�삕�뜝占�,
+		}else{
 			map.put("start", startContent);
 			map.put("end", endContent);
 			map.put("countryName", countryName);
@@ -102,4 +124,23 @@ public class HomeController {
 		return "plan/cityselect";
 	}
 	
+	@RequestMapping("/country_detail")
+	public String countDetail(Model model, String country){
+		dm.daumReview(country);
+		nm.naverBlogData(country);
+		nm.naverXmlParse();
+		
+		hm.hadoopFileDelete();
+		hm.copyFromLocal();
+		hm.mapReduceExecute();
+		hm.copyToLocal();
+		
+		rm.barchart();
+		rm.wordCloud();
+		
+		String link = ym.youtubeGetLink(country+" 여행");
+		model.addAttribute("country", country);
+		model.addAttribute("link", link);
+		return "main/country_detail";
+	}
 }

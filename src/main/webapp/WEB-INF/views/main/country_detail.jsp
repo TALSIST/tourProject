@@ -161,87 +161,29 @@
 		data-bg-img="/resources/img/cover_mypage.jpg"
 		data-settings='{"stellar-background-ratio": 0.6}'
 		data-toggle="parallax-bg">
-		<h2 style="font-size: 50px">여행일정</h2>
-
+		<h2 style="font-size: 50px">여행지 상세</h2>
 	</div>
 	<!-- /Parallax -->
 
-	<!-- 검색창 -->
+	<!-- bigdata -->
 	<div class="container">
-		<h2>일정 검색</h2>
-		<ul class="list-group">
-			<!-- 필터 -->
-			<li class="list-group-item" style="display: none" id="filter">
-				<div class="row">
-					<div class="col-md-2 col-sm-2" style="font-weight: bold">필터</div>
-					<div class="col-md-9 col-sm-9" id="tags"></div>
-					<div class="col-md-1 col-sm-1" ><input type=button value="검색" id="tagSearch"></div>
-				</div>
-			</li>
-			<!-- 검색기본 -->
-			<li class="list-group-item" name="recommandTab">
-				<div class="row">
-					<div class="col-md-2 col-sm-2" style="font-weight: bold">추천 여행지</div>
-					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">사이판</div>
-					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">미국</div>
-					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">이탈리아</div>
-					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">영국</div>
-					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">뉴질랜드</div>
-					<div class="col-md-1 col-sm-1" name="country" style="cursor: pointer">괌</div>
-					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">페루</div>
-					<div class="col-md-2 col-sm-2" id="down" style="cursor: pointer; color:#199EB8">더보기</div>
-				</div>
-			</li>
-			<!-- 대륙탭 -->
-			<li class="list-group-item" name=hiddenTap style="display:none; cursor:pointer">
-				<div class="row">
-					<div class="col-md-2 col-sm-2" name="continent" value="europe" style="color:#199EB8">유럽</div>
-					<div class="col-md-2 col-sm-2" name="continent" value="southPacific">남태평양</div>
-					<div class="col-md-2 col-sm-2" name="continent" value="northAmerica">북미</div>
-					<div class="col-md-2 col-sm-2" name="continent" value="middleAmerica">중남미</div>
-					<div class="col-md-2 col-sm-2" name="continent" value="asia">아시아</div>
-				</div>
-			</li>
-			<!-- 대륙별 국가 띄우기 -->
-			<li class="list-group-item" name=hiddenTap style="display:none">
-				<div class="row" id="europe" name="all" style="display:block">
-				<c:forEach var="countryName" items="${eList}">
-					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">${countryName}</div>	
-				</c:forEach>
-				</div>
-				<div class="row" id="southPacific" name="all" style="display:none">
-				<c:forEach var="countryName" items="${sList}">
-					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">${countryName}</div>	
-				</c:forEach>
-				</div>
-				<div class="row" id="northAmerica" name="all" style="display:none">
-				<c:forEach var="countryName" items="${nList}">
-					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">${countryName}</div>	
-				</c:forEach>
-				</div>
-				<div class="row" id="middleAmerica" name="all" style="display:none">
-				<c:forEach var="countryName" items="${mList}">
-					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">${countryName}</div>	
-				</c:forEach>
-				</div>
-				<div class="row" id="asia" name="all" style="display:none">
-				<c:forEach var="countryName" items="${aList}">
-					<div class="col-md-2 col-sm-2" name="country" style="cursor: pointer">${countryName}</div>	
-				</c:forEach>
-				</div>
-			</li>
-			
-			<li class="list-group-item" name=hiddenTap style="display:none">
-				<div align="center">
-					<input type=text placeholder="여행지를 검색하세요" size=30>
-					<input type=button value=직접검색>
-				</div>
-			</li>		
-		</ul>
+		<center>
+		<h2>${country }</h2>
+		<span>realtime search from youtube/naver/daum....</span>
+		</center>
+		<div class="col-lg-6 col-md-6 col-xs-6">
+		<embed class="movie-image" src="${link}" width=600px height=450px/></div>
+		<div class="col-lg-6 col-md-6 col-xs-6">
+			<center>
+				<img src="/resources/wordcloud.png">
+			</center>
+		</div>
+		<div class="col-lg-12 col-md-12 col-xs-12">
+		<center>
+			<img src="/resources/barchart.png">
+		</center>
+		</div>
 	</div>
-
-	<!-- result들어갈 자리 -->
-	<div id=result></div>
 
 	<!-- @component: footer -->
 

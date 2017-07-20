@@ -32,7 +32,8 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
      <link rel="stylesheet" href="resources/css/login.css"> 
    
-   
+   <script>
+   </script>
   </head>
 
   <body>
@@ -55,7 +56,7 @@
           <p class="tagline">
                쉽고 빠르게 여행을 계획하세요. 
           </p>
-          <a class="btn btn-full" href="#about" style="background-color: #199EB8; font-weight: 800; padding: 15px 45px; border-radius: 50px">여행 일정 만들기</a>
+          <a class="btn btn-full" href="/cityselect" style="background-color: #199EB8; font-weight: 800; padding: 15px 45px; border-radius: 50px">여행 일정 만들기</a>
         </div>
       </div>
       
@@ -75,9 +76,9 @@
       <nav id="nav-menu-container">
         <ul class="nav-menu">
           <li><a href="/main1">home</a></li>
-          <li><a href="#">여행일정만들기</a></li>
+          <li><a href="/cityselect">여행일정만들기</a></li>
           <li><a href="#">여행지추천서비스(준비중)</a></li>
-          <li><a href="#">MUST DO(준비중)</a></li>
+          <li><a href="/mypage">MUST DO(준비중)</a></li>
           <li>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </li>
           
           <!-- 로그인관련 -->
@@ -209,7 +210,6 @@
      <div class="container text-center">
      <h2>인기 여행 일정</h2>
     <p>다른 여행자들의 일정을 참고해 나만의 여행을 계획해보세요!</p>
-     
 
    <!-- content include -->
    <!-- Page Content -->
@@ -226,8 +226,8 @@
                         <h3>${vo.title }</h3>
                         <p>${vo.subTitle }</p>
                         <p>
-                           <a href="${vo.tour_id }" class="btn btn-primary">찜하기</a> <a
-                              href="#" class="btn btn-default">자세히</a>
+                           <a href="#" class="btn btn-primary">찜하기</a> 
+                           <a href="#" class="btn btn-default">자세히</a>
                         </p>
                      </div>
                   </div>
@@ -441,122 +441,35 @@
     </section>
     /Call to Action -->
     <!-- Portfolio -->
-
+	<!-- 인기도시 rank -->
     <section class="portfolio" id="portfolio">
       <div class="container text-center">
         <h2>
-             인기도시 TOP8
+             인기도시 TOP 24
         </h2>
-
+        <span>by Tripadvisor</span>
       </div>
 
       <div class="portfolio-grid">
         <div class="row">
+        
+        <c:forEach var="vo" items="${rList }" varStatus="s">
+        <c:if test="${s.index<24}">
           <div class="col-lg-3 col-sm-6 col-xs-12">
             <div class="card card-block">
-              <a href="#"><img alt="" src="/resources/img/porf-1.jpg">
+              <a href="country_detail?country=${vo.title }"><img style="margin-left:-28px" height="349px" src="${vo.img }">
               <div class="portfolio-over">
                 <div>
-                  <h3 class="card-title">
-                       런던
+                  <h3 class="card-title" style="align:center">
+                       ${vo.rank }위 ${vo.title }
                   </h3>
                 </div>
               </div></a>
             </div>
           </div>
+          </c:if>
+          </c:forEach>
 
-          <div class="col-lg-3 col-sm-6 col-xs-12">
-            <div class="card card-block">
-              <a href="#"><img alt="" src="/resources/img/porf-2.jpg">
-              <div class="portfolio-over">
-                <div>
-                  <h3 class="card-title">
-                       파리
-                  </h3>
-                </div>
-              </div></a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-sm-6 col-xs-12">
-            <div class="card card-block">
-              <a href="#"><img alt="" src="/resources/img/porf-3.jpg">
-              <div class="portfolio-over">
-                <div>
-                  <h3 class="card-title">
-                       바르셀로나
-                  </h3>
-                </div>
-              </div></a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-sm-6 col-xs-12">
-            <div class="card card-block">
-              <a href="#"><img alt="" src="/resources/img/porf-4.jpg">
-              <div class="portfolio-over">
-                <div>
-                  <h3 class="card-title">
-                       베네치아
-                  </h3>
-                </div>
-              </div></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-3 col-sm-6 col-xs-12">
-            <div class="card card-block">
-              <a href="#"><img alt="" src="/resources/img/porf-5.jpg">
-              <div class="portfolio-over">
-                <div>
-                  <h3 class="card-title">
-                       타이페이
-                  </h3>
-                </div>
-              </div></a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-sm-6 col-xs-12">
-            <div class="card card-block">
-              <a href="#"><img alt="" src="/resources/img/porf-6.jpg">
-              <div class="portfolio-over">
-                <div>
-                  <h3 class="card-title">
-                      싱가포르
-                  </h3>
-                </div>
-              </div></a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-sm-6 col-xs-12">
-            <div class="card card-block">
-              <a href="#"><img alt="" src="/resources/img/porf-7.jpg">
-              <div class="portfolio-over">
-                <div>
-                  <h3 class="card-title">
-                       제주도
-                  </h3>
-                </div>
-              </div></a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-sm-6 col-xs-12">
-            <div class="card card-block">
-              <a href="#"><img alt="" src="/resources/img/porf-8.jpg">
-              <div class="portfolio-over">
-                <div>
-                  <h3 class="card-title">
-                       방콕
-                  </h3>
-                </div>
-              </div></a>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -565,7 +478,7 @@
 
     <!-- Team -->
 
-    <section class="team" id="team">
+   <!--  <section class="team" id="team">
       <div class="container">
         <h2 class="text-center">
           Meet our team
@@ -731,7 +644,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
     <!-- /Team -->
     <!-- @component: footer -->
 
@@ -742,7 +655,7 @@
         <div class="container">
           <div class="row">
 
-            <div class="col-lg-6 col-xs-12 text-lg-left text-center">
+            <div class="col-lg-12 col-xs-12 text-lg-left text-center">
               <p class="copyright-text">
                 © WITHEARTH
               </p>
@@ -757,30 +670,13 @@
               </div>
             </div>
             
-            <div class="col-lg-6 col-xs-12 text-lg-right text-center">
+            <div class="col-lg-12 col-xs-12 text-lg-right text-center">
               <ul class="list-inline">
                 <li class="list-inline-item">
-                  <a href="index.html">Home</a>
+                  <a href="/main1">Home</a>
                 </li>
-
                 <li class="list-inline-item">
-                  <a href="#about">About Us</a>
-                </li>
-
-                <li class="list-inline-item">
-                  <a href="#features">여행일정만들기</a>
-                </li>
-
-                <li class="list-inline-item">
-                  <a href="#portfolio">준비중</a>
-                </li>
-
-                <li class="list-inline-item">
-                  <a href="#team">준비중</a>
-                </li>
-
-                <li class="list-inline-item">
-                  <a href="#contact">준비중</a>
+                  <a href="/cityselect">여행일정만들기</a>
                 </li>
               </ul>
             </div>

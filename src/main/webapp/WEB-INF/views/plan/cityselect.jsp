@@ -38,7 +38,7 @@
    var startday="";
    var endday="";
    var member_id='${sessionScope.member_id}';
-   alert("member_id : " + member_id);
+   
    var titleimage = "";
    $(document).ready(function(){
       $('#tourStartDate').datepicker({
@@ -55,6 +55,9 @@
          endday = $(this).val();
       });
       
+      $('#close22').click(function(){
+    	  location.href="main1";
+      });
       
       
    })
@@ -62,14 +65,14 @@
    function classact(){
           $('.item').click(function(){
              var country=$(this).attr('data-val');
-         alert(country);            
+                  
             $('#country_list_title').text(country);
             $.ajax({
                type:'POST',
                url:'/getCountryID',
                data:{"name":country},
                success:function(response){
-                  alert(JSON.stringify(response));
+                  
                   if(response==""){
                      alert('서비스 준비중입니다.');
                   }else{
@@ -109,15 +112,14 @@ $(function(){
    
    $("#cat_menu li").click(function () {
       var continent=$(this).attr('data-val');
-      console.log(continent);
+	 $('ul li').removeClass("on");
+      $(this).addClass("on");
       $('#country_list_title').text(continent);
          $.ajax({
            type:'POST',
            url:'/getContinentID',
            data:{"name":continent},
            success:function(response){
-              console.log(response[0].name);
-              
               var sub="";
               var c = new Array();
               for(var i=0; i<response.length;i++){ 
@@ -133,14 +135,10 @@ $(function(){
                  +"</div>"
                  +"<input type=hidden id=\"haha\" data-name=\" "+response[i].name+"\">";
                   var ci=new Array();
-                    console.log("2.name은?"+response[i].name);
                     ci.push(response[i].name);
-                    console.log("2.위도는?"+response[i].latitude);
                     ci.push(response[i].latitude);
-                    console.log("2.경도은?"+response[i].longitude);
                     ci.push(response[i].longitude);
                     ci.push(3);
-                     console.log("돌고난후 ci는?"+ci);
                     c.push(ci);
               
               }
@@ -206,7 +204,7 @@ function startplan(){
     var city_id;
     $('.item').click(function(){
        city_id = $(this).attr('city_id');
-       alert("city  "+city_id);
+       
     });
     $('#PlanStart').click(function(){      
 
@@ -218,7 +216,7 @@ function startplan(){
     
         
        if(title!=""){
-          alert("startDate     " + startDate);
+          
           $.ajax({
              type:'POST',
              url:'/startTour',
@@ -265,20 +263,19 @@ function startplan(){
          <div class="fr gnb_box">
             <div class="fl gnb_search_box"></div>
             <!-- <a href="/ko/plan"> -->
-               <div class="fr gnb_plan_create_close_btn" id="close22"><a href="main1">닫기</a></div>
+               <div class="fr gnb_plan_create_close_btn" id="close22">닫기</div>
             <!-- </a> -->      
             <div class="clear"></div>
          </div>
       </div>
    <div class="clear"></div>
+   </div>
    <link rel="stylesheet" href="/resources/css/cityselect.css">
    <div id="full_wrap" style="width: 100%; height: 598px;">
    <div class="fl left_full_box">
       <ul class="fl" id="cat_menu" data="" data-member_srl="1329305">
-         <a><li data="as" data-val="아시아" class="on">
-            <img src="/resources/img/plan/asia.png" class="s"><br>아시아
-         </li></a>
-         <a><li data="eu" data-val="유럽" >
+         
+         <a><li data="eu" data-val="유럽" class="on">
             <img src="/resources/img/plan/europe.png" class="s"><br>유럽
          </li></a>
          <a><li data="oc" data-val="남태평양">
@@ -289,6 +286,9 @@ function startplan(){
          </li></a>
          <a><li data="sa" data-val="중남미">
             <img src="/resources/img/plan/latinamerica.png" class="s" style="padding-bottom:7px;"><br>중남미
+         </li></a>
+         <a><li data="as" data-val="아시아">
+            <img src="/resources/img/plan/asia.png" class="s"><br>아시아
          </li></a>
       </ul>
    
@@ -335,7 +335,7 @@ function startplan(){
 
    
 </div>
-<div id="right_full_box" class="fl" style="position:absolute;left:336px;top:62px;">
+<div id="right_full_box" class="fl" style="position:absolute;left:336px;">
       <!-- 지도 명칭 마커 표시 Start -->
       <div id="clip_list" data="0">
                 <div class="list_title"><span></span> 클립보드<div class="list_title_option_menu" data-is_open="off">도시 변경</div></div>

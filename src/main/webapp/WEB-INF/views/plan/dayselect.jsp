@@ -39,30 +39,24 @@
    var fullDate=year;
    var tour_id=${sessionScope.tour_id};
    
-   console.log(year);
     Shadowbox.init({
              players:['iframe']
       }); 
 
       function initMap(p) {
-         console.log("p는?"+p);
          var place;
          if(p==undefined||p==null){
-            console.log("p는 null?"+p);
              place = [
                             ['가로수길', 37.5206974,127.0225605, 10],
                             ['북촌한옥마을',37.5793998,126.9802342, 10]
                           ]; 
-            // console.log("lat값?"+place[0][1]+",lng값?"+place[0][2])
              var map = new google.maps.Map(document.getElementById('map'), {
                    zoom: parseFloat(place[1][3]),
                    center: {lat: parseFloat(place[1][1]), lng: parseFloat(place[1][2])}
               });
          }else
-         {   console.log("p는 full?"+p);
+         {  
             place = p;
-            console.log("place는?"+place);
-           // console.log("lat값?"+place[0][1]+",lng값?"+place[0][2])
             var map = new google.maps.Map(document.getElementById('map'), {
                   zoom: parseFloat(place[0][3]),
                   center: {lat: parseFloat(place[0][1]), lng: parseFloat(place[0][2])}
@@ -73,7 +67,6 @@
               for (var i = 0; i < place.length; i++){
                   
                   var plc = place[i];   
-                  console.log("for문안에서도는 plc는?"+plc);
                   var marker = new google.maps.Marker({
                      position: {lat: parseFloat(plc[1]), lng: parseFloat(plc[2])},
                      map: map,
@@ -91,7 +84,6 @@
    function classact() {
       // ajax를 통해 생성된 loc리스트를 Day경로에 넣기 위한 함수.
       $('.spot_to_inspot').click(function(){
-         console.log('dd');
          var id;
         var selDay;
          
@@ -105,8 +97,6 @@
          id="#schedule_detail_box"+(day)+"";
          var data_no=  $(""+id+"").children('.day_spot_item').length;
          set_day=  $(""+id+"").attr('data-day');
-         console.log("data_no   " +data_no);
-         console.log(place_id + "              " + sub_category_id+"             "+name);      
          
          //day는 day1을 누르면 값이 셋팅 되고 아니면 1로 셋팅
          $.ajax({
@@ -152,15 +142,12 @@
                  p.push(pi);
                for(var i=0; i<=btDay;i++){
                    id="#schedule_detail_box"+(i+1)+"";
-                   console.log(id);
                    if(!IsClick){
                    	day=1;
                    }
                    selDay= $(""+id+"").attr('data-day');
-                   console.log(selDay+"       "+ day);
                    //$(""+id+"").css('display','none');
                    if(selDay==day){
-                       console.log("Same!!!");
                       $(""+id+"").append(sub);
                       sub="";
                    }
@@ -190,7 +177,7 @@
  	  		var curlong =  $(this).parent().attr('longitude');
  	  		
  	  		
- 	  		console.log("prevLat :  " + prevLat + "prevlong : " + prevlong + " curLat : "+ curLat + "  curlong : "+curlong);
+ 	  		
 		   recomm(prevLat,prevlong,curLat,curlong);
    	});
    }
@@ -235,7 +222,7 @@
    
    
    function recomm(prevLat,prevlong,curLat,curlong){
-		console.log("prevLat@!!!!!!!!!!! : " + prevLat);
+		
        var start = "타임스퀘어";
        var end = "명동역";
       //alert(lat+","+lng+","+pid+","+start+","+end);
@@ -244,7 +231,7 @@
            url:'/recomm.do',
            data:{"prevLat":prevLat, "prevlong":prevlong,"curLat":curLat, "curlong":curlong},
            success:function(response){
-              alert("결과값은?"+response);
+              
            }
        });
        Shadowbox.open({
@@ -262,17 +249,14 @@
       
       $('#cat_menu li').click(function(){
     	  IsClick=true;
-         console.log("before = " + day);
          date = $(this).attr('data-date');         //날짜 -7.10일
          week= $(this).attr('data-week');         //요일
          day = $(this).attr('data-day');            //몇번째날인지
          fullDate= $(this).attr('datafulldate');
-         console.log("FUllll  " + fullDate);
          
          //디테일 리스트... 창 바꾸기
            for(var i=0; i<=btDay;i++){
             var id="#schedule_detail_box"+(i+1)+"";
-            console.log(id);
               if(day==(i+1)){
                  $(""+id+"").css('display','block');
               }else{
@@ -280,12 +264,11 @@
               }
            }
            
-         console.log("daaaa" + day);
          $('#sepDay').text("DAY"+day+"|  "+date+"|  ("+week+")");
          
          var locCount = $('#schedule_detail_box2').children('.day_spot_item').length;
          //가져온 데이스팟 태그와 찍은 데이와 비교해서 같은것만 디스플레이 논에서 제외시켜준다.
-         alert("locCount    "+ locCount);
+         
          for(var i=0; i<locCount;i++){
             var day33=$('.day_spot_item').eq(i+1).attr('data-set_day');
          }
@@ -301,7 +284,6 @@
       var setDetailBox="";
       
       var i;
-      console.log("i = " + i);
          for(i=0; i<btDay+1;i++){
             setDetailBox="";
             if(i==0){
@@ -330,15 +312,12 @@
 	    	  //var id="#schedule_detail_box"+(i+1)+"";
 	           //$(""+id+"").css('display','none');
 	    	  var topCount = $('#schedule_full_box').children('.connectedSortable ui-sortable').length;	//day의 갯수
-	    	  console.log('day 갯수' + topCount);
 	    	  var tourInfomation = new Object();	//여행 id에 대한 정보
 	    	  tourInfomation.tour_id ="3";
 	    	  var tourlist = new Array();
 	    	  for(var i=1;i<=btDay+1;i++){
 	    		  var id="#schedule_detail_box"+(i)+"";
-	    		  console.log('id   '+ id);
 	    		  var subCount = $(""+id+"").children('.day_spot_item').length;			//day_spot_item의 갯수
-	    		  console.log('subCount 갯수' + subCount);
 	    		  var id="#schedule_detail_box"+(i)+" .day_spot_item:nth-child(";
 	    		  for(var j=1;j<=subCount;j++){
 	    			  //E:nth-child(n)
@@ -347,7 +326,6 @@
 	    			  var tour_order=	$(""+id+""+j+")").attr('data');	//몇번쨰 요소인지
 	    			  															//tour_id (글 번호)
 	    			  var tour_fullDate= $(""+id+""+j+")").attr('data-fullDate');
-	    		  	console.log("tour_fullDate : "+ tour_fullDate + "  tour_dateOrder : "+tour_dateOrder+" tour_order= " + tour_order);
 	    			  var sepTour = new Object();
 	    			  sepTour.place_id = place_id;
 	    			  sepTour.tour_dateOrder=tour_dateOrder;
@@ -359,7 +337,7 @@
 	    	  }
 	    	  tourInfomation.tour=tourlist;
 			  var sendData = JSON.stringify(tourInfomation);
-			  alert(sendData);
+			  
 			  
 			  $.ajax({
 				  type:'POST',
@@ -388,7 +366,6 @@
       var city_id = ${sessionScope.city_id};
       //var city_name = ${sessionScope.city_name};
       $('#city_name').attr('city-id',city_id);
-      console.log("city_id   " + city_id +  "");
       
       
       $.ajax({
@@ -443,14 +420,13 @@
       
        $('#topcate_sub').change(function() {
               var top_category_id = $('#topcate_sub').find(':selected').data('id');
-              console.log("topID = "+top_category_id);
               $.ajax({
                type:'POST',
                url:'/dayselectTop',
                data:{"top_category_id" : top_category_id},
                success:function(response){
-                  alert(JSON.stringify(response));
-                   console.log(response[0].top_category_id);
+                  
+                   
                   var sub = "";
                   for(var i=0; i<response.length;i++){
                      if(i==0){
@@ -470,13 +446,11 @@
       
       $('#input_search').keyup(function(){
          var searchCity = $('#input_search').val();
-         console.log(searchCity);
          $.ajax({
             type:'POST',
             url:'/inputsearch',
             data:{"name":searchCity},
             success:function(response){
-               console.log(JSON.stringify(response));
                var sub="";
                //검색어가 아무것도 없다면... 다시 도시에 관한것만 나오게
                if(searchCity==""){
@@ -512,16 +486,13 @@
    });
    
      function addClick(){
-      console.log('img Click');
       var name = $(this).attr(name);
-      console.log(name);
       var name = 
       $.ajax({
          type:'POST',
          url:'/addSpot',
          data:{"name":name},
          success:function(response){
-            console.log(response);
             
          }
       });
@@ -552,15 +523,13 @@
          //서브카테고리 아이디, 시티 아이디가 필요함.
               var sub_category_id =$('#subcate_sub').find(':selected').data('subcategory');
             var city_id = $('#city_name').attr('city-id');
-              console.log("sub = "+sub_category_id);
-              console.log("city-id=" + city_id);
              var parameter = []
               $.ajax({
                type:'POST',
                url:'/selSubcategoryLocList',
                data:{"city_id":city_id, "sub_category_id":sub_category_id},
                success:function(response){
-                  alert(JSON.stringify(response));
+                  
                    var sub="";
                    if(response.length==0){
                       sub="<div style=\"height:128px;\" class=\"day_spot_item ui-draggable\"  data=\"0\" data-set_day="+day+" data-rel_srl=\"6662\" data-pl_type=\"0\" data-no=\"0\" data-pl_cat=\"301\" data-ci=\"310\">"+
@@ -606,7 +575,7 @@
       
       //도시 선택했을때 여행지 리스트 나오는 함수.
       $('.list_title_option_menu').click(function(){
-    	 alert('ddd');
+    	 
     	  
     	  // $('#myModal').fadeToggle();
          

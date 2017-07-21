@@ -541,8 +541,9 @@
     <li class="list-group-item">
     <div class="row">
     <div class="col-lg-7 col-sm-7 col-xs-7">패키지</div>
-    <div class="col-lg-2 col-sm-2 col-xs-2">가격</div>
-    <div class="col-lg-3 col-sm-3 col-xs-3">출발일/여행사</div>
+    <div class="col-lg-1 col-sm-1 col-xs-1">가격</div>
+    <div class="col-lg-2 col-sm-2 col-xs-2">출발일(일자순)</div>
+    <div class="col-lg-1 col-sm-1 col-xs-1">여행사</div>
     </div>
     </li>
     <c:forEach var="vo" items="${uList }">
@@ -553,8 +554,9 @@
     </div>
     <div class="col-lg-6 col-sm-6 col-xs-6" align="left">
 		<a href="${vo.link }">${vo.package_name }</a></div>
-	<div class="col-lg-2 col-sm-2 col-xs-2">${vo.price }</div>
-    <div class="col-lg-3 col-sm-3 col-xs-3">${vo.start_date }/${vo.site }</div>
+	<div class="col-lg-1 col-sm-1 col-xs-1">${vo.price }</div>
+    <div class="col-lg-2 col-sm-2 col-xs-2">${vo.start_date }</div>
+    <div class="col-lg-1 col-sm-1 col-xs-1">${vo.site }</div>
     </div>
     </li>
     </c:forEach>

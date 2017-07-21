@@ -16,7 +16,7 @@ public class UrgentDAO {
 		query.put("link",  new BasicDBObject("$ne", null));
 		query.put("img",  new BasicDBObject("$ne", null));
 		query.put("start_date",  new BasicDBObject("$ne", null));
-		DBCursor cursor=dbc.find(query);
+		DBCursor cursor=dbc.find(query).sort(new BasicDBObject("start_date",1));
 		while(cursor.hasNext()){
 			UrgentVO vo=new UrgentVO();
 			BasicDBObject obj=(BasicDBObject)cursor.next();

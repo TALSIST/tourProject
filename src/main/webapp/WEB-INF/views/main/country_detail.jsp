@@ -180,6 +180,7 @@
 		</div>
 		<div class="col-lg-12 col-md-12 col-xs-12">
 		<center>
+			<h3>방문자 체감 날씨</h3>
 			<img src="/resources/barchart.png">
 		</center>
 		</div>

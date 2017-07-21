@@ -54,9 +54,7 @@
       zoom: 7,
       center: {lat: 41.85, lng: -87.65}
     });
-    console.log("맵 초기화 생성중");
     var test22222 =${sessionScope.prevLat};
-    console.log(test22222);
     var control = document.getElementById('floating-panel');
     control.style.display = 'block';
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
@@ -79,12 +77,10 @@
     });
     
     calculateAndDisplayRoute(directionsService, directionsDisplay);
-    console.log("루트그리기실행완료!");
   }
 
   
   function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-     console.log("루트그리기실행!");
     var start = marker1;
     var end = marker2;
     directionsService.route({

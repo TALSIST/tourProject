@@ -4,6 +4,14 @@ public class RankPlaceVO {
 	private String title;
 	private int rank;
 	private String img;
+	private int count;
+	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public String getTitle() {
 		return title;
 	}

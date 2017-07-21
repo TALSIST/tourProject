@@ -30,9 +30,44 @@
    
    <!-- login css -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-     <link rel="stylesheet" href="resources/css/login.css"> 
+   <link rel="stylesheet" href="resources/css/login.css"> 
    
+   <!-- realtime-chart 용 css -->
+   <link href="/resources/css/realtime_chart.css" rel="stylesheet">
+   
+   <script src="http://code.jquery.com/jquery.js"></script>
    <script>
+   function generateBarGraph(wrapper) {
+	    // Set Up Values Array
+	    var values = [];
+
+	    // Get Values and save to Array
+	    $(wrapper + ' .bar').each(function(index, el) {
+	      values.push($(this).data('value'));
+	    });
+
+	    // Get Max Value From Array
+	    var max_value = Math.max.apply(Math, values);
+
+	    // Set width of bar to percent of max value
+	    $(wrapper + ' .bar').each(function(index, el) {
+	      var bar = $(this),
+	          value = bar.data('value'),
+	          percent = Math.ceil((value / max_value) * 100);
+
+	      // Set Width & Add Class
+	      bar.width(percent + '%');
+	      bar.addClass('in');
+	    });
+	  }
+   $(function(){
+	   $(window).scroll(function(event){
+			if ($(document).scrollTop() > 1900 && $(document).scrollTop()<1950) {
+		        generateBarGraph('#dashboard-stats');
+		    }
+		});
+   });
+   
    </script>
   </head>
 
@@ -439,7 +474,33 @@
         </div>
       </div>
     </section>
-    /Call to Action -->
+    /Call to Action -->    
+    
+    <!-- realtime chart -->
+    <div class="container text-center" id="realtime_chart">
+    <div class="chart-wrap">
+	  <div class="chart-title" color="#199EB8">
+	    인기 여행지 인기순위(실시간 트위터 언급횟수)
+	  </div>
+	  <div id="dashboard-stats" class="chart bars-horizontal brand-primary">
+	    <c:forEach var="vo" items="${rList }" varStatus="s">
+	    <c:if test="${s.index<10 }">
+	    <div class="row-chart">
+	      <span class="label-chart">${vo.title }</span>
+	      <div class="bar-wrap-chart">
+	        <div class="bar" data-value="${vo.count }"></div>
+	      </div>
+	      <span class="number">${vo.count }</span>
+	    </div>
+	    </c:if>
+	    </c:forEach>
+		</div>
+	</div>
+    </div>
+    <br>
+    <br>
+    <!-- //realtime chart -->
+    
     <!-- Portfolio -->
 	<!-- 인기도시 rank -->
     <section class="portfolio" id="portfolio">
@@ -457,7 +518,7 @@
         <c:if test="${s.index<24}">
           <div class="col-lg-3 col-sm-6 col-xs-12">
             <div class="card card-block">
-              <a href="country_detail?country=${vo.title }"><img style="margin-left:-28px" height="349px" src="${vo.img }">
+              <a href="country_detail?country=${vo.title }"><img height="233px" src="${vo.img }">
               <div class="portfolio-over">
                 <div>
                   <h3 class="card-title" style="align:center">
@@ -469,12 +530,37 @@
           </div>
           </c:if>
           </c:forEach>
-
         </div>
       </div>
     </section>
-    <!-- /Portfolio -->
+    <!-- /Portfolio --> 
     
+    <!-- Urgent -->
+    <div class="container">
+    <h2 style="color:#199EB8">긴급 모객 패키지</h2>
+    <li class="list-group-item">
+    <div class="row">
+    <div class="col-lg-7 col-sm-7 col-xs-7">패키지</div>
+    <div class="col-lg-2 col-sm-2 col-xs-2">가격</div>
+    <div class="col-lg-3 col-sm-3 col-xs-3">출발일/여행사</div>
+    </div>
+    </li>
+    <c:forEach var="vo" items="${uList }">
+    <li class="list-group-item">
+    <div class="row">
+    <div class="col-lg-1 col-sm-1 col-xs-1">
+    	<a href="${vo.link }"><img src="${vo.img }" width="50"></a>
+    </div>
+    <div class="col-lg-6 col-sm-6 col-xs-6" align="left">
+		<a href="${vo.link }">${vo.package_name }</a></div>
+	<div class="col-lg-2 col-sm-2 col-xs-2">${vo.price }</div>
+    <div class="col-lg-3 col-sm-3 col-xs-3">${vo.start_date }/${vo.site }</div>
+    </div>
+    </li>
+    </c:forEach>
+    </div>
+    <br>
+    <br>
 
     <!-- Team -->
 

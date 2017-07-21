@@ -1,18 +1,12 @@
 package com.tour.rank;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringReader;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import com.mongodb.*;
+import com.tour.hadoop.HadoopManager;
+
 
 //import au.com.bytecode.opencsv.CSVReader;
 
@@ -32,6 +26,17 @@ public class RankPlaceDAO {
 			e.printStackTrace();
 		}
 	}
+	public RankPlaceDAO(){//하둡 매니저용		
+		try {
+			this.type=type;
+			mc = new MongoClient(new ServerAddress(new InetSocketAddress("211.238.142.111",27017)));
+			db=mc.getDB("mydb");
+			dbc=db.getCollection("tripadvisor");
+			dbc.drop();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public void placeInsert(RankPlaceVO vo){ //디비에 넣기
 		int no = 0;
 		DBCursor cursor = dbc.find();
@@ -41,13 +46,35 @@ public class RankPlaceDAO {
 			if(no<i)no=i;
 		}
 		cursor.close();
+		int i =0;
+		i=(int)(Math.random()*15+1);
 		BasicDBObject obj = new BasicDBObject();
 		obj.put("no", no+1);
 		obj.put("rank", vo.getRank());
 		obj.put("title", vo.getTitle());
 		obj.put("img", vo.getImg());
+		obj.put("count", i);
 		dbc.insert(obj);
+		HadoopManager hm = new HadoopManager();
+		hm.hadoopFileRead(); //스파크로 모은 카운트정보도 몽고에 넣기
 	}
+	
+	public void countInsert(RankPlaceVO vo){//검색 횟수 넣는 메서드
+		try{
+			BasicDBObject where = new BasicDBObject();
+			where.put("title", vo.getTitle().replace("|",","));
+			
+			//update
+			BasicDBObject obj = (BasicDBObject)dbc.findOne(where);
+			BasicDBObject up = new BasicDBObject();
+			up.put("count", obj.getInt("count")+vo.getCount());
+			dbc.update(where, new BasicDBObject("$set",up));
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public List<RankPlaceVO> getTripData(){
 		List<RankPlaceVO> list = new ArrayList<RankPlaceVO>();
@@ -59,7 +86,8 @@ public class RankPlaceDAO {
 			vo.setRank(obj.getInt("rank"));
 			vo.setTitle(obj.getString("title"));
 			vo.setImg(obj.getString("img"));
-			System.out.println("검색결과"+vo.getRank()+vo.getTitle());
+			vo.setCount(obj.getInt("count"));
+			System.out.println("검색결과"+vo.getRank()+vo.getTitle()+vo.getCount());
 			list.add(vo);
 //			csv+=vo.getRank()+","+vo.getTitle()+","+vo.getImg()+"\n";
 		}
@@ -74,7 +102,7 @@ public class RankPlaceDAO {
 //		}	
 		return list;
 	}
-//	public static void myCreateCSV(){ //CSV만들
+//	public static void myCreateCSV(){ //CSV만들기
 //		try {
 //			FileReader fr = new FileReader("./music-data/genie-melon/part-00000");
 //			String data = "";
@@ -93,7 +121,7 @@ public class RankPlaceDAO {
 //			e.printStackTrace();
 //		}
 //	}
-//	public void myRankInsert(){//파일 디비에 넣
+//	public void myRankInsert(){//파일 디비에 넣기
 //		FileReader fr;
 //		try {
 //			dbc.drop();

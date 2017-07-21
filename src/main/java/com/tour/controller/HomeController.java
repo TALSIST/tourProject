@@ -20,6 +20,8 @@ import com.tour.rank.RankManager;
 import com.tour.rank.RankPlaceDAO;
 import com.tour.rank.RankPlaceVO;
 import com.tour.rank.YoutubeManager;
+import com.tour.urgent.UrgentDAO;
+import com.tour.urgent.UrgentVO;
 
 /**
  * Handles requests for the application home page.
@@ -45,8 +47,11 @@ public class HomeController {
 	public String main1_page(Model model){
 		List<MainContentVO> list = dao.contentDataMain();
 		model.addAttribute("list", list);
-		List<RankPlaceVO> rList =rkm.getRankList();
+		List<RankPlaceVO> rList =rkm.getRankList(); //count까지 포함해서 읽어와
 		model.addAttribute("rList", rList);
+		UrgentDAO dao = new UrgentDAO();
+		List<UrgentVO> uList = dao.getUrgentAllData();
+		model.addAttribute("uList", uList);
 		return "main/main1";
 	}
 	

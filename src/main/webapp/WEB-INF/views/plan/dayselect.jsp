@@ -209,7 +209,7 @@
                   +"</div>"
                   +"<div class=\"fl cat_date_right_box\">"
                      +"<div class=\"cat_right_weekday\">"+week[tempDate.getDay()]+"요일</div>"
-                     +"<div class=\"cat_right_city\">서울</div>"
+                     +"<div class=\"cat_right_city\"></div>"
                   +"</div>"
                   +"<div class=\"clear\"></div>"
                +"</li>";
@@ -630,7 +630,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6rZnP1jhdyQEEje0CSjX-V_v
    <div class="fl">   <!-- 가장왼쪽 DIV시작 -->
       <ul id="pn_title_box" >                                                               <!-- 11시방향 div시작. -->
          <li data="pn_date">
-            <div class="full_date_info fl">06.14~06.17</div>                              <!-- 좌측 상단 여행전체일자 -->
+            <div class="full_date_info fl"></div>                              <!-- 좌측 상단 여행전체일자 -->
             <!-- <div class="fl day_edit_start_btn" onclick="day_edit_start()">EDIT</div>      수정버튼 -->
          </li>
       </ul>

@@ -41,6 +41,8 @@
    
    var titleimage = "";
    $(document).ready(function(){
+	   
+	   alert('ddddd');
       $('#tourStartDate').datepicker({
          format:'MM-dd'
       });
@@ -58,6 +60,47 @@
       $('#close22').click(function(){
     	  location.href="main1";
       });
+      
+        
+           $.ajax({
+             type:'POST',
+             url:'/getContinentID',
+             data:{"name":"유럽"},
+             success:function(response){
+                var sub="";
+                var c = new Array();
+                for(var i=0; i<response.length;i++){ 
+                   sub+="<div class=\"item\" data-no=\"0\" data=\"338\" data-latitude=\" "+response[i].latitude+" \" onClick=\"showCity()\" data-val='"+response[i].name+"'>"
+                   +"<div class=\"img_box fl\">"
+                   +"<img src=https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="+response[i].image+"&key=AIzaSyAMbeNVdxJghsGGfBjDJwHPqYXXqgb-D0E>"
+                   +"</div>"
+                   +"<div class=\"info_box fl\">"
+                  +"<div class=\"info_title\">"+response[i].name+"</div>"
+                   +"<div class=\"info_sub_title\">Nepal</div>"
+                   +"</div>"
+                   +"<div class=\"clear\"></div>"
+                   +"</div>"
+                   +"<input type=hidden id=\"haha\" data-name=\" "+response[i].name+"\">";
+                    var ci=new Array();
+                      ci.push(response[i].name);
+                      ci.push(response[i].latitude);
+                      ci.push(response[i].longitude);
+                      ci.push(3);
+                      c.push(ci);
+                
+                }
+                $('#country_list_box').html(""+sub+"");
+                classact();
+                startplan();
+                console.log("눌렀다!넘겨질 대륙은?"+c);
+                   initMap(c);
+                   console.log("다시 인잇맵");
+
+                
+             }
+             
+             
+          });
       
       
    })
@@ -220,7 +263,7 @@ function startplan(){
           $.ajax({
              type:'POST',
              url:'/startTour',
-             data:{"startDate" : startDate ,"endDate":endDate,"title":title,"city_id":city_id ,"member_id":member_id,"titleimage" : titleimage},
+             data:{"startDate" : startDate ,"endDate":endDate,"title":title,"city_id":city_id ,"member_id":"1","titleimage" : titleimage},
              success:function(data){
                 
                 /* alert("title "+title);   */
@@ -296,7 +339,7 @@ function startplan(){
     <div class="fl" id="schedule_full_box" style="width:265px" data="0">
         <div class="title_box">
           <div id="country_list_title" style="display: block;">
-                <div class="fl ct_title">아시아</div>
+                <div class="fl ct_title">유럽</div>
                 <div class="clear"></div>
           </div>
           <div id="city_list_title" style="display: none;">
@@ -305,7 +348,7 @@ function startplan(){
                   <div class="clear"></div>
           </div>
         </div>
-      <div id="search_box" style="width:100%;height:51px;border-bottom:solid #d6d6d6 1px;"></div>
+     <!--  <div id="search_box" style="width:100%;height:51px;border-bottom:solid #d6d6d6 1px;"></div> -->
       <!-- 대륙별 나라 리스트  -->
         <div id="country_list_box" style="height: 477px; display: block;">
           

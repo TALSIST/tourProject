@@ -7,11 +7,12 @@ public class RManager {
 	public void barchart(){
 		try {
 			RConnection rc = new RConnection();
+			//rc.voidEval("library(rJava)");
 			//rc.voidEval("library(googleVis)");
 			rc.voidEval("data<-read.table(\"/home/sist/tour_data/tour_result\")");
 			rc.voidEval("png(\"/home/sist/springDev/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/TourProject/resources/barchart.png\")");
 			rc.voidEval("barplot(data$V2,names.arg=data$V1,col=rainbow(6),main='방문객 체감 날씨')");
-			//rc.voidEval("Pie<-data");
+			//rc.voidEval("Pie<-gvisPieChart(data)");
 			//rc.voidEval("plot(Pie)");
 			rc.voidEval("dev.off()");
 			rc.close();
